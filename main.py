@@ -1,3 +1,13 @@
+# Script utilizado para traducir un archivo .tex de inglés a español utilizando la API de Google GenAI.
+
+# Path: requirements.txt
+#
+# certifi==2024.6.2
+# charset-normalizer==3.3.2
+# idna==3.7
+# requests==2.32.3
+# urllib3==2.2.2
+
 import os
 import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
