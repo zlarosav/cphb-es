@@ -1,46 +1,46 @@
-\chapter{Amortized analysis}
+\chapter{Análisis amortizado}
 
-\index{amortized analysis}
+\index{análisis amortizado}
 
-The time complexity of an algorithm
-is often easy to analyze
-just by examining the structure
-of the algorithm:
-what loops does the algorithm contain
-and how many times the loops are performed.
-However, sometimes a straightforward analysis
-does not give a true picture of the efficiency of the algorithm.
+La complejidad temporal de un algoritmo
+a menudo es fácil de analizar
+simplemente examinando la estructura
+del algoritmo:
+qué bucles contiene el algoritmo
+y cuántas veces se ejecutan los bucles.
+Sin embargo, a veces un análisis directo
+no da una imagen real de la eficiencia del algoritmo.
 
-\key{Amortized analysis} can be used to analyze
-algorithms that contain operations whose
-time complexity varies.
-The idea is to estimate the total time used to
-all such operations during the
-execution of the algorithm, instead of focusing
-on individual operations.
+\key{Análisis amortizado} se puede utilizar para analizar
+algoritmos que contienen operaciones cuya
+complejidad temporal varía.
+La idea es estimar el tiempo total utilizado para
+todas esas operaciones durante la
+ejecución del algoritmo, en lugar de centrarse
+en operaciones individuales.
 
-\section{Two pointers method}
+\section{Método de dos punteros}
 
-\index{two pointers method}
+\index{método de dos punteros}
 
-In the \key{two pointers method},
-two pointers are used to
-iterate through the array values.
-Both pointers can move to one direction only,
-which ensures that the algorithm works efficiently.
-Next we discuss two problems that can be solved
-using the two pointers method.
+En el \key{método de dos punteros},
+se utilizan dos punteros para
+iterar a través de los valores de la matriz.
+Ambos punteros pueden moverse solo en una dirección,
+lo que garantiza que el algoritmo funcione de manera eficiente.
+A continuación, analizaremos dos problemas que se pueden resolver
+utilizando el método de dos punteros.
 
-\subsubsection{Subarray sum}
+\subsubsection{Suma de subarreglos}
 
-As the first example,
-consider a problem where we are
-given an array of $n$ positive integers
-and a target sum $x$,
-and we want to find a subarray whose sum is $x$
-or report that there is no such subarray.
+Como primer ejemplo,
+considere un problema en el que se nos
+da un arreglo de $n$ enteros positivos
+y una suma objetivo $x$,
+y queremos encontrar un subarreglo cuya suma sea $x$
+o informar que no existe tal subarreglo.
 
-For example, the array
+Por ejemplo, el arreglo
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -55,7 +55,7 @@ For example, the array
 \node at (7.5,0.5) {$3$};
 \end{tikzpicture}
 \end{center}
-contains a subarray whose sum is 8:
+contiene un subarreglo cuya suma es 8:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (2,0) rectangle (5,1);
@@ -72,18 +72,18 @@ contains a subarray whose sum is 8:
 \end{tikzpicture}
 \end{center}
 
-This problem can be solved in
-$O(n)$ time by using the two pointers method.
-The idea is to maintain pointers that point to the
-first and last value of a subarray.
-On each turn, the left pointer moves one step
-to the right, and the right pointer moves to the right
-as long as the resulting subarray sum is at most $x$.
-If the sum becomes exactly $x$,
-a solution has been found.
+Este problema se puede resolver en
+tiempo $O(n)$ utilizando el método de dos punteros.
+La idea es mantener punteros que apunten al
+primer y último valor de un subarreglo.
+En cada turno, el puntero izquierdo se mueve un paso
+hacia la derecha, y el puntero derecho se mueve hacia la derecha
+siempre que la suma del subarreglo resultante sea como máximo $x$.
+Si la suma se convierte exactamente en $x$,
+se ha encontrado una solución.
 
-As an example, consider the following array
-and a target sum $x=8$:
+Como ejemplo, considere el siguiente arreglo
+y una suma objetivo $x=8$:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -99,8 +99,8 @@ and a target sum $x=8$:
 \end{tikzpicture}
 \end{center}
 
-The initial subarray contains the values
-1, 3 and 2 whose sum is 6:
+El subarreglo inicial contiene los valores
+1, 3 y 2 cuya suma es 6:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -121,9 +121,9 @@ The initial subarray contains the values
 \end{tikzpicture}
 \end{center}
 
-Then, the left pointer moves one step to the right.
-The right pointer does not move, because otherwise
-the subarray sum would exceed $x$.
+Luego, el puntero izquierdo se mueve un paso hacia la derecha.
+El puntero derecho no se mueve, porque de lo contrario
+la suma del subarreglo excedería $x$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -144,11 +144,11 @@ the subarray sum would exceed $x$.
 \end{tikzpicture}
 \end{center}
 
-Again, the left pointer moves one step to the right,
-and this time the right pointer moves three
-steps to the right.
-The subarray sum is $2+5+1=8$, so a subarray
-whose sum is $x$ has been found.
+Nuevamente, el puntero izquierdo se mueve un paso hacia la derecha,
+y esta vez el puntero derecho se mueve tres
+pasos hacia la derecha.
+La suma del subarreglo es $2+5+1=8$, por lo que se ha encontrado un subarreglo
+cuya suma es $x$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -169,44 +169,44 @@ whose sum is $x$ has been found.
 \end{tikzpicture}
 \end{center}
 
-The running time of the algorithm depends on
-the number of steps the right pointer moves.
-While there is no useful upper bound on how many steps the
-pointer can move on a \emph{single} turn.
-we know that the pointer moves \emph{a total of}
-$O(n)$ steps during the algorithm,
-because it only moves to the right.
+El tiempo de ejecución del algoritmo depende de
+la cantidad de pasos que se mueve el puntero derecho.
+Si bien no existe un límite superior útil sobre cuántos pasos el
+puntero puede moverse en un \emph{solo} turno.
+sabemos que el puntero se mueve \emph{un total de}
+$O(n)$ pasos durante el algoritmo,
+porque solo se mueve hacia la derecha.
 
-Since both the left and right pointer
-move $O(n)$ steps during the algorithm,
-the algorithm works in $O(n)$ time.
+Dado que tanto el puntero izquierdo como el derecho
+se mueven $O(n)$ pasos durante el algoritmo,
+el algoritmo funciona en tiempo $O(n)$.
 
-\subsubsection{2SUM problem}
+\subsubsection{Problema 2SUM}
 
-\index{2SUM problem}
+\index{problema 2SUM}
 
-Another problem that can be solved using
-the two pointers method is the following problem,
-also known as the \key{2SUM problem}:
-given an array of $n$ numbers and
-a target sum $x$, find
-two array values such that their sum is $x$,
-or report that no such values exist.
+Otro problema que se puede resolver utilizando
+el método de los dos punteros es el siguiente problema,
+también conocido como el problema de \key{2SUM}:
+dada una matriz de $n$ números y
+una suma objetivo $x$, encontrar
+dos valores de la matriz tales que su suma sea $x$,
+o informar que no existen tales valores.
 
-To solve the problem, we first
-sort the array values in increasing order.
-After that, we iterate through the array using
-two pointers.
-The left pointer starts at the first value
-and moves one step to the right on each turn.
-The right pointer begins at the last value
-and always moves to the left until the sum of the
-left and right value is at most $x$.
-If the sum is exactly $x$,
-a solution has been found.
+Para resolver el problema, primero
+ordenamos los valores de la matriz en orden creciente.
+Después de eso, iteramos a través de la matriz usando
+dos punteros.
+El puntero izquierdo comienza en el primer valor
+y se mueve un paso a la derecha en cada vuelta.
+El puntero derecho comienza en el último valor
+y siempre se mueve hacia la izquierda hasta que la suma de los
+valores izquierdo y derecho es como máximo $x$.
+Si la suma es exactamente $x$,
+se ha encontrado una solución.
 
-For example, consider the following array
-and a target sum $x=12$:
+Por ejemplo, considere la siguiente matriz
+y una suma objetivo $x=12$:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -222,10 +222,10 @@ and a target sum $x=12$:
 \end{tikzpicture}
 \end{center}
 
-The initial positions of the pointers
-are as follows.
-The sum of the values is $1+10=11$
-that is smaller than $x$.
+Las posiciones iniciales de los punteros
+son las siguientes.
+La suma de los valores es $1+10=11$
+que es menor que $x$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -247,9 +247,9 @@ that is smaller than $x$.
 \end{tikzpicture}
 \end{center}
 
-Then the left pointer moves one step to the right.
-The right pointer moves three steps to the left,
-and the sum becomes $4+7=11$.
+Luego, el puntero izquierdo se mueve un paso a la derecha.
+El puntero derecho se mueve tres pasos a la izquierda,
+y la suma se convierte en $4+7=11$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -271,9 +271,9 @@ and the sum becomes $4+7=11$.
 \end{tikzpicture}
 \end{center}
 
-After this, the left pointer moves one step to the right again.
-The right pointer does not move, and a solution
-$5+7=12$ has been found.
+Después de esto, el puntero izquierdo se mueve un paso a la derecha de nuevo.
+El puntero derecho no se mueve, y una solución
+$5+7=12$ ha sido encontrada.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -295,66 +295,65 @@ $5+7=12$ has been found.
 \end{tikzpicture}
 \end{center}
 
-The running time of the algorithm is
-$O(n \log n)$, because it first sorts
-the array in $O(n \log n)$ time,
-and then both pointers move $O(n)$ steps.
+El tiempo de ejecución del algoritmo es
+$O(n \log n)$, porque primero ordena
+la matriz en $O(n \log n)$ tiempo,
+y luego ambos punteros se mueven $O(n)$ pasos.
 
-Note that it is possible to solve the problem
-in another way in $O(n \log n)$ time using binary search.
-In such a solution, we iterate through the array
-and for each array value, we try to find another
-value that yields the sum $x$.
-This can be done by performing $n$ binary searches,
-each of which takes $O(\log n)$ time.
+Tenga en cuenta que es posible resolver el problema
+de otra manera en $O(n \log n)$ tiempo usando la búsqueda binaria.
+En tal solución, iteramos a través de la matriz
+y para cada valor de la matriz, tratamos de encontrar otro
+valor que produzca la suma $x$.
+Esto se puede hacer realizando $n$ búsquedas binarias,
+cada una de las cuales tarda $O(\log n)$ tiempo.
 
 \index{3SUM problem}
-A more difficult problem is 
-the \key{3SUM problem} that asks to
-find \emph{three} array values
-whose sum is $x$.
-Using the idea of the above algorithm,
-this problem can be solved in $O(n^2)$ time\footnote{For a long time,
-it was thought that solving
-the 3SUM problem more efficiently than in $O(n^2)$ time
-would not be possible.
-However, in 2014, it turned out \cite{gro14}
-that this is not the case.}.
-Can you see how?
+Un problema más difícil es 
+el problema de \key{3SUM} que pide
+encontrar \emph{tres} valores de la matriz
+cuya suma es $x$.
+Utilizando la idea del algoritmo anterior,
+este problema se puede resolver en $O(n^2)$ tiempo\footnote{Durante mucho tiempo,
+se pensó que resolver
+el problema de 3SUM más eficientemente que en $O(n^2)$ tiempo
+no sería posible.
+Sin embargo, en 2014, resultó \cite{gro14}
+que este no es el caso.}.
+¿Puedes ver cómo?
 
-\section{Nearest smaller elements}
+\section{Elementos más pequeños cercanos}
 
 \index{nearest smaller elements}
 
-Amortized analysis is often used to
-estimate the number of operations
-performed on a data structure.
-The operations may be distributed unevenly so
-that most operations occur during a
-certain phase of the algorithm, but the total
-number of the operations is limited.
+El análisis amortizado se utiliza a menudo para
+estimar el número de operaciones
+realizadas en una estructura de datos.
+Las operaciones pueden estar distribuidas de forma desigual, de modo que
+la mayoría de las operaciones ocurren durante una
+cierta fase del algoritmo, pero el total
+número de operaciones es limitado.
 
-As an example, consider the problem
-of finding for each array element
-the \key{nearest smaller element}, i.e.,
-the first smaller element that precedes the element
-in the array.
-It is possible that no such element exists,
-in which case the algorithm should report this.
-Next we will see how the problem can be
-efficiently solved using a stack structure.
+Como ejemplo, considere el problema
+de encontrar para cada elemento de la matriz
+el \key{elemento más pequeño cercano}, es decir,
+el primer elemento más pequeño que precede al elemento
+en la matriz.
+Es posible que no exista tal elemento,
+en cuyo caso el algoritmo debe reportar esto.
+A continuación veremos cómo el problema puede ser
+resuelto eficientemente utilizando una estructura de pila.
 
-We go through the array from left to right
-and maintain a stack of array elements.
-At each array position, we remove elements from the stack
-until the top element is smaller than the
-current element, or the stack is empty.
-Then, we report that the top element is
-the nearest smaller element of the current element,
-or if the stack is empty, there is no such element.
-Finally, we add the current element to the stack.
-
-As an example, consider the following array:
+Recorremos la matriz de izquierda a derecha
+y mantenemos una pila de elementos de la matriz.
+En cada posición de la matriz, eliminamos elementos de la pila
+hasta que el elemento superior sea menor que el
+elemento actual, o la pila esté vacía.
+Luego, informamos que el elemento superior es
+el elemento más pequeño cercano del elemento actual,
+o si la pila está vacía, no existe tal elemento.
+Finalmente, agregamos el elemento actual a la pila.
+Como ejemplo, considere la siguiente matriz:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -370,10 +369,10 @@ As an example, consider the following array:
 \end{tikzpicture}
 \end{center}
 
-First, the elements 1, 3 and 4 are added to the stack,
-because each element is larger than the previous element.
-Thus, the nearest smaller element of 4 is 3,
-and the nearest smaller element of 3 is 1.
+Primero, los elementos 1, 3 y 4 se agregan a la pila,
+porque cada elemento es mayor que el elemento anterior.
+Por lo tanto, el elemento más pequeño cercano de 4 es 3,
+y el elemento más pequeño cercano de 3 es 1.
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (2,0) rectangle (3,1);
@@ -401,11 +400,11 @@ and the nearest smaller element of 3 is 1.
 \end{tikzpicture}
 \end{center}
 
-The next element 2 is smaller than the two top
-elements in the stack.
-Thus, the elements 3 and 4 are removed from the stack,
-and then the element 2 is added to the stack.
-Its nearest smaller element is 1:
+El siguiente elemento 2 es menor que los dos elementos superiores
+en la pila.
+Por lo tanto, los elementos 3 y 4 se eliminan de la pila,
+y luego el elemento 2 se agrega a la pila.
+Su elemento más pequeño cercano es 1:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (3,0) rectangle (4,1);
@@ -430,9 +429,9 @@ Its nearest smaller element is 1:
 \end{tikzpicture}
 \end{center}
 
-Then, the element 5 is larger than the element 2,
-so it will be added to the stack, and
-its nearest smaller element is 2:
+Luego, el elemento 5 es mayor que el elemento 2,
+por lo que se agregará a la pila, y
+su elemento más pequeño cercano es 2:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (4,0) rectangle (5,1);
@@ -460,8 +459,8 @@ its nearest smaller element is 2:
 \end{tikzpicture}
 \end{center}
 
-After this, the element 5 is removed from the stack
-and the elements 3 and 4 are added to the stack:
+Después de esto, el elemento 5 se elimina de la pila
+y los elementos 3 y 4 se agregan a la pila:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (6,0) rectangle (7,1);
@@ -492,9 +491,9 @@ and the elements 3 and 4 are added to the stack:
 \end{tikzpicture}
 \end{center}
 
-Finally, all elements except 1 are removed
-from the stack and the last element 2
-is added to the stack:
+Finalmente, todos los elementos excepto 1 se eliminan
+de la pila y el último elemento 2
+se agrega a la pila:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -520,52 +519,53 @@ is added to the stack:
 \end{tikzpicture}
 \end{center}
 
-The efficiency of the algorithm depends on
-the total number of stack operations.
-If the current element is larger than
-the top element in the stack, it is directly
-added to the stack, which is efficient.
-However, sometimes the stack can contain several
-larger elements and it takes time to remove them.
-Still, each element is added \emph{exactly once} to the stack
-and removed \emph{at most once} from the stack.
-Thus, each element causes $O(1)$ stack operations,
-and the algorithm works in $O(n)$ time.
+La eficiencia del algoritmo depende de
+la cantidad total de operaciones de pila.
+Si el elemento actual es mayor que
+el elemento superior en la pila, se agrega directamente
+a la pila, lo cual es eficiente.
+Sin embargo, a veces la pila puede contener varios
+elementos más grandes y lleva tiempo eliminarlos.
+Aún así, cada elemento se agrega \emph{exactamente una vez} a la pila
+y se elimina \emph{como máximo una vez} de la pila.
+Por lo tanto, cada elemento provoca $O(1)$ operaciones de pila,
+y el algoritmo funciona en tiempo $O(n)$.
 
-\section{Sliding window minimum}
+\section{Mínimo de ventana deslizante}
 
-\index{sliding window}
-\index{sliding window minimum}
+\index{ventana deslizante}
+\index{mínimo de ventana deslizante}
 
-A \key{sliding window} is a constant-size subarray
-that moves from left to right through the array.
-At each window position,
-we want to calculate some information
-about the elements inside the window.
-In this section, we focus on the problem
-of maintaining the \key{sliding window minimum},
-which means that
-we should report the smallest value inside each window.
 
-The sliding window minimum can be calculated
-using a similar idea that we used to calculate
-the nearest smaller elements.
-We maintain a queue
-where each element is larger than
-the previous element,
-and the first element
-always corresponds to the minimum element inside the window.
-After each window move,
-we remove elements from the end of the queue
-until the last queue element
-is smaller than the new window element,
-or the queue becomes empty.
-We also remove the first queue element
-if it is not inside the window anymore.
-Finally, we add the new window element
-to the end of the queue.
+Una \key{ventana deslizante} es una submatriz de tamaño constante
+que se mueve de izquierda a derecha a través de la matriz.
+En cada posición de la ventana,
+queremos calcular alguna información
+sobre los elementos dentro de la ventana.
+En esta sección, nos centramos en el problema
+de mantener el \key{mínimo de la ventana deslizante},
+lo que significa que
+deberíamos reportar el valor más pequeño dentro de cada ventana.
 
-As an example, consider the following array:
+El mínimo de la ventana deslizante se puede calcular
+usando una idea similar a la que usamos para calcular
+los elementos más cercanos más pequeños.
+Mantenemos una cola
+donde cada elemento es más grande que
+el elemento anterior,
+y el primer elemento
+siempre corresponde al elemento mínimo dentro de la ventana.
+Después de cada movimiento de la ventana,
+eliminamos elementos del final de la cola
+hasta que el último elemento de la cola
+sea más pequeño que el nuevo elemento de la ventana,
+o la cola se vacíe.
+También eliminamos el primer elemento de la cola
+si ya no está dentro de la ventana.
+Finalmente, añadimos el nuevo elemento de la ventana
+al final de la cola.
+
+Como ejemplo, considere la siguiente matriz:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -582,8 +582,8 @@ As an example, consider the following array:
 \end{tikzpicture}
 \end{center}
 
-Suppose that the size of the sliding window is 4.
-At the first window position, the smallest value is 1:
+Supongamos que el tamaño de la ventana deslizante es 4.
+En la primera posición de la ventana, el valor más pequeño es 1:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (0,0) rectangle (4,1);
@@ -611,12 +611,12 @@ At the first window position, the smallest value is 1:
 \end{tikzpicture}
 \end{center}
 
-Then the window moves one step right.
-The new element 3 is smaller than the elements
-4 and 5 in the queue, so the elements 4 and 5
-are removed from the queue
-and the element 3 is added to the queue.
-The smallest value is still 1.
+Luego la ventana se mueve un paso a la derecha.
+El nuevo elemento 3 es más pequeño que los elementos
+4 y 5 en la cola, por lo que los elementos 4 y 5
+se eliminan de la cola
+y el elemento 3 se añade a la cola.
+El valor más pequeño sigue siendo 1.
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (1,0) rectangle (5,1);
@@ -641,12 +641,12 @@ The smallest value is still 1.
 \end{tikzpicture}
 \end{center}
 
-After this, the window moves again,
-and the smallest element 1
-does not belong to the window anymore.
-Thus, it is removed from the queue and the smallest
-value is now 3. Also the new element 4
-is added to the queue.
+Después de esto, la ventana se mueve de nuevo,
+y el elemento más pequeño 1
+ya no pertenece a la ventana.
+Por lo tanto, se elimina de la cola y el más pequeño
+el valor ahora es 3. También el nuevo elemento 4
+se añade a la cola.
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (2,0) rectangle (6,1);
@@ -671,10 +671,10 @@ is added to the queue.
 \end{tikzpicture}
 \end{center}
 
-The next new element 1 is smaller than all elements
-in the queue.
-Thus, all elements are removed from the queue
-and it will only contain the element 1:
+El siguiente nuevo elemento 1 es más pequeño que todos los elementos
+en la cola.
+Por lo tanto, todos los elementos se eliminan de la cola
+y solo contendrá el elemento 1:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (3,0) rectangle (7,1);
@@ -695,10 +695,10 @@ and it will only contain the element 1:
 \end{tikzpicture}
 \end{center}
 
-Finally the window reaches its last position.
-The element 2 is added to the queue,
-but the smallest value inside the window
-is still 1.
+Finalmente la ventana alcanza su última posición.
+El elemento 2 se añade a la cola,
+pero el valor más pequeño dentro de la ventana
+sigue siendo 1.
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=lightgray] (4,0) rectangle (8,1);
@@ -722,11 +722,7 @@ is still 1.
 \draw[->,thick] (6.8,0.5-1.2) -- (7.2,0.5-1.2);
 \end{tikzpicture}
 \end{center}
-
-Since each array element
-is added to the queue exactly once and
-removed from the queue at most once,
-the algorithm works in $O(n)$ time.
-
-
-
+Dado que cada elemento del arreglo
+se agrega a la cola exactamente una vez y
+se elimina de la cola como máximo una vez,
+el algoritmo funciona en tiempo $O(n)$. 

@@ -1,42 +1,42 @@
-\chapter{Sorting}
+\chapter{Ordenamiento}
 
-\index{sorting}
+\index{ordenamiento}
 
-\key{Sorting}
-is a fundamental algorithm design problem.
-Many efficient algorithms
-use sorting as a subroutine,
-because it is often easier to process
-data if the elements are in a sorted order.
+\key{Ordenamiento}
+es un problema fundamental de diseño de algoritmos.
+Muchos algoritmos eficientes
+utilizan el ordenamiento como una subrutina,
+porque a menudo es más fácil procesar
+datos si los elementos están en orden.
 
-For example, the problem ''does an array contain
-two equal elements?'' is easy to solve using sorting.
-If the array contains two equal elements,
-they will be next to each other after sorting,
-so it is easy to find them.
-Also, the problem ''what is the most frequent element
-in an array?'' can be solved similarly.
+Por ejemplo, el problema ''¿contiene un arreglo
+dos elementos iguales?'' es fácil de resolver usando el ordenamiento.
+Si el arreglo contiene dos elementos iguales,
+estos estarán uno al lado del otro después del ordenamiento,
+por lo que es fácil encontrarlos.
+Además, el problema ''¿cuál es el elemento más frecuente
+en un arreglo?'' se puede resolver de manera similar.
 
-There are many algorithms for sorting, and they are
-also good examples of how to apply
-different algorithm design techniques.
-The efficient general sorting algorithms
-work in $O(n \log n)$ time,
-and many algorithms that use sorting
-as a subroutine also
-have this time complexity.
+Hay muchos algoritmos para el ordenamiento, y estos son
+también buenos ejemplos de cómo aplicar
+diferentes técnicas de diseño de algoritmos.
+Los algoritmos generales de ordenamiento eficientes
+funcionan en tiempo $O(n \log n)$,
+y muchos algoritmos que utilizan el ordenamiento
+como una subrutina también
+tienen esta complejidad de tiempo.
 
-\section{Sorting theory}
+\section{Teoría de ordenamiento}
 
-The basic problem in sorting is as follows:
+El problema básico en el ordenamiento es el siguiente:
 \begin{framed}
 \noindent
-Given an array that contains $n$ elements,
-your task is to sort the elements
-in increasing order.
+Dado un arreglo que contiene $n$ elementos,
+tu tarea es ordenar los elementos
+en orden creciente.
 \end{framed}
 \noindent
-For example, the array
+Por ejemplo, el arreglo
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -50,7 +50,7 @@ For example, the array
 \node at (7.5,0.5) {$6$};
 \end{tikzpicture}
 \end{center}
-will be as follows after sorting:
+será como sigue después del ordenamiento:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -65,25 +65,25 @@ will be as follows after sorting:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{$O(n^2)$ algorithms}
+\subsubsection{Algoritmos $O(n^2)$}
 
-\index{bubble sort}
+\index{ordenamiento por burbuja}
 
-Simple algorithms for sorting an array
-work in $O(n^2)$ time.
-Such algorithms are short and usually
-consist of two nested loops.
-A famous $O(n^2)$ time sorting algorithm
-is \key{bubble sort} where the elements
-''bubble'' in the array according to their values.
+Los algoritmos simples para ordenar un arreglo
+funcionan en tiempo $O(n^2)$.
+Tales algoritmos son cortos y generalmente
+constan de dos bucles anidados.
+Un famoso algoritmo de ordenamiento en tiempo $O(n^2)$
+es \key{ordenamiento por burbuja} donde los elementos
+''burbujean'' en el arreglo de acuerdo con sus valores.
 
-Bubble sort consists of $n$ rounds.
-On each round, the algorithm iterates through
-the elements of the array.
-Whenever two consecutive elements are found
-that are not in correct order,
-the algorithm swaps them.
-The algorithm can be implemented as follows:
+El ordenamiento por burbuja consta de $n$ rondas.
+En cada ronda, el algoritmo itera a través
+de los elementos del arreglo.
+Cuando se encuentran dos elementos consecutivos
+que no están en el orden correcto,
+el algoritmo los intercambia.
+El algoritmo se puede implementar de la siguiente manera:
 \begin{lstlisting}
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < n-1; j++) {
@@ -94,14 +94,14 @@ for (int i = 0; i < n; i++) {
 }
 \end{lstlisting}
 
-After the first round of the algorithm,
-the largest element will be in the correct position,
-and in general, after $k$ rounds, the $k$ largest
-elements will be in the correct positions.
-Thus, after $n$ rounds, the whole array
-will be sorted.
+Después de la primera ronda del algoritmo,
+el elemento más grande estará en la posición correcta,
+y en general, después de $k$ rondas, los $k$ elementos más grandes
+estarán en las posiciones correctas.
+Por lo tanto, después de $n$ rondas, todo el arreglo
+estará ordenado.
 
-For example, in the array
+Por ejemplo, en el arreglo
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -119,8 +119,8 @@ For example, in the array
 \end{center}
 
 \noindent
-the first round of bubble sort swaps elements
-as follows:
+la primera ronda de ordenamiento por burbuja intercambia elementos
+de la siguiente manera:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -186,25 +186,20 @@ as follows:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Inversions}
+\subsubsection{Inversiones}
 
-\index{inversion}
+\index{inversión}
+La ordenación por burbuja es un ejemplo de un algoritmo de ordenación que siempre intercambia elementos \emph{consecutivos} en la matriz.
+Resulta que la complejidad temporal de este tipo de algoritmo es \emph{siempre}
+al menos $O(n^2)$, porque en el peor caso,
+se necesitan $O(n^2)$ intercambios para ordenar la matriz.
 
-Bubble sort is an example of a sorting
-algorithm that always swaps \emph{consecutive}
-elements in the array.
-It turns out that the time complexity
-of such an algorithm is \emph{always}
-at least $O(n^2)$, because in the worst case,
-$O(n^2)$ swaps are required for sorting the array.
-
-A useful concept when analyzing sorting
-algorithms is an \key{inversion}:
-a pair of array elements
-$(\texttt{array}[a],\texttt{array}[b])$ such that
-$a<b$ and $\texttt{array}[a]>\texttt{array}[b]$,
-i.e., the elements are in the wrong order.
-For example, the array
+Un concepto útil al analizar algoritmos de ordenación es una \key{inversión}:
+un par de elementos de la matriz
+$(\texttt{array}[a],\texttt{array}[b])$ tal que
+$a<b$ y $\texttt{array}[a]>\texttt{array}[b]$,
+es decir, los elementos están en el orden incorrecto.
+Por ejemplo, la matriz
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -218,55 +213,55 @@ For example, the array
 \node at (7.5,0.5) {$8$};
 \end{tikzpicture}
 \end{center}
-has three inversions: $(6,3)$, $(6,5)$ and $(9,8)$.
-The number of inversions indicates
-how much work is needed to sort the array.
-An array is completely sorted when
-there are no inversions.
-On the other hand, if the array elements
-are in the reverse order,
-the number of inversions is the largest possible:
+tiene tres inversiones: $(6,3)$, $(6,5)$ y $(9,8)$.
+El número de inversiones indica
+cuánto trabajo se necesita para ordenar la matriz.
+Una matriz está completamente ordenada cuando
+no hay inversiones.
+Por otro lado, si los elementos de la matriz
+están en orden inverso,
+el número de inversiones es el mayor posible:
 \[1+2+\cdots+(n-1)=\frac{n(n-1)}{2} = O(n^2)\]
 
-Swapping a pair of consecutive elements that are
-in the wrong order removes exactly one inversion
-from the array.
-Hence, if a sorting algorithm can only
-swap consecutive elements, each swap removes
-at most one inversion, and the time complexity
-of the algorithm is at least $O(n^2)$.
+Intercambiar un par de elementos consecutivos que estén
+en el orden incorrecto elimina exactamente una inversión
+de la matriz.
+Por lo tanto, si un algoritmo de ordenación solo puede
+intercambiar elementos consecutivos, cada intercambio elimina
+como máximo una inversión, y la complejidad temporal
+del algoritmo es al menos $O(n^2)$.
 
-\subsubsection{$O(n \log n)$ algorithms}
+\subsubsection{$O(n \log n)$ algoritmos}
 
 \index{merge sort}
 
-It is possible to sort an array efficiently
-in $O(n \log n)$ time using algorithms
-that are not limited to swapping consecutive elements.
-One such algorithm is \key{merge sort}\footnote{According to \cite{knu983},
-merge sort was invented by J. von Neumann in 1945.},
-which is based on recursion.
+Es posible ordenar una matriz de forma eficiente
+en tiempo $O(n \log n)$ usando algoritmos
+que no se limitan a intercambiar elementos consecutivos.
+Un algoritmo de este tipo es \key{merge sort}\footnote{Según \cite{knu983},
+la ordenación por mezcla fue inventada por J. von Neumann en 1945.},
+que se basa en la recursión.
 
-Merge sort sorts a subarray \texttt{array}$[a \ldots b]$ as follows:
+Merge sort ordena una submatriz \texttt{array}$[a \ldots b]$ de la siguiente manera:
 
 \begin{enumerate}
-\item If $a=b$, do not do anything, because the subarray is already sorted.
-\item Calculate the position of the middle element: $k=\lfloor (a+b)/2 \rfloor$.
-\item Recursively sort the subarray \texttt{array}$[a \ldots k]$.
-\item Recursively sort the subarray \texttt{array}$[k+1 \ldots b]$.
-\item \emph{Merge} the sorted subarrays \texttt{array}$[a \ldots k]$ and
+\item Si $a=b$, no hacer nada, porque la submatriz ya está ordenada.
+\item Calcular la posición del elemento del medio: $k=\lfloor (a+b)/2 \rfloor$.
+\item Ordenar recursivamente la submatriz \texttt{array}$[a \ldots k]$.
+\item Ordenar recursivamente la submatriz \texttt{array}$[k+1 \ldots b]$.
+\item \emph{Combinar} las submatrices ordenadas \texttt{array}$[a \ldots k]$ y
 \texttt{array}$[k+1 \ldots b]$
-into a sorted subarray \texttt{array}$[a \ldots b]$.
+en una submatriz ordenada \texttt{array}$[a \ldots b]$.
 \end{enumerate}
 
-Merge sort is an efficient algorithm, because it
-halves the size of the subarray at each step.
-The recursion consists of $O(\log n)$ levels,
-and processing each level takes $O(n)$ time.
-Merging the subarrays \texttt{array}$[a \ldots k]$ and \texttt{array}$[k+1 \ldots b]$
-is possible in linear time, because they are already sorted.
+Merge sort es un algoritmo eficiente, porque
+reduce a la mitad el tamaño de la submatriz en cada paso.
+La recursión consta de $O(\log n)$ niveles,
+y el procesamiento de cada nivel lleva $O(n)$ tiempo.
+Combinar las submatrices \texttt{array}$[a \ldots k]$ y \texttt{array}$[k+1 \ldots b]$
+es posible en tiempo lineal, porque ya están ordenadas.
 
-For example, consider sorting the following array:
+Por ejemplo, considere la ordenación de la siguiente matriz:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -281,8 +276,8 @@ For example, consider sorting the following array:
 \end{tikzpicture}
 \end{center}
 
-The array will be divided into two subarrays
-as follows:
+La matriz se dividirá en dos submatrices
+de la siguiente manera:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (4,1);
@@ -300,8 +295,8 @@ as follows:
 \end{tikzpicture}
 \end{center}
 
-Then, the subarrays will be sorted recursively
-as follows:
+Entonces, las submatrices se ordenarán recursivamente
+de la siguiente manera:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (4,1);
@@ -319,8 +314,8 @@ as follows:
 \end{tikzpicture}
 \end{center}
 
-Finally, the algorithm merges the sorted
-subarrays and creates the final sorted array:
+Finalmente, el algoritmo combina las ordenadas
+submatrices y crea la matriz ordenada final:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -335,19 +330,19 @@ subarrays and creates the final sorted array:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Sorting lower bound}
+\subsubsection{Límite inferior de ordenación}
 
-Is it possible to sort an array faster
-than in $O(n \log n)$ time?
-It turns out that this is \emph{not} possible
-when we restrict ourselves to sorting algorithms
-that are based on comparing array elements.
+¿Es posible ordenar una matriz más rápido
+que en tiempo $O(n \log n)$?
+Resulta que esto \emph{no} es posible
+cuando nos limitamos a algoritmos de ordenación
+que se basan en la comparación de elementos de la matriz.
 
-The lower bound for the time complexity
-can be proved by considering sorting
-as a process where each comparison of two elements
-gives more information about the contents of the array.
-The process creates the following tree:
+El límite inferior para la complejidad temporal
+se puede probar considerando la ordenación
+como un proceso donde cada comparación de dos elementos
+proporciona más información sobre el contenido de la matriz.
+El proceso crea el siguiente árbol:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -356,7 +351,6 @@ The process creates the following tree:
 
 \draw[thick,->] (1.5,0) -- (-2.5,-1.5);
 \draw[thick,->] (1.5,0) -- (5.5,-1.5);
-
 \draw (-4,-2.5) rectangle (-1,-1.5);
 \draw (4,-2.5) rectangle (7,-1.5);
 \node at (-2.5,-2) {$x < y?$};
@@ -387,45 +381,45 @@ The process creates the following tree:
 \end{tikzpicture}
 \end{center}
 
-Here ''$x<y?$'' means that some elements
-$x$ and $y$ are compared.
-If $x<y$, the process continues to the left,
-and otherwise to the right.
-The results of the process are the possible
-ways to sort the array, a total of $n!$ ways.
-For this reason, the height of the tree
-must be at least
+Aquí ''$x<y?$'' significa que algunos elementos
+$x$ e $y$ se comparan.
+Si $x<y$, el proceso continúa a la izquierda,
+y de lo contrario a la derecha.
+Los resultados del proceso son las posibles
+formas de ordenar la matriz, un total de $n!$ maneras.
+Por esta razón, la altura del árbol
+debe ser al menos
 \[ \log_2(n!) = \log_2(1)+\log_2(2)+\cdots+\log_2(n).\]
-We get a lower bound for this sum
-by choosing the last $n/2$ elements and
-changing the value of each element to $\log_2(n/2)$.
-This yields an estimate
+Obtenemos un límite inferior para esta suma
+eligiendo los últimos $n/2$ elementos y
+cambiando el valor de cada elemento a $\log_2(n/2)$.
+Esto produce una estimación
 \[ \log_2(n!) \ge (n/2) \cdot \log_2(n/2),\]
-so the height of the tree and the minimum
-possible number of steps in a sorting
-algorithm in the worst case
-is at least $n \log n$.
+por lo que la altura del árbol y el mínimo
+número posible de pasos en un ordenamiento
+algoritmo en el peor de los casos
+es al menos $n \log n$.
 
-\subsubsection{Counting sort}
+\subsubsection{Ordenación por conteo}
 
-\index{counting sort}
+\index{ordenación por conteo}
 
-The lower bound $n \log n$ does not apply to
-algorithms that do not compare array elements
-but use some other information.
-An example of such an algorithm is
-\key{counting sort} that sorts an array in
-$O(n)$ time assuming that every element in the array
-is an integer between $0 \ldots c$ and $c=O(n)$.
+El límite inferior $n \log n$ no se aplica a
+algoritmos que no comparan elementos de la matriz
+sino que utilizan alguna otra información.
+Un ejemplo de tal algoritmo es
+\key{ordenación por conteo} que ordena una matriz en
+tiempo $O(n)$ asumiendo que cada elemento de la matriz
+es un entero entre $0 \ldots c$ y $c=O(n)$.
 
-The algorithm creates a \emph{bookkeeping} array,
-whose indices are elements of the original array.
-The algorithm iterates through the original array
-and calculates how many times each element
-appears in the array.
+El algoritmo crea una matriz de \emph{contabilidad},
+cuyos índices son elementos de la matriz original.
+El algoritmo itera a través de la matriz original
+y calcula cuántas veces aparece cada elemento
+en la matriz.
 \newpage
 
-For example, the array
+Por ejemplo, la matriz
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (8,1);
@@ -439,7 +433,7 @@ For example, the array
 \node at (7.5,0.5) {$9$};
 \end{tikzpicture}
 \end{center}
-corresponds to the following bookkeeping array:
+corresponde a la siguiente matriz de contabilidad:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (9,1);
@@ -467,96 +461,94 @@ corresponds to the following bookkeeping array:
 \end{tikzpicture}
 \end{center}
 
-For example, the value at position 3
-in the bookkeeping array is 2,
-because the element 3 appears 2 times
-in the original array.
+Por ejemplo, el valor en la posición 3
+en la matriz de contabilidad es 2,
+porque el elemento 3 aparece 2 veces
+en la matriz original.
 
-Construction of the bookkeeping array
-takes $O(n)$ time. After this, the sorted array
-can be created in $O(n)$ time because
-the number of occurrences of each element can be retrieved
-from the bookkeeping array.
-Thus, the total time complexity of counting
-sort is $O(n)$.
+La construcción de la matriz de contabilidad
+toma tiempo $O(n)$. Después de esto, la matriz ordenada
+se puede crear en tiempo $O(n)$ porque
+el número de ocurrencias de cada elemento se puede recuperar
+de la matriz de contabilidad.
+Por lo tanto, la complejidad temporal total de la contabilidad
+ordenar es $O(n)$.
 
-Counting sort is a very efficient algorithm
-but it can only be used when the constant $c$
-is small enough, so that the array elements can
-be used as indices in the bookkeeping array.
+La ordenación por conteo es un algoritmo muy eficiente
+pero solo se puede utilizar cuando la constante $c$
+es lo suficientemente pequeña, para que los elementos de la matriz puedan
+usarse como índices en la matriz de contabilidad.
 
-\section{Sorting in C++}
+\section{Ordenación en C++}
 
 \index{sort@\texttt{sort}}
 
-It is almost never a good idea to use
-a home-made sorting algorithm
-in a contest, because there are good
-implementations available in programming languages.
-For example, the C++ standard library contains
-the function \texttt{sort} that can be easily used for
-sorting arrays and other data structures.
+Casi nunca es una buena idea usar
+un algoritmo de ordenación hecho en casa
+en un concurso, porque hay buenos
+implementaciones disponibles en lenguajes de programación.
+Por ejemplo, la biblioteca estándar de C++ contiene
+la función \texttt{sort} que se puede utilizar fácilmente para
+ordenar matrices y otras estructuras de datos.
 
-There are many benefits in using a library function.
-First, it saves time because there is no need to
-implement the function.
-Second, the library implementation is
-certainly correct and efficient: it is not probable
-that a home-made sorting function would be better.
+Hay muchos beneficios en usar una función de biblioteca.
+Primero, ahorra tiempo porque no hay necesidad de
+implementar la función.
+En segundo lugar, la implementación de la biblioteca es
+ciertamente correcta y eficiente: no es probable
+que una función de ordenación hecha en casa sea mejor.
 
-In this section we will see how to use the
-C++ \texttt{sort} function.
-The following code sorts
-a vector in increasing order:
+En esta sección veremos cómo usar la función \texttt{sort} de C++.
+El siguiente código ordena un vector en orden creciente:
 \begin{lstlisting}
 vector<int> v = {4,2,5,3,5,8,3};
 sort(v.begin(),v.end());
 \end{lstlisting}
-After the sorting, the contents of the
-vector will be
+Después de la ordenación, el contenido del vector será
 $[2,3,3,4,5,5,8]$.
-The default sorting order is increasing,
-but a reverse order is possible as follows:
+El orden de clasificación predeterminado es creciente,
+pero un orden inverso es posible de la siguiente manera:
 \begin{lstlisting}
 sort(v.rbegin(),v.rend());
 \end{lstlisting}
-An ordinary array can be sorted as follows:
+Se puede ordenar una matriz ordinaria de la siguiente manera:
 \begin{lstlisting}
-int n = 7; // array size
+int n = 7; // tamano del array
 int a[] = {4,2,5,3,5,8,3};
 sort(a,a+n);
 \end{lstlisting}
+
 \newpage
-The following code sorts the string \texttt{s}:
+El siguiente código ordena la cadena \texttt{s}:
 \begin{lstlisting}
 string s = "monkey";
 sort(s.begin(), s.end());
 \end{lstlisting}
-Sorting a string means that the characters
-of the string are sorted.
-For example, the string ''monkey'' becomes ''ekmnoy''.
+Ordenar una cadena significa que los caracteres
+de la cadena están ordenados.
+Por ejemplo, la cadena ''monkey'' se convierte en ''ekmnoy''.
 
-\subsubsection{Comparison operators}
+\subsubsection{Operadores de comparación}
 
-\index{comparison operator}
+\index{operador de comparación}
 
-The function \texttt{sort} requires that
-a \key{comparison operator} is defined for the data type
-of the elements to be sorted.
-When sorting, this operator will be used
-whenever it is necessary to find out the order of two elements.
+La función \texttt{sort} requiere que
+se defina un \key{operador de comparación} para el tipo de datos
+de los elementos a ordenar.
+Al ordenar, este operador se utilizará
+cada vez que sea necesario averiguar el orden de dos elementos.
 
-Most C++ data types have a built-in comparison operator,
-and elements of those types can be sorted automatically.
-For example, numbers are sorted according to their values
-and strings are sorted in alphabetical order.
+La mayoría de los tipos de datos de C++ tienen un operador de comparación integrado,
+y los elementos de esos tipos se pueden ordenar automáticamente.
+Por ejemplo, los números se ordenan según sus valores
+y las cadenas se ordenan en orden alfabético.
 
 \index{pair@\texttt{pair}}
 
-Pairs (\texttt{pair}) are sorted primarily according to their
-first elements (\texttt{first}).
-However, if the first elements of two pairs are equal,
-they are sorted according to their second elements (\texttt{second}):
+Los pares (\texttt{pair}) se ordenan principalmente según sus
+primeros elementos (\texttt{first}).
+Sin embargo, si los primeros elementos de dos pares son iguales,
+se ordenan según sus segundos elementos (\texttt{second}):
 \begin{lstlisting}
 vector<pair<int,int>> v;
 v.push_back({1,5});
@@ -564,16 +556,16 @@ v.push_back({2,3});
 v.push_back({1,2});
 sort(v.begin(), v.end());
 \end{lstlisting}
-After this, the order of the pairs is
-$(1,2)$, $(1,5)$ and $(2,3)$.
+Después de esto, el orden de los pares es
+$(1,2)$, $(1,5)$ y $(2,3)$.
 
 \index{tuple@\texttt{tuple}}
 
-In a similar way, tuples (\texttt{tuple})
-are sorted primarily by the first element,
-secondarily by the second element, etc.\footnote{Note that in some older compilers,
-the function \texttt{make\_tuple} has to be used to create a tuple instead of
-braces (for example, \texttt{make\_tuple(2,1,4)} instead of \texttt{\{2,1,4\}}).}:
+De manera similar, las tuplas (\texttt{tuple})
+se ordenan principalmente por el primer elemento,
+secundariamente por el segundo elemento, etc.\footnote{Tenga en cuenta que en algunos compiladores más antiguos,
+la función \texttt{make\_tuple} debe utilizarse para crear una tupla en lugar de
+llaves (por ejemplo, \texttt{make\_tuple(2,1,4)} en lugar de \texttt{\{2,1,4\}}).}:
 \begin{lstlisting}
 vector<tuple<int,int,int>> v;
 v.push_back({2,1,4});
@@ -581,26 +573,26 @@ v.push_back({1,5,3});
 v.push_back({2,1,3});
 sort(v.begin(), v.end());
 \end{lstlisting}
-After this, the order of the tuples is
-$(1,5,3)$, $(2,1,3)$ and $(2,1,4)$.
+Después de esto, el orden de las tuplas es
+$(1,5,3)$, $(2,1,3)$ y $(2,1,4)$.
 
-\subsubsection{User-defined structs}
+\subsubsection{Estructuras definidas por el usuario}
 
-User-defined structs do not have a comparison
-operator automatically.
-The operator should be defined inside
-the struct as a function
+Las estructuras definidas por el usuario no tienen un operador de comparación
+automáticamente.
+El operador debe definirse dentro
+de la estructura como una función
 \texttt{operator<},
-whose parameter is another element of the same type.
-The operator should return \texttt{true}
-if the element is smaller than the parameter,
-and \texttt{false} otherwise.
+cuyo parámetro es otro elemento del mismo tipo.
+El operador debe devolver \texttt{true}
+si el elemento es menor que el parámetro,
+y \texttt{false} en caso contrario.
 
-For example, the following struct \texttt{P}
-contains the x and y coordinates of a point.
-The comparison operator is defined so that
-the points are sorted primarily by the x coordinate
-and secondarily by the y coordinate.
+Por ejemplo, la siguiente estructura \texttt{P}
+contiene las coordenadas x e y de un punto.
+El operador de comparación se define de modo que
+los puntos se ordenen principalmente por la coordenada x
+y secundariamente por la coordenada y.
 
 \begin{lstlisting}
 struct P {
@@ -612,16 +604,16 @@ struct P {
 };
 \end{lstlisting}
 
-\subsubsection{Comparison functions}
+\subsubsection{Funciones de comparación}
 
-\index{comparison function}
+\index{función de comparación}
 
-It is also possible to give an external
-\key{comparison function} to the \texttt{sort} function
-as a callback function.
-For example, the following comparison function \texttt{comp}
-sorts strings primarily by length and secondarily
-by alphabetical order:
+También es posible dar una externa
+\key{función de comparación} a la función \texttt{sort}
+como una función de devolución de llamada.
+Por ejemplo, la siguiente función de comparación \texttt{comp}
+ordena las cadenas principalmente por longitud y secundariamente
+por orden alfabético:
 
 \begin{lstlisting}
 bool comp(string a, string b) {
@@ -629,142 +621,141 @@ bool comp(string a, string b) {
     return a < b;
 }
 \end{lstlisting}
-Now a vector of strings can be sorted as follows:
+Ahora un vector de cadenas se puede ordenar de la siguiente manera:
 \begin{lstlisting}
 sort(v.begin(), v.end(), comp);
 \end{lstlisting}
 
-\section{Binary search}
+\section{Búsqueda binaria}
 
-\index{binary search}
+\index{búsqueda binaria}
 
-A general method for searching for an element
-in an array is to use a \texttt{for} loop
-that iterates through the elements of the array.
-For example, the following code searches for
-an element $x$ in an array:
+Un método general para buscar un elemento
+en un array es usar un bucle \texttt{for}
+que itera a través de los elementos del array.
+Por ejemplo, el siguiente código busca
+un elemento $x$ en un array:
 
 \begin{lstlisting}
 for (int i = 0; i < n; i++) {
     if (array[i] == x) {
-        // x found at index i
+        // x encontrado en el indice i
     }
 }
 \end{lstlisting}
 
-The time complexity of this approach is $O(n)$,
-because in the worst case, it is necessary to check
-all elements of the array.
-If the order of the elements is arbitrary,
-this is also the best possible approach, because
-there is no additional information available where
-in the array we should search for the element $x$.
+La complejidad temporal de este enfoque es $O(n)$,
+porque en el peor de los casos, es necesario comprobar
+todos los elementos del array.
+Si el orden de los elementos es arbitrario,
+este es también el mejor enfoque posible, porque
+no hay información adicional disponible sobre dónde
+en el array debemos buscar el elemento $x$.
 
-However, if the array is \emph{sorted},
-the situation is different.
-In this case it is possible to perform the
-search much faster, because the order of the
-elements in the array guides the search.
-The following \key{binary search} algorithm
-efficiently searches for an element in a sorted array
-in $O(\log n)$ time.
+Sin embargo, si el array está \emph{ordenado},
+la situación es diferente.
+En este caso, es posible realizar la
+búsqueda mucho más rápido, porque el orden de los
+elementos en el array guía la búsqueda.
+El siguiente algoritmo de \key{búsqueda binaria}
+busca eficientemente un elemento en un array ordenado
+en $O(\log n)$ tiempo.
 
-\subsubsection{Method 1}
+\subsubsection{Método 1}
+La forma usual de implementar la búsqueda binaria
+se asemeja a buscar una palabra en un diccionario.
+La búsqueda mantiene una región activa en la matriz,
+que inicialmente contiene todos los elementos de la matriz.
+Luego, se realiza una serie de pasos,
+cada uno de los cuales reduce a la mitad el tamaño de la región.
 
-The usual way to implement binary search
-resembles looking for a word in a dictionary.
-The search maintains an active region in the array,
-which initially contains all array elements.
-Then, a number of steps is performed,
-each of which halves the size of the region.
+En cada paso, la búsqueda verifica el elemento del medio
+de la región activa.
+Si el elemento del medio es el elemento objetivo,
+la búsqueda termina.
+De lo contrario, la búsqueda continúa recursivamente
+a la mitad izquierda o derecha de la región,
+dependiendo del valor del elemento del medio.
 
-At each step, the search checks the middle element
-of the active region.
-If the middle element is the target element,
-the search terminates.
-Otherwise, the search recursively continues
-to the left or right half of the region,
-depending on the value of the middle element.
-
-The above idea can be implemented as follows:
+La idea anterior se puede implementar de la siguiente manera:
 \begin{lstlisting}
 int a = 0, b = n-1;
 while (a <= b) {
     int k = (a+b)/2;
     if (array[k] == x) {
-        // x found at index k
+        // x encontrado en el indice k
     }
     if (array[k] > x) b = k-1;
     else a = k+1;
 }
 \end{lstlisting}
 
-In this implementation, the active region is $a \ldots b$,
-and initially the region is $0 \ldots n-1$.
-The algorithm halves the size of the region at each step,
-so the time complexity is $O(\log n)$.
+En esta implementación, la región activa es $a \ldots b$,
+y inicialmente la región es $0 \ldots n-1$.
+El algoritmo reduce a la mitad el tamaño de la región en cada paso,
+por lo que la complejidad temporal es $O(\log n)$.
 
-\subsubsection{Method 2}
+\subsubsection{Método 2}
 
-An alternative method to implement binary search
-is based on an efficient way to iterate through
-the elements of the array.
-The idea is to make jumps and slow the speed
-when we get closer to the target element.
+Un método alternativo para implementar la búsqueda binaria
+se basa en una forma eficiente de iterar a través de
+los elementos de la matriz.
+La idea es hacer saltos y reducir la velocidad
+cuando nos acercamos al elemento objetivo.
 
-The search goes through the array from left to
-right, and the initial jump length is $n/2$.
-At each step, the jump length will be halved:
-first $n/4$, then $n/8$, $n/16$, etc., until
-finally the length is 1.
-After the jumps, either the target element has
-been found or we know that it does not appear in the array.
+La búsqueda recorre la matriz de izquierda a
+derecha, y la longitud de salto inicial es $n/2$.
+En cada paso, la longitud del salto se reducirá a la mitad:
+primero $n/4$, luego $n/8$, $n/16$, etc., hasta
+que finalmente la longitud sea 1.
+Después de los saltos, o bien se ha encontrado el elemento objetivo
+o sabemos que no aparece en la matriz.
 
-The following code implements the above idea:
+El siguiente código implementa la idea anterior:
 \begin{lstlisting}
 int k = 0;
 for (int b = n/2; b >= 1; b /= 2) {
     while (k+b < n && array[k+b] <= x) k += b;
 }
 if (array[k] == x) {
-    // x found at index k
+    // x encontrado en el indice k
 }
 \end{lstlisting}
 
-During the search, the variable $b$
-contains the current jump length.
-The time complexity of the algorithm is $O(\log n)$,
-because the code in the \texttt{while} loop
-is performed at most twice for each jump length.
+Durante la búsqueda, la variable $b$
+contiene la longitud del salto actual.
+La complejidad temporal del algoritmo es $O(\log n)$,
+porque el código en el bucle \texttt{while}
+se ejecuta como máximo dos veces para cada longitud de salto.
 
-\subsubsection{C++ functions}
+\subsubsection{Funciones de C++}
 
-The C++ standard library contains the following functions
-that are based on binary search and work in logarithmic time:
+La biblioteca estándar de C++ contiene las siguientes funciones
+que se basan en la búsqueda binaria y funcionan en tiempo logarítmico:
 
 \begin{itemize}
-\item \texttt{lower\_bound} returns a pointer to the
-first array element whose value is at least $x$.
-\item \texttt{upper\_bound} returns a pointer to the
-first array element whose value is larger than $x$.
-\item \texttt{equal\_range} returns both above pointers.
+\item \texttt{lower\_bound} devuelve un puntero al
+primer elemento de la matriz cuyo valor es al menos $x$.
+\item \texttt{upper\_bound} devuelve un puntero al
+primer elemento de la matriz cuyo valor es mayor que $x$.
+\item \texttt{equal\_range} devuelve ambos punteros anteriores.
 \end{itemize}
 
-The functions assume that the array is sorted.
-If there is no such element, the pointer points to
-the element after the last array element.
-For example, the following code finds out whether
-an array contains an element with value $x$:
+Las funciones asumen que la matriz está ordenada.
+Si no existe tal elemento, el puntero apunta a
+el elemento después del último elemento de la matriz.
+Por ejemplo, el siguiente código descubre si
+una matriz contiene un elemento con valor $x$:
 
 \begin{lstlisting}
 auto k = lower_bound(array,array+n,x)-array;
 if (k < n && array[k] == x) {
-    // x found at index k
+    // x encontrado en el indice k
 }
 \end{lstlisting}
 
-Then, the following code counts the number of elements
-whose value is $x$:
+Luego, el siguiente código cuenta el número de elementos
+cuyo valor es $x$:
 
 \begin{lstlisting}
 auto a = lower_bound(array, array+n, x);
@@ -772,25 +763,25 @@ auto b = upper_bound(array, array+n, x);
 cout << b-a << "\n";
 \end{lstlisting}
 
-Using \texttt{equal\_range}, the code becomes shorter:
+Usando \texttt{equal\_range}, el código se vuelve más corto:
 
 \begin{lstlisting}
 auto r = equal_range(array, array+n, x);
 cout << r.second-r.first << "\n";
 \end{lstlisting}
 
-\subsubsection{Finding the smallest solution}
+\subsubsection{Encontrar la solución más pequeña}
 
-An important use for binary search is
-to find the position where the value of a \emph{function} changes.
-Suppose that we wish to find the smallest value $k$
-that is a valid solution for a problem.
-We are given a function $\texttt{ok}(x)$
-that returns \texttt{true} if $x$ is a valid solution
-and \texttt{false} otherwise.
-In addition, we know that $\texttt{ok}(x)$ is \texttt{false}
-when $x<k$ and \texttt{true} when $x \ge k$.
-The situation looks as follows:
+Un uso importante de la búsqueda binaria es
+encontrar la posición donde cambia el valor de una \emph{función}.
+Supongamos que queremos encontrar el valor más pequeño $k$
+que sea una solución válida para un problema.
+Se nos da una función $\texttt{ok}(x)$
+que devuelve \texttt{true} si $x$ es una solución válida
+y \texttt{false} de lo contrario.
+Además, sabemos que $\texttt{ok}(x)$ es \texttt{false}
+cuando $x<k$ y \texttt{true} cuando $x \ge k$.
+La situación se ve de la siguiente manera:
 
 \begin{center}
 \begin{tabular}{r|rrrrrrrr}
@@ -802,7 +793,7 @@ $\texttt{ok}(x)$ & \texttt{false} & \texttt{false}
 \end{center}
 
 \noindent
-Now, the value of $k$ can be found using binary search:
+Ahora, el valor de $k$ se puede encontrar usando la búsqueda binaria:
 
 \begin{lstlisting}
 int x = -1;
@@ -812,41 +803,41 @@ for (int b = z; b >= 1; b /= 2) {
 int k = x+1;
 \end{lstlisting}
 
-The search finds the largest value of $x$ for which
-$\texttt{ok}(x)$ is \texttt{false}.
-Thus, the next value $k=x+1$
-is the smallest possible value for which
-$\texttt{ok}(k)$ is \texttt{true}.
-The initial jump length $z$ has to be
-large enough, for example some value
-for which we know beforehand that $\texttt{ok}(z)$ is \texttt{true}.
+La búsqueda encuentra el valor más grande de $x$ para el cual
+$\texttt{ok}(x)$ es \texttt{false}.
+Por lo tanto, el siguiente valor $k=x+1$
+es el valor más pequeño posible para el cual
+$\texttt{ok}(k)$ es \texttt{true}.
+La longitud de salto inicial $z$ tiene que ser
+lo suficientemente grande, por ejemplo, algún valor
+para el que sabemos de antemano que $\texttt{ok}(z)$ es \texttt{true}.
 
-The algorithm calls the function \texttt{ok}
-$O(\log z)$ times, so the total time complexity
-depends on the function \texttt{ok}.
-For example, if the function works in $O(n)$ time,
-the total time complexity is $O(n \log z)$.
+El algoritmo llama a la función \texttt{ok}
+$O(\log z)$ veces, por lo que la complejidad temporal total
+depende de la función \texttt{ok}.
+Por ejemplo, si la función funciona en tiempo $O(n)$,
+la complejidad temporal total es $O(n \log z)$.
 
-\subsubsection{Finding the maximum value}
+\subsubsection{Encontrar el valor máximo}
 
-Binary search can also be used to find
-the maximum value for a function that is
-first increasing and then decreasing.
-Our task is to find a position $k$ such that
+La búsqueda binaria también se puede utilizar para encontrar
+el valor máximo de una función que es
+primero creciente y luego decreciente.
+Nuestra tarea es encontrar una posición $k$ tal que
 
 \begin{itemize}
 \item
-$f(x)<f(x+1)$ when $x<k$, and
+$f(x)<f(x+1)$ cuando $x<k$, y
 \item
-$f(x)>f(x+1)$ when $x \ge k$.
+$f(x)>f(x+1)$ cuando $x \ge k$.
 \end{itemize}
 
-The idea is to use binary search
-for finding the largest value of $x$
-for which $f(x)<f(x+1)$.
-This implies that $k=x+1$
-because $f(x+1)>f(x+2)$.
-The following code implements the search: 
+La idea es usar la búsqueda binaria
+para encontrar el valor más grande de $x$
+para el cual $f(x)<f(x+1)$.
+Esto implica que $k=x+1$
+porque $f(x+1)>f(x+2)$.
+El siguiente código implementa la búsqueda:
 
 \begin{lstlisting}
 int x = -1;
@@ -856,8 +847,8 @@ for (int b = z; b >= 1; b /= 2) {
 int k = x+1;
 \end{lstlisting}
 
-Note that unlike in the ordinary binary search,
-here it is not allowed that consecutive values
-of the function are equal.
-In this case it would not be possible to know
-how to continue the search.
+Tenga en cuenta que a diferencia de la búsqueda binaria ordinaria,
+aquí no se permite que los valores consecutivos
+de la función sean iguales.
+En este caso, no sería posible saber
+cómo continuar la búsqueda. 

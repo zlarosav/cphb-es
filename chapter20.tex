@@ -1,25 +1,25 @@
-\chapter{Flows and cuts}
+\chapter{Flujos y cortes}
 
-In this chapter, we focus on the following
-two problems:
+En este capítulo, nos centraremos en los siguientes
+dos problemas:
 
 \begin{itemize}
-\item \key{Finding a maximum flow}:
-What is the maximum amount of flow we can
-send from a node to another node?
-\item \key{Finding a minimum cut}:
-What is a minimum-weight set of edges
-that separates two nodes of the graph?
+\item \key{Encontrar un flujo máximo}:
+¿Cuál es la cantidad máxima de flujo que podemos
+enviar de un nodo a otro nodo?
+\item \key{Encontrar un corte mínimo}:
+¿Cuál es un conjunto de aristas de peso mínimo
+que separa dos nodos del grafo?
 \end{itemize}
 
-The input for both these problems is a directed,
-weighted graph that contains two special nodes:
-the \emph{source} is a node with no incoming edges,
-and the \emph{sink} is a node with no outgoing edges.
+La entrada para ambos problemas es un grafo dirigido,
+con pesos que contiene dos nodos especiales:
+la \emph{fuente} es un nodo sin aristas entrantes,
+y el \emph{sumidero} es un nodo sin aristas salientes.
 
-As an example, we will use the following graph
-where node 1 is the source and node 6
-is the sink:
+Como ejemplo, usaremos el siguiente grafo
+donde el nodo 1 es la fuente y el nodo 6
+es el sumidero:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -40,25 +40,25 @@ is the sink:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Maximum flow}
+\subsubsection{Flujo máximo}
 
-\index{flow}
-\index{maximum flow}
+\index{flujo}
+\index{flujo máximo}
 
-In the \key{maximum flow} problem,
-our task is to send as much flow as possible
-from the source to the sink.
-The weight of each edge is a capacity that
-restricts the flow
-that can go through the edge.
-In each intermediate node,
-the incoming and outgoing
-flow has to be equal.
+En el problema del \key{flujo máximo},
+nuestra tarea es enviar la mayor cantidad de flujo posible
+de la fuente al sumidero.
+El peso de cada arista es una capacidad que
+restringe el flujo
+que puede pasar por la arista.
+En cada nodo intermedio,
+el flujo entrante y saliente
+tiene que ser igual.
 
-For example, the maximum size of a flow
-in the example graph is 7.
-The following picture shows how we can
-route the flow:
+Por ejemplo, el tamaño máximo de un flujo
+en el grafo de ejemplo es 7.
+La siguiente imagen muestra cómo podemos
+enrutar el flujo:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -79,32 +79,32 @@ route the flow:
 \end{tikzpicture}
 \end{center}
 
-The notation $v/k$ means
-that a flow of $v$ units is routed through
-an edge whose capacity is $k$ units.
-The size of the flow is $7$,
-because the source sends $3+4$ units of flow
-and the sink receives $5+2$ units of flow.
-It is easy see that this flow is maximum,
-because the total capacity of the edges
-leading to the sink is $7$.
+La notación $v/k$ significa
+que se enruta un flujo de $v$ unidades a través de
+una arista cuya capacidad es de $k$ unidades.
+El tamaño del flujo es $7$,
+porque la fuente envía $3+4$ unidades de flujo
+y el sumidero recibe $5+2$ unidades de flujo.
+Es fácil ver que este flujo es máximo,
+porque la capacidad total de las aristas
+que conducen al sumidero es $7$.
 
-\subsubsection{Minimum cut}
+\subsubsection{Corte mínimo}
 
-\index{cut}
-\index{minimum cut}
+\index{corte}
+\index{corte mínimo}
 
-In the \key{minimum cut} problem,
-our task is to remove a set
-of edges from the graph
-such that there will be no path from the source
-to the sink after the removal
-and the total weight of the removed edges
-is minimum.
+En el problema del \key{corte mínimo},
+nuestra tarea es eliminar un conjunto
+de aristas del grafo
+de modo que no haya camino desde la fuente
+al sumidero después de la eliminación
+y el peso total de las aristas eliminadas
+sea mínimo.
 
-The minimum size of a cut in the example graph is 7.
-It suffices to remove the edges $2 \rightarrow 3$
-and $4 \rightarrow 5$:
+El tamaño mínimo de un corte en el grafo de ejemplo es 7.
+Basta con eliminar las aristas $2 \rightarrow 3$
+y $4 \rightarrow 5$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -130,53 +130,54 @@ and $4 \rightarrow 5$:
 \end{tikzpicture}
 \end{center}
 
-After removing the edges,
-there will be no path from the source to the sink.
-The size of the cut is $7$,
-because the weights of the removed edges
-are $6$ and $1$.
-The cut is minimum, because there is no valid
-way to remove edges from the graph such that
-their total weight would be less than $7$.
+
+Después de eliminar los bordes,
+no habrá ningún camino desde la fuente hasta el sumidero.
+El tamaño del corte es $7$,
+porque los pesos de los bordes eliminados
+son $6$ y $1$.
+El corte es mínimo, porque no hay una forma válida
+de eliminar bordes del gráfico de modo que
+su peso total sea menor que $7$.
 \\\\
-It is not a coincidence that
-the maximum size of a flow
-and the minimum size of a cut
-are the same in the above example.
-It turns out that a maximum flow
-and a minimum cut are
-\emph{always} equally large,
-so the concepts are two sides of the same coin.
+No es una coincidencia que
+el tamaño máximo de un flujo
+y el tamaño mínimo de un corte
+sean los mismos en el ejemplo anterior.
+Resulta que un flujo máximo
+y un corte mínimo son
+\emph{siempre} igualmente grandes,
+por lo que los conceptos son dos caras de la misma moneda.
 
-Next we will discuss the Ford–Fulkerson
-algorithm that can be used to find
-the maximum flow and minimum cut of a graph.
-The algorithm also helps us to understand
-\emph{why} they are equally large.
+A continuación, discutiremos el algoritmo de Ford–Fulkerson
+que se puede utilizar para encontrar
+el flujo máximo y el corte mínimo de un gráfico.
+El algoritmo también nos ayuda a entender
+\emph{por qué} son igualmente grandes.
 
-\section{Ford–Fulkerson algorithm}
+\section{Algoritmo de Ford–Fulkerson}
 
-\index{Ford–Fulkerson algorithm}
+\index{Algoritmo de Ford–Fulkerson}
 
-The \key{Ford–Fulkerson algorithm} \cite{for56} finds
-the maximum flow in a graph.
-The algorithm begins with an empty flow,
-and at each step finds a path from the source
-to the sink that generates more flow.
-Finally, when the algorithm cannot increase the flow
-anymore, the maximum flow has been found.
+El \key{algoritmo de Ford–Fulkerson} \cite{for56} encuentra
+el flujo máximo en un gráfico.
+El algoritmo comienza con un flujo vacío,
+y en cada paso encuentra un camino desde la fuente
+hasta el sumidero que genera más flujo.
+Finalmente, cuando el algoritmo no puede aumentar el flujo
+más, se ha encontrado el flujo máximo.
 
-The algorithm uses a special representation
-of the graph where each original edge has a reverse
-edge in another direction.
-The weight of each edge indicates how much more flow
-we could route through it.
-At the beginning of the algorithm, the weight of each original edge
-equals the capacity of the edge
-and the weight of each reverse edge is zero.
+El algoritmo utiliza una representación especial
+del gráfico donde cada borde original tiene un inverso
+borde en otra dirección.
+El peso de cada borde indica cuánta más flujo
+podríamos enrutar a través de él.
+Al comienzo del algoritmo, el peso de cada borde original
+es igual a la capacidad del borde
+y el peso de cada borde inverso es cero.
 
 \begin{samepage}
-The new representation for the example graph is as follows:
+La nueva representación para el gráfico de ejemplo es la siguiente:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9,label distance=-2mm]
@@ -207,17 +208,17 @@ The new representation for the example graph is as follows:
 \end{center}
 \end{samepage}
 
-\subsubsection{Algorithm description}
+\subsubsection{Descripción del algoritmo}
 
-The Ford–Fulkerson algorithm consists of several
-rounds.
-On each round, the algorithm finds
-a path from the source to the sink
-such that each edge on the path has a positive weight.
-If there is more than one possible path available,
-we can choose any of them.
+El algoritmo de Ford–Fulkerson consta de varios
+rondas.
+En cada ronda, el algoritmo encuentra
+un camino desde la fuente hasta el sumidero
+tal que cada borde en el camino tiene un peso positivo.
+Si hay más de un camino posible disponible,
+podemos elegir cualquiera de ellos.
 
-For example, suppose we choose the following path:
+Por ejemplo, supongamos que elegimos el siguiente camino:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9,label distance=-2mm]
@@ -252,17 +253,17 @@ For example, suppose we choose the following path:
 \end{tikzpicture}
 \end{center}
 
-After choosing the path, the flow increases by $x$ units,
-where $x$ is the smallest edge weight on the path.
-In addition, the weight of each edge on the path
-decreases by $x$ and the weight of each reverse edge
-increases by $x$.
+Después de elegir la ruta, el flujo aumenta en $x$ unidades,
+donde $x$ es el peso de borde más pequeño en la ruta.
+Además, el peso de cada borde en la ruta
+disminuye en $x$ y el peso de cada borde inverso
+aumenta en $x$.
 
-In the above path, the weights of the
-edges are 5, 6, 8 and 2.
-The smallest weight is 2,
-so the flow increases by 2
-and the new graph is as follows:
+En la ruta anterior, los pesos de los
+bordes son 5, 6, 8 y 2.
+El peso más pequeño es 2,
+por lo que el flujo aumenta en 2
+y el nuevo gráfico es el siguiente:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9,label distance=-2mm]
@@ -292,17 +293,17 @@ and the new graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-The idea is that increasing the flow decreases the amount of
-flow that can go through the edges in the future.
-On the other hand, it is possible to cancel
-flow later using the reverse edges of the graph
-if it turns out that
-it would be beneficial to route the flow in another way.
+La idea es que aumentar el flujo disminuye la cantidad de
+flujo que puede pasar a través de los bordes en el futuro.
+Por otro lado, es posible cancelar
+el flujo más tarde usando los bordes inversos del gráfico
+si resulta que
+sería beneficioso enrutar el flujo de otra manera.
 
-The algorithm increases the flow as long as
-there is a path from the source
-to the sink through positive-weight edges.
-In the present example, our next path can be as follows:
+El algoritmo aumenta el flujo mientras
+exista una ruta desde la fuente
+hasta el sumidero a través de bordes de peso positivo.
+En el ejemplo actual, nuestra siguiente ruta puede ser la siguiente:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9,label distance=-2mm]
@@ -312,7 +313,6 @@ In the present example, our next path can be as follows:
 \node[draw, circle] (4) at (7,1.3) {$6$};
 \node[draw, circle] (5) at (3,0) {$4$};
 \node[draw, circle] (6) at (5,0) {$5$};
-
 \path[draw,thick,->] (1) edge [bend left=10] node[font=\small,label=3] {} (2);
 \path[draw,thick,->] (2) edge [bend left=10] node[font=\small,label=below:2] {} (1);
 \path[draw,thick,->] (2) edge [bend left=10] node[font=\small,label=4] {} (3);
@@ -337,12 +337,12 @@ In the present example, our next path can be as follows:
 \end{tikzpicture}
 \end{center}
 
-The minimum edge weight on this path is 3,
-so the path increases the flow by 3,
-and the total flow after processing the path is 5.
+El peso mínimo de la arista en este camino es 3,
+por lo que el camino aumenta el flujo en 3,
+y el flujo total después de procesar el camino es 5.
 
 \begin{samepage}
-The new graph will be as follows:
+El nuevo gráfico será como sigue:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9,label distance=-2mm]
@@ -373,12 +373,12 @@ The new graph will be as follows:
 \end{center}
 \end{samepage}
 
-We still need two more rounds before reaching the maximum flow.
-For example, we can choose the paths
-$1 \rightarrow 2 \rightarrow 3 \rightarrow 6$ and
+Todavía necesitamos dos rondas más antes de alcanzar el flujo máximo.
+Por ejemplo, podemos elegir los caminos
+$1 \rightarrow 2 \rightarrow 3 \rightarrow 6$ y
 $1 \rightarrow 4 \rightarrow 5 \rightarrow 3 \rightarrow 6$.
-Both paths increase the flow by 1,
-and the final graph is as follows:
+Ambos caminos aumentan el flujo en 1,
+y el gráfico final es como sigue:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9,label distance=-2mm]
@@ -388,7 +388,6 @@ and the final graph is as follows:
 \node[draw, circle] (4) at (7,1.3) {$6$};
 \node[draw, circle] (5) at (3,0) {$4$};
 \node[draw, circle] (6) at (5,0) {$5$};
-
 \path[draw,thick,->] (1) edge [bend left=10] node[font=\small,label=2] {} (2);
 \path[draw,thick,->] (2) edge [bend left=10] node[font=\small,label=below:3] {} (1);
 \path[draw,thick,->] (2) edge [bend left=10] node[font=\small,label=0] {} (3);
@@ -408,67 +407,67 @@ and the final graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-It is not possible to increase the flow anymore,
-because there is no path from the source
-to the sink with positive edge weights.
-Hence, the algorithm terminates and the maximum flow is 7.
+No es posible aumentar el flujo más,
+porque no hay camino desde la fuente
+al sumidero con pesos de borde positivos.
+Por lo tanto, el algoritmo termina y el flujo máximo es 7.
 
-\subsubsection{Finding paths}
+\subsubsection{Encontrar caminos}
 
-The Ford–Fulkerson algorithm does not specify
-how we should choose the paths that increase the flow.
-In any case, the algorithm will terminate sooner or later
-and correctly find the maximum flow.
-However, the efficiency of the algorithm depends on
-the way the paths are chosen.
+El algoritmo de Ford–Fulkerson no especifica
+cómo debemos elegir los caminos que aumentan el flujo.
+En cualquier caso, el algoritmo terminará tarde o temprano
+y encontrará correctamente el flujo máximo.
+Sin embargo, la eficiencia del algoritmo depende de
+la forma en que se eligen los caminos.
 
-A simple way to find paths is to use depth-first search.
-Usually, this works well, but in the worst case,
-each path only increases the flow by 1
-and the algorithm is slow.
-Fortunately, we can avoid this situation
-by using one of the following techniques:
+Una forma sencilla de encontrar caminos es usar la búsqueda en profundidad.
+Por lo general, esto funciona bien, pero en el peor de los casos,
+cada camino solo aumenta el flujo en 1
+y el algoritmo es lento.
+Afortunadamente, podemos evitar esta situación
+utilizando una de las siguientes técnicas:
 
-\index{Edmonds–Karp algorithm}
+\index{Algoritmo de Edmonds–Karp}
 
-The \key{Edmonds–Karp algorithm} \cite{edm72}
-chooses each path so that the number of edges
-on the path is as small as possible.
-This can be done by using breadth-first search
-instead of depth-first search for finding paths.
-It can be proven that this guarantees that
-the flow increases quickly, and the time complexity
-of the algorithm is $O(m^2 n)$.
+El \key{algoritmo de Edmonds–Karp} \cite{edm72}
+elige cada camino de modo que el número de aristas
+en el camino sea lo más pequeño posible.
+Esto se puede hacer utilizando la búsqueda en amplitud
+en lugar de la búsqueda en profundidad para encontrar caminos.
+Se puede probar que esto garantiza que
+el flujo aumente rápidamente, y la complejidad temporal
+del algoritmo es $O(m^2 n)$.
 
-\index{scaling algorithm}
+\index{Algoritmo de escalado}
 
-The \key{scaling algorithm} \cite{ahu91} uses depth-first
-search to find paths where each edge weight is
-at least a threshold value.
-Initially, the threshold value is
-some large number, for example the sum of all
-edge weights of the graph.
-Always when a path cannot be found,
-the threshold value is divided by 2.
-The time complexity of the algorithm is $O(m^2 \log c)$,
-where $c$ is the initial threshold value.
+El \key{algoritmo de escalado} \cite{ahu91} utiliza la búsqueda en profundidad
+para encontrar caminos donde cada peso de arista es
+al menos un valor umbral.
+Inicialmente, el valor umbral es
+algún número grande, por ejemplo, la suma de todos
+los pesos de arista del gráfico.
+Siempre que no se pueda encontrar un camino,
+el valor umbral se divide por 2.
+La complejidad temporal del algoritmo es $O(m^2 \log c)$,
+donde $c$ es el valor umbral inicial.
 
-In practice, the scaling algorithm is easier to implement,
-because depth-first search can be used for finding paths.
-Both algorithms are efficient enough for problems
-that typically appear in programming contests.
+En la práctica, el algoritmo de escalado es más fácil de implementar,
+porque la búsqueda en profundidad se puede utilizar para encontrar caminos.
+Ambos algoritmos son lo suficientemente eficientes para problemas
+que normalmente aparecen en las competiciones de programación.
 
-\subsubsection{Minimum cuts}
+\subsubsection{Cortes mínimos}
 
-\index{minimum cut}
+\index{Corte mínimo}
 
-It turns out that once the Ford–Fulkerson algorithm
-has found a maximum flow,
-it has also determined a minimum cut.
-Let $A$ be the set of nodes
-that can be reached from the source
-using positive-weight edges.
-In the example graph, $A$ contains nodes 1, 2 and 4:
+Resulta que una vez que el algoritmo de Ford–Fulkerson
+ha encontrado un flujo máximo,
+también ha determinado un corte mínimo.
+Sea $A$ el conjunto de nodos
+que se pueden alcanzar desde la fuente
+usando aristas de peso positivo.
+En el gráfico de ejemplo, $A$ contiene los nodos 1, 2 y 4:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9,label distance=-2mm]
@@ -478,7 +477,6 @@ In the example graph, $A$ contains nodes 1, 2 and 4:
 \node[draw, circle] (4) at (7,1.3) {$6$};
 \node[draw, circle,fill=lightgray] (5) at (3,0) {$4$};
 \node[draw, circle] (6) at (5,0) {$5$};
-
 \path[draw,thick,->] (1) edge [bend left=10] node[font=\small,label=2] {} (2);
 \path[draw,thick,->] (2) edge [bend left=10] node[font=\small,label=below:3] {} (1);
 \path[draw,thick,->] (2) edge [bend left=10] node[font=\small,label=0] {} (3);
@@ -498,26 +496,26 @@ In the example graph, $A$ contains nodes 1, 2 and 4:
 \end{tikzpicture}
 \end{center}
 
-Now the minimum cut consists of the edges of the original graph
-that start at some node in $A$, end at some node outside $A$,
-and whose capacity is fully
-used in the maximum flow.
-In the above graph, such edges are
-$2 \rightarrow 3$ and $4 \rightarrow 5$,
-that correspond to the minimum cut $6+1=7$.
+Ahora, el corte mínimo consta de los bordes del gráfico original
+que comienzan en algún nodo en $A$, terminan en algún nodo fuera de $A$,
+y cuya capacidad se utiliza completamente
+en el flujo máximo.
+En el gráfico anterior, estos bordes son
+$2 \rightarrow 3$ y $4 \rightarrow 5$,
+que corresponden al corte mínimo $6+1=7$.
 
-Why is the flow produced by the algorithm maximum
-and why is the cut minimum?
-The reason is that a graph cannot
-contain a flow whose size is larger
-than the weight of any cut of the graph.
-Hence, always when a flow and a cut are equally large,
-they are a maximum flow and a minimum cut.
+¿Por qué el flujo producido por el algoritmo es máximo
+y por qué es el corte mínimo?
+La razón es que un gráfico no puede
+contener un flujo cuyo tamaño sea mayor
+que el peso de cualquier corte del gráfico.
+Por lo tanto, siempre que un flujo y un corte son igualmente grandes,
+son un flujo máximo y un corte mínimo.
 
-Let us consider any cut of the graph
-such that the source belongs to $A$,
-the sink belongs to $B$
-and there are some edges between the sets:
+Consideremos cualquier corte del gráfico
+tal que la fuente pertenezca a $A$,
+el sumidero pertenezca a $B$
+y haya algunos bordes entre los conjuntos:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -541,39 +539,39 @@ and there are some edges between the sets:
 \end{tikzpicture}
 \end{center}
 
-The size of the cut is the sum of the edges
-that go from $A$ to $B$.
-This is an upper bound for the flow
-in the graph, because the flow has to proceed
-from $A$ to $B$.
-Thus, the size of a maximum flow is smaller than or equal to
-the size of any cut in the graph.
+El tamaño del corte es la suma de los bordes
+que van de $A$ a $B$.
+Este es un límite superior para el flujo
+en el gráfico, porque el flujo tiene que proceder
+de $A$ a $B$.
+Por lo tanto, el tamaño de un flujo máximo es menor o igual que
+el tamaño de cualquier corte en el gráfico.
 
-On the other hand, the Ford–Fulkerson algorithm
-produces a flow whose size is \emph{exactly} as large
-as the size of a cut in the graph.
-Thus, the flow has to be a maximum flow
-and the cut has to be a minimum cut.
+Por otro lado, el algoritmo de Ford–Fulkerson
+produce un flujo cuyo tamaño es \emph{exactamente} tan grande
+como el tamaño de un corte en el gráfico.
+Por lo tanto, el flujo tiene que ser un flujo máximo
+y el corte tiene que ser un corte mínimo.
 
-\section{Disjoint paths}
+\section{Caminos disjuntos}
 
-Many graph problems can be solved by reducing
-them to the maximum flow problem.
-Our first example of such a problem is
-as follows: we are given a directed graph
-with a source and a sink,
-and our task is to find the maximum number
-of disjoint paths from the source to the sink.
+Muchos problemas de gráficos se pueden resolver reduciéndolos
+al problema de flujo máximo.
+Nuestro primer ejemplo de tal problema es
+el siguiente: se nos da un gráfico dirigido
+con una fuente y un sumidero,
+y nuestra tarea es encontrar el número máximo
+de caminos disjuntos desde la fuente hasta el sumidero.
 
-\subsubsection{Edge-disjoint paths}
+\subsubsection{Caminos disjuntos de borde}
 
-We will first focus on the problem of
-finding the maximum number of
-\key{edge-disjoint paths} from the source to the sink.
-This means that we should construct a set of paths
-such that each edge appears in at most one path.
+Primero nos centraremos en el problema de
+encontrar el número máximo de
+\key{caminos disjuntos de borde} desde la fuente hasta el sumidero.
+Esto significa que debemos construir un conjunto de caminos
+de modo que cada borde aparezca en como máximo un camino.
 
-For example, consider the following graph:
+Por ejemplo, considere el siguiente gráfico:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,2) {$1$};
@@ -594,12 +592,11 @@ For example, consider the following graph:
 \end{tikzpicture}
 \end{center}
 
-In this graph, the maximum number of edge-disjoint
-paths is 2.
-We can choose the paths
+En este gráfico, el número máximo de caminos disjuntos de borde
+es 2.
+Podemos elegir los caminos
 $1 \rightarrow 2 \rightarrow 4 \rightarrow 3 \rightarrow 6$
-and $1 \rightarrow 4 \rightarrow 5 \rightarrow 6$ as follows:
-
+y $1 \rightarrow 4 \rightarrow 5 \rightarrow 6$ de la siguiente manera:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,2) {$1$};
@@ -629,29 +626,29 @@ and $1 \rightarrow 4 \rightarrow 5 \rightarrow 6$ as follows:
 \end{tikzpicture}
 \end{center}
 
-It turns out that the maximum number of
-edge-disjoint paths
-equals the maximum flow of the graph,
-assuming that the capacity of each edge is one.
-After the maximum flow has been constructed,
-the edge-disjoint paths can be found greedily
-by following paths from the source to the sink.
+Resulta que el número máximo de
+caminos disjuntos de aristas
+es igual al flujo máximo del grafo,
+asumiendo que la capacidad de cada arista es uno.
+Después de que se ha construido el flujo máximo,
+los caminos disjuntos de aristas se pueden encontrar codiciosamente
+siguiendo caminos desde la fuente hasta el sumidero.
 
-\subsubsection{Node-disjoint paths}
+\subsubsection{Caminos disjuntos de nodos}
 
-Let us now consider another problem:
-finding the maximum number of
-\key{node-disjoint paths} from the source
-to the sink.
-In this problem, every node,
-except for the source and sink,
-may appear in at most one path.
-The number of node-disjoint paths
-may be smaller than the number of
-edge-disjoint paths.
+Consideremos ahora otro problema:
+encontrar el número máximo de
+\key{caminos disjuntos de nodos} desde la fuente
+hasta el sumidero.
+En este problema, cada nodo,
+excepto la fuente y el sumidero,
+puede aparecer en como máximo un camino.
+El número de caminos disjuntos de nodos
+puede ser menor que el número de
+caminos disjuntos de aristas.
 
-For example, in the previous graph,
-the maximum number of node-disjoint paths is 1:
+Por ejemplo, en el gráfico anterior,
+el número máximo de caminos disjuntos de nodos es 1:
 
 \begin{center}
 \begin{tikzpicture}
@@ -678,17 +675,17 @@ the maximum number of node-disjoint paths is 1:
 \end{tikzpicture}
 \end{center}
 
-We can reduce also this problem to the maximum flow problem.
-Since each node can appear in at most one path,
-we have to limit the flow that goes through the nodes.
-A standard method for this is to divide each node into
-two nodes such that the first node has the incoming edges
-of the original node, the second node has the outgoing
-edges of the original node, and
-there is a new edge from the first node
-to the second node.
+También podemos reducir este problema al problema de flujo máximo.
+Dado que cada nodo puede aparecer en como máximo un camino,
+tenemos que limitar el flujo que pasa por los nodos.
+Un método estándar para esto es dividir cada nodo en
+dos nodos de modo que el primer nodo tenga las aristas entrantes
+del nodo original, el segundo nodo tenga las aristas salientes
+del nodo original, y
+haya una nueva arista desde el primer nodo
+hasta el segundo nodo.
 
-In our example, the graph becomes as follows:
+En nuestro ejemplo, el gráfico se convierte en el siguiente:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (1,2) {$1$};
@@ -722,7 +719,7 @@ In our example, the graph becomes as follows:
 \end{tikzpicture}
 \end{center}
 
-The maximum flow for the graph is as follows:
+El flujo máximo para el gráfico es el siguiente:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (1,2) {$1$};
@@ -764,35 +761,35 @@ The maximum flow for the graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-Thus, the maximum number of node-disjoint paths
-from the source to the sink is 1.
+Por lo tanto, el número máximo de caminos nodo-disjuntos
+desde la fuente hasta el sumidero es 1.
 
-\section{Maximum matchings}
+\section{Emparejamientos máximos}
 
-\index{matching}
-\index{maximum matching}
+\index{emparejamiento}
+\index{emparejamiento máximo}
 
-The \key{maximum matching} problem asks to find
-a maximum-size set of node pairs in an undirected graph
-such that each pair is connected with an edge and
-each node belongs to at most one pair.
+El problema del \key{emparejamiento máximo} pide encontrar
+un conjunto de tamaño máximo de pares de nodos en un grafo no dirigido
+tal que cada par esté conectado con una arista y
+cada nodo pertenezca a como máximo un par.
 
-There are polynomial algorithms for finding
-maximum matchings in general graphs \cite{edm65},
-but such algorithms are complex and
-rarely seen in programming contests.
-However, in bipartite graphs,
-the maximum matching problem is much easier
-to solve, because we can reduce it to the
-maximum flow problem.
+Existen algoritmos polinomiales para encontrar
+emparejamientos máximos en grafos generales \cite{edm65},
+pero tales algoritmos son complejos y
+rara vez se ven en concursos de programación.
+Sin embargo, en grafos bipartitos,
+el problema del emparejamiento máximo es mucho más fácil
+de resolver, porque podemos reducirlo al
+problema de flujo máximo.
 
-\subsubsection{Finding maximum matchings}
+\subsubsection{Encontrar emparejamientos máximos}
 
-The nodes of a bipartite graph can be always
-divided into two groups such that all edges
-of the graph go from the left group to the right group.
-For example, in the following bipartite graph,
-the groups are $\{1,2,3,4\}$ and $\{5,6,7,8\}$.
+Los nodos de un grafo bipartito siempre se pueden
+dividir en dos grupos de modo que todas las aristas
+del grafo vayan del grupo izquierdo al grupo derecho.
+Por ejemplo, en el siguiente grafo bipartito,
+los grupos son $\{1,2,3,4\}$ y $\{5,6,7,8\}$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -813,7 +810,7 @@ the groups are $\{1,2,3,4\}$ and $\{5,6,7,8\}$.
 \path[draw,thick,-] (4) -- (7);
 \end{tikzpicture}
 \end{center}
-The size of a maximum matching of this graph is 3:
+El tamaño de un emparejamiento máximo de este grafo es 3:
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
 \node[draw, circle] (1) at (2,4.5) {1};
@@ -838,16 +835,16 @@ The size of a maximum matching of this graph is 3:
 \end{tikzpicture}
 \end{center}
 
-We can reduce the bipartite maximum matching problem
-to the maximum flow problem by adding two new nodes
-to the graph: a source and a sink.
-We also add edges from the source
-to each left node and from each right node to the sink.
-After this, the size of a maximum flow in the graph
-equals the size of a maximum matching in the original graph.
+Podemos reducir el problema del emparejamiento máximo bipartito
+al problema del flujo máximo agregando dos nuevos nodos
+al grafo: una fuente y un sumidero.
+También agregamos aristas desde la fuente
+a cada nodo izquierdo y desde cada nodo derecho hasta el sumidero.
+Después de esto, el tamaño de un flujo máximo en el grafo
+es igual al tamaño de un emparejamiento máximo en el grafo original.
 
-For example, the reduction for the above
-graph is as follows:
+Por ejemplo, la reducción para el grafo anterior
+es como sigue:
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
 \node[draw, circle] (1) at (2,4.5) {1};
@@ -880,7 +877,7 @@ graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-The maximum flow of this graph is as follows:
+El flujo máximo de este grafo es como sigue:
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
 \node[draw, circle] (1) at (2,4.5) {1};
@@ -908,6 +905,8 @@ The maximum flow of this graph is as follows:
 \path[draw,thick,->] (7) -- (b);
 \path[draw,thick,->] (8) -- (b);
 
+
+
 \path[draw=red,thick,->,line width=2pt] (1) -- (5);
 \path[draw=red,thick,->,line width=2pt] (2) -- (7);
 \path[draw=red,thick,->,line width=2pt] (3) -- (8);
@@ -923,29 +922,29 @@ The maximum flow of this graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Hall's theorem}
+\subsubsection{Teorema de Hall}
 
-\index{Hall's theorem}
-\index{perfect matching}
+\index{Teorema de Hall}
+\index{emparejamiento perfecto}
 
-\key{Hall's theorem} can be used to find out
-whether a bipartite graph has a matching
-that contains all left or right nodes.
-If the number of left and right nodes is the same,
-Hall's theorem tells us if it is possible to
-construct a \key{perfect matching} that
-contains all nodes of the graph.
+La \key{Teorema de Hall} se puede utilizar para averiguar
+si un grafo bipartito tiene un emparejamiento
+que contiene todos los nodos izquierdos o derechos.
+Si el número de nodos izquierdos y derechos es el mismo,
+el teorema de Hall nos dice si es posible
+construir un \key{emparejamiento perfecto} que
+contenga todos los nodos del grafo.
 
-Assume that we want to find a matching
-that contains all left nodes.
-Let $X$ be any set of left nodes
-and let $f(X)$ be the set of their neighbors.
-According to Hall's theorem, a matching
-that contains all left nodes exists
-exactly when for each $X$, the condition $|X| \le |f(X)|$ holds.
+Supongamos que queremos encontrar un emparejamiento
+que contenga todos los nodos izquierdos.
+Sea $X$ cualquier conjunto de nodos izquierdos
+y sea $f(X)$ el conjunto de sus vecinos.
+De acuerdo con el teorema de Hall, un emparejamiento
+que contiene todos los nodos izquierdos existe
+exactamente cuando para cada $X$, la condición $|X| \le |f(X)|$ se cumple.
 
-Let us study Hall's theorem in the example graph.
-First, let $X=\{1,3\}$ which yields $f(X)=\{5,6,8\}$:
+Estudiemos el teorema de Hall en el grafo de ejemplo.
+Primero, sea $X=\{1,3\}$ lo que produce $f(X)=\{5,6,8\}$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -967,9 +966,9 @@ First, let $X=\{1,3\}$ which yields $f(X)=\{5,6,8\}$:
 \end{tikzpicture}
 \end{center}
 
-The condition of Hall's theorem holds, because
-$|X|=2$ and $|f(X)|=3$.
-Next, let $X=\{2,4\}$ which yields $f(X)=\{7\}$:
+La condición del teorema de Hall se cumple, porque
+$|X|=2$ y $|f(X)|=3$.
+Luego, sea $X=\{2,4\}$ lo que produce $f(X)=\{7\}$:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -991,41 +990,41 @@ Next, let $X=\{2,4\}$ which yields $f(X)=\{7\}$:
 \end{tikzpicture}
 \end{center}
 
-In this case, $|X|=2$ and $|f(X)|=1$,
-so the condition of Hall's theorem does not hold.
-This means that it is not possible to form
-a perfect matching for the graph.
-This result is not surprising, because we already
-know that the maximum matching of the graph is 3 and not 4.
+En este caso, $|X|=2$ y $|f(X)|=1$,
+por lo que la condición del teorema de Hall no se cumple.
+Esto significa que no es posible formar
+un emparejamiento perfecto para el grafo.
+Este resultado no es sorprendente, porque ya
+sabemos que el emparejamiento máximo del grafo es 3 y no 4.
 
-If the condition of Hall's theorem does not hold,
-the set $X$ provides an explanation \emph{why}
-we cannot form such a matching.
-Since $X$ contains more nodes than $f(X)$,
-there are no pairs for all nodes in $X$.
-For example, in the above graph, both nodes 2 and 4
-should be connected with node 7 which is not possible.
+Si la condición del teorema de Hall no se cumple,
+el conjunto $X$ proporciona una explicación \emph{por qué}
+no podemos formar tal emparejamiento.
+Como $X$ contiene más nodos que $f(X)$,
+no hay pares para todos los nodos en $X$.
+Por ejemplo, en el grafo anterior, ambos nodos 2 y 4
+deberían estar conectados con el nodo 7 lo cual no es posible.
 
-\subsubsection{Kőnig's theorem}
+\subsubsection{Teorema de Kőnig}
 
-\index{Kőnig's theorem}
-\index{node cover}
-\index{minimum node cover}
+\index{Teorema de Kőnig}
+\index{cubierta de nodos}
+\index{cubierta de nodos mínima}
 
-A \key{minimum node cover} of a graph
-is a minimum set of nodes such that each edge of the graph
-has at least one endpoint in the set.
-In a general graph, finding a minimum node cover
-is a NP-hard problem.
-However, if the graph is bipartite,
-\key{Kőnig's theorem} tells us that
-the size of a minimum node cover
-and the size of a maximum matching are always equal.
-Thus, we can calculate the size of a minimum node cover
-using a maximum flow algorithm.
+Una \key{cubierta de nodos mínima} de un grafo
+es un conjunto mínimo de nodos tal que cada arista del grafo
+tiene al menos un extremo en el conjunto.
+En un grafo general, encontrar una cubierta de nodos mínima
+es un problema NP-duro.
+Sin embargo, si el grafo es bipartito,
+el \key{Teorema de Kőnig} nos dice que
+el tamaño de una cubierta de nodos mínima
+y el tamaño de un emparejamiento máximo son siempre iguales.
+Por lo tanto, podemos calcular el tamaño de una cubierta de nodos mínima
+usando un algoritmo de flujo máximo.
 
-Let us consider the following graph
-with a maximum matching of size 3:
+Consideremos el siguiente grafo
+con un emparejamiento máximo de tamaño 3:
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
 \node[draw, circle] (1) at (2,4.5) {1};
@@ -1049,9 +1048,9 @@ with a maximum matching of size 3:
 \path[draw=red,thick,-,line width=2pt] (3) -- (6);
 \end{tikzpicture}
 \end{center}
-Now Kőnig's theorem tells us that the size
-of a minimum node cover is also 3.
-Such a cover can be constructed as follows:
+Ahora el teorema de Kőnig nos dice que el tamaño
+de una cubierta de nodos mínima también es 3.
+Tal cubierta se puede construir de la siguiente manera:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -1076,18 +1075,18 @@ Such a cover can be constructed as follows:
 \index{independent set}
 \index{maximum independent set}
 
-The nodes that do \emph{not}
-belong to a minimum node cover
-form a \key{maximum independent set}.
-This is the largest possible set of nodes
-such that no two nodes in the set
-are connected with an edge.
-Once again, finding a maximum independent
-set in a general graph is a NP-hard problem,
-but in a bipartite graph we can use
-Kőnig's theorem to solve the problem efficiently.
-In the example graph, the maximum independent
-set is as follows:
+Los nodos que \emph{no}
+pertenecen a una cobertura de nodos mínima
+forman un conjunto \key{independiente máximo}.
+Este es el conjunto más grande posible de nodos
+tal que no hay dos nodos en el conjunto
+conectados con una arista.
+Una vez más, encontrar un conjunto independiente máximo
+en un gráfico general es un problema NP-difícil,
+pero en un gráfico bipartito podemos usar
+el teorema de Kőnig para resolver el problema de manera eficiente.
+En el gráfico de ejemplo, el conjunto independiente máximo
+es el siguiente:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.60]
@@ -1109,22 +1108,22 @@ set is as follows:
 \end{tikzpicture}
 \end{center}
 
-\section{Path covers}
+\section{Coberturas de caminos}
 
 \index{path cover}
 
-A \key{path cover} is a set of paths in a graph
-such that each node of the graph belongs to at least one path.
-It turns out that in directed, acyclic graphs,
-we can reduce the problem of finding a minimum
-path cover to the problem of finding a maximum
-flow in another graph.
+Una \key{cobertura de caminos} es un conjunto de caminos en un gráfico
+tal que cada nodo del gráfico pertenece a al menos un camino.
+Resulta que en los gráficos dirigidos y acíclicos,
+podemos reducir el problema de encontrar una cobertura de caminos mínima
+al problema de encontrar un flujo máximo
+en otro gráfico.
 
-\subsubsection{Node-disjoint path cover}
+\subsubsection{Cobertura de caminos nodos-disjuntos}
 
-In a \key{node-disjoint path cover},
-each node belongs to exactly one path.
-As an example, consider the following graph:
+En una \key{cobertura de caminos nodos-disjuntos},
+cada nodo pertenece a exactamente un camino.
+Como ejemplo, considera el siguiente gráfico:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {1};
@@ -1144,10 +1143,10 @@ As an example, consider the following graph:
 \end{tikzpicture}
 \end{center}
 
-A minimum node-disjoint path cover
-of this graph
-consists of three paths.
-For example, we can choose the following paths:
+Una cobertura de caminos nodos-disjuntos mínima
+de este gráfico
+consta de tres caminos.
+Por ejemplo, podemos elegir los siguientes caminos:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -1166,25 +1165,25 @@ For example, we can choose the following paths:
 \end{tikzpicture}
 \end{center}
 
-Note that one of the paths only contains node 2,
-so it is possible that a path does not contain any edges.
+Tenga en cuenta que uno de los caminos solo contiene el nodo 2,
+por lo que es posible que un camino no contenga ninguna arista.
 
-We can find a minimum node-disjoint path cover
-by constructing a \emph{matching graph} where each node
-of the original graph is represented by
-two nodes: a left node and a right node.
-There is an edge from a left node to a right node
-if there is such an edge in the original graph.
-In addition, the matching graph contains a source and a sink,
-and there are edges from the source to all
-left nodes and from all right nodes to the sink.
+Podemos encontrar una cobertura de caminos nodos-disjuntos mínima
+construyendo un \emph{gráfico de coincidencia} donde cada nodo
+del gráfico original está representado por
+dos nodos: un nodo izquierdo y un nodo derecho.
+Hay una arista de un nodo izquierdo a un nodo derecho
+si hay una arista en el gráfico original.
+Además, el gráfico de coincidencia contiene una fuente y un sumidero,
+y hay aristas de la fuente a todos
+los nodos izquierdos y de todos los nodos derechos al sumidero.
 
-A maximum matching in the resulting graph corresponds
-to a minimum node-disjoint path cover in
-the original graph.
-For example, the following matching graph
-for the above graph contains
-a maximum matching of size 4:
+Una coincidencia máxima en el gráfico resultante corresponde
+a una cobertura de caminos nodos-disjuntos mínima en
+el gráfico original.
+Por ejemplo, el siguiente gráfico de coincidencia
+para el gráfico anterior contiene
+una coincidencia máxima de tamaño 4:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -1238,21 +1237,21 @@ a maximum matching of size 4:
 \end{tikzpicture}
 \end{center}
 
-Each edge in the maximum matching of the matching graph corresponds
-to an edge in the minimum node-disjoint path cover
-of the original graph.
-Thus, the size of the minimum node-disjoint path cover is $n-c$,
-where $n$ is the number of nodes in the original graph
-and $c$ is the size of the maximum matching.
+Cada arista en la coincidencia máxima del gráfico de coincidencia corresponde
+a una arista en la cubierta mínima de camino sin nodos coincidentes
+del gráfico original.
+Por lo tanto, el tamaño de la cubierta mínima de camino sin nodos coincidentes es $n-c$,
+donde $n$ es el número de nodos en el gráfico original
+y $c$ es el tamaño de la coincidencia máxima.
 
-\subsubsection{General path cover}
+\subsubsection{Cubierta general de caminos}
 
-A \key{general path cover} is a path cover
-where a node can belong to more than one path.
-A minimum general path cover may be smaller
-than a minimum node-disjoint path cover,
-because a node can be used multiple times in paths.
-Consider again the following graph:
+Una \key{cubierta general de caminos} es una cubierta de caminos
+donde un nodo puede pertenecer a más de un camino.
+Una cubierta general de caminos mínima puede ser más pequeña
+que una cubierta mínima de camino sin nodos coincidentes,
+porque un nodo puede utilizarse varias veces en caminos.
+Considere nuevamente el siguiente gráfico:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {1};
@@ -1272,9 +1271,9 @@ Consider again the following graph:
 \end{tikzpicture}
 \end{center}
 
-The minimum general path cover of this graph
-consists of two paths.
-For example, the first path may be as follows:
+La cubierta general de caminos mínima de este gráfico
+consiste en dos caminos.
+Por ejemplo, el primer camino puede ser el siguiente:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {1};
@@ -1291,7 +1290,7 @@ For example, the first path may be as follows:
 \path[draw=red,thick,->,line width=2pt] (3) -- (4);
 \end{tikzpicture}
 \end{center}
-And the second path may be as follows:
+Y el segundo camino puede ser el siguiente:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {1};
@@ -1307,14 +1306,14 @@ And the second path may be as follows:
 \end{tikzpicture}
 \end{center}
 
-A minimum general path cover can be found
-almost like a minimum node-disjoint path cover.
-It suffices to add some new edges to the matching graph
-so that there is an edge $a \rightarrow b$
-always when there is a path from $a$ to $b$
-in the original graph (possibly through several edges).
+Una cubierta general de caminos mínima puede encontrarse
+casi como una cubierta mínima de camino sin nodos coincidentes.
+Basta con agregar algunas aristas nuevas al gráfico de coincidencia
+para que haya una arista $a \rightarrow b$
+siempre cuando haya un camino de $a$ a $b$
+en el gráfico original (posiblemente a través de varias aristas).
 
-The matching graph for the above graph is as follows:
+El gráfico de coincidencia para el gráfico anterior es el siguiente:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1a) at (0,6) {1};
@@ -1399,22 +1398,22 @@ The matching graph for the above graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Dilworth's theorem}
+\subsubsection{Teorema de Dilworth}
 
-\index{Dilworth's theorem}
-\index{antichain}
+\index{Teorema de Dilworth}
+\index{cadena}
 
-An \key{antichain} is a set of nodes of a graph
-such that there is no path
-from any node to another node
-using the edges of the graph.
-\key{Dilworth's theorem} states that
-in a directed acyclic graph, the size of
-a minimum general path cover
-equals the size of a maximum antichain.
+Una \key{cadena} es un conjunto de nodos de un grafo
+tal que no hay camino
+desde ningún nodo a otro nodo
+usando las aristas del grafo.
+El \key{Teorema de Dilworth} establece que
+en un grafo acíclico dirigido, el tamaño de
+una cubierta de camino general mínima
+es igual al tamaño de una cadena máxima.
 
-For example, nodes 3 and 7 form an antichain
-in the following graph:
+Por ejemplo, los nodos 3 y 7 forman una cadena
+en el siguiente grafo:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -1435,7 +1434,7 @@ in the following graph:
 \end{tikzpicture}
 \end{center}
 
-This is a maximum antichain, because it is not possible
-to construct any antichain that would contain three nodes.
-We have seen before that the size of a minimum
-general path cover of this graph consists of two paths.
+Esta es una cadena máxima, porque no es posible
+construir ninguna cadena que contenga tres nodos.
+Hemos visto antes que el tamaño de una
+cubierta de camino general mínima de este grafo consiste en dos caminos.

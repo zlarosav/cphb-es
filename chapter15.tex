@@ -1,16 +1,16 @@
-\chapter{Spanning trees}
+\chapter{Árboles de expansión}
 
-\index{spanning tree}
+\index{árbol de expansión}
 
-A \key{spanning tree} of a graph consists of
-all nodes of the graph and some of the
-edges of the graph so that there is a path
-between any two nodes.
-Like trees in general, spanning trees are
-connected and acyclic.
-Usually there are several ways to construct a spanning tree.
+Un \key{árbol de expansión} de un grafo consiste en
+todos los nodos del grafo y algunas de las
+aristas del grafo de modo que exista un camino
+entre dos nodos cualesquiera.
+Al igual que los árboles en general, los árboles de expansión son
+conectados y acíclicos.
+Por lo general, hay varias formas de construir un árbol de expansión.
 
-For example, consider the following graph:
+Por ejemplo, considere el siguiente grafo:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1.5,2) {$1$};
@@ -29,7 +29,7 @@ For example, consider the following graph:
 \path[draw,thick,-] (3) -- node[font=\small,label=left:3] {} (6);
 \end{tikzpicture}
 \end{center}
-One spanning tree for the graph is as follows:
+Un árbol de expansión para el grafo es el siguiente:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1.5,2) {$1$};
@@ -46,16 +46,16 @@ One spanning tree for the graph is as follows:
 \end{tikzpicture}
 \end{center}
 
-The weight of a spanning tree is the sum of its edge weights.
-For example, the weight of the above spanning tree is
+El peso de un árbol de expansión es la suma de los pesos de sus aristas.
+Por ejemplo, el peso del árbol de expansión anterior es
 $3+5+9+3+2=22$.
 
-\index{minimum spanning tree}
+\index{árbol de expansión mínimo}
 
-A \key{minimum spanning tree}
-is a spanning tree whose weight is as small as possible.
-The weight of a minimum spanning tree for the example graph
-is 20, and such a tree can be constructed as follows:
+Un \key{árbol de expansión mínimo}
+es un árbol de expansión cuyo peso es lo más pequeño posible.
+El peso de un árbol de expansión mínimo para el grafo de ejemplo
+es 20, y dicho árbol puede construirse de la siguiente manera:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -74,12 +74,12 @@ is 20, and such a tree can be constructed as follows:
 \end{tikzpicture}
 \end{center}
 
-\index{maximum spanning tree}
+\index{árbol de expansión máximo}
 
-In a similar way, a \key{maximum spanning tree}
-is a spanning tree whose weight is as large as possible.
-The weight of a maximum spanning tree for the
-example graph is 32:
+De manera similar, un \key{árbol de expansión máximo}
+es un árbol de expansión cuyo peso es lo más grande posible.
+El peso de un árbol de expansión máximo para el
+grafo de ejemplo es 32:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -97,46 +97,44 @@ example graph is 32:
 \end{tikzpicture}
 \end{center}
 
-Note that a graph may have several
-minimum and maximum spanning trees,
-so the trees are not unique.
+Tenga en cuenta que un grafo puede tener varios
+árboles de expansión mínimos y máximos,
+por lo que los árboles no son únicos.
 
-It turns out that several greedy methods
-can be used to construct minimum and maximum
-spanning trees.
-In this chapter, we discuss two algorithms
-that process
-the edges of the graph ordered by their weights.
-We focus on finding minimum spanning trees,
-but the same algorithms can find
-maximum spanning trees by processing the edges in reverse order.
+Resulta que varios métodos voraces
+se pueden utilizar para construir árboles de expansión mínimos y máximos.
+En este capítulo, analizamos dos algoritmos
+que procesan
+las aristas del grafo ordenadas por sus pesos.
+Nos centramos en encontrar árboles de expansión mínimos,
+pero los mismos algoritmos pueden encontrar
+árboles de expansión máximos procesando las aristas en orden inverso.
 
-\section{Kruskal's algorithm}
+\section{Algoritmo de Kruskal}
 
-\index{Kruskal's algorithm}
+\index{Algoritmo de Kruskal}
 
-In \key{Kruskal's algorithm}\footnote{The algorithm was published in 1956
-by J. B. Kruskal \cite{kru56}.}, the initial spanning tree
-only contains the nodes of the graph
-and does not contain any edges.
-Then the algorithm goes through the edges
-ordered by their weights, and always adds an edge
-to the tree if it does not create a cycle.
+En el \key{algoritmo de Kruskal}\footnote{El algoritmo fue publicado en 1956
+por J. B. Kruskal \cite{kru56}.}, el árbol de expansión inicial
+solo contiene los nodos del grafo
+y no contiene ninguna arista.
+Luego, el algoritmo recorre las aristas
+ordenado por sus pesos, y siempre agrega una arista
+al árbol si no crea un ciclo.
 
-The algorithm maintains the components
-of the tree.
-Initially, each node of the graph
-belongs to a separate component.
-Always when an edge is added to the tree,
-two components are joined.
-Finally, all nodes belong to the same component,
-and a minimum spanning tree has been found.
+El algoritmo mantiene los componentes
+del árbol.
+Inicialmente, cada nodo del grafo
+pertenece a un componente separado.
+Siempre que se agrega una arista al árbol,
+se unen dos componentes.
+Finalmente, todos los nodos pertenecen al mismo componente,
+y se ha encontrado un árbol de expansión mínimo.
 
-\subsubsection{Example}
-
+\subsubsection{Ejemplo}
 \begin{samepage}
-Let us consider how Kruskal's algorithm processes the
-following graph:
+Consideremos cómo el algoritmo de Kruskal procesa el
+siguiente gráfico:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1.5,2) {$1$};
@@ -158,13 +156,13 @@ following graph:
 \end{samepage}
 
 \begin{samepage}
-The first step of the algorithm is to sort the
-edges in increasing order of their weights.
-The result is the following list:
+El primer paso del algoritmo es ordenar los
+bordes en orden creciente de sus pesos.
+El resultado es la siguiente lista:
 
 \begin{tabular}{ll}
 \\
-edge & weight \\
+borde & peso \\
 \hline
 5--6 & 2 \\
 1--2 & 3 \\
@@ -178,11 +176,11 @@ edge & weight \\
 \end{tabular}
 \end{samepage}
 
-After this, the algorithm goes through the list
-and adds each edge to the tree if it joins
-two separate components.
+Después de esto, el algoritmo recorre la lista
+y agrega cada borde al árbol si une
+dos componentes separados.
 
-Initially, each node is in its own component:
+Inicialmente, cada nodo está en su propio componente:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -202,9 +200,9 @@ Initially, each node is in its own component:
 %\path[draw,thick,-] (3) -- node[font=\small,label=left:3] {} (6);
 \end{tikzpicture}
 \end{center}
-The first edge to be added to the tree is
-the edge 5--6 that creates a component $\{5,6\}$
-by joining the components $\{5\}$ and $\{6\}$:
+El primer borde que se agregará al árbol es
+el borde 5--6 que crea un componente $\{5,6\}$
+al unir los componentes $\{5\}$ y $\{6\}$:
 
 \begin{center}
 \begin{tikzpicture}
@@ -225,7 +223,7 @@ by joining the components $\{5\}$ and $\{6\}$:
 %\path[draw,thick,-] (3) -- node[font=\small,label=left:3] {} (6);
 \end{tikzpicture}
 \end{center}
-After this, the edges 1--2, 3--6 and 1--5 are added in a similar way:
+Después de esto, los bordes 1--2, 3--6 y 1--5 se agregan de manera similar:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -247,17 +245,17 @@ After this, the edges 1--2, 3--6 and 1--5 are added in a similar way:
 \end{tikzpicture}
 \end{center}
 
-After those steps, most components have been joined
-and there are two components in the tree:
-$\{1,2,3,5,6\}$ and $\{4\}$.
+Después de esos pasos, la mayoría de los componentes se han unido
+y hay dos componentes en el árbol:
+$\{1,2,3,5,6\}$ y $\{4\}$.
 
-The next edge in the list is the edge 2--3,
-but it will not be included in the tree, because
-nodes 2 and 3 are already in the same component.
-For the same reason, the edge 2--5 will not be included in the tree.
+El siguiente borde en la lista es el borde 2--3,
+pero no se incluirá en el árbol, porque
+los nodos 2 y 3 ya están en el mismo componente.
+Por la misma razón, el borde 2--5 no se incluirá en el árbol.
 
 \begin{samepage}
-Finally, the edge 4--6 will be included in the tree:
+Finalmente, el borde 4--6 se incluirá en el árbol:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -280,26 +278,26 @@ Finally, the edge 4--6 will be included in the tree:
 \end{center}
 \end{samepage}
 
-After this, the algorithm will not add any
-new edges, because the graph is connected
-and there is a path between any two nodes.
-The resulting graph is a minimum spanning tree
-with weight $2+3+3+5+7=20$.
+Después de esto, el algoritmo no agregará ningún
+borde nuevo, porque el gráfico está conectado
+y hay una ruta entre dos nodos.
+El gráfico resultante es un árbol de expansión mínimo
+con peso $2+3+3+5+7=20$.
 
-\subsubsection{Why does this work?}
+\subsubsection{¿Por qué funciona esto?}
 
-It is a good question why Kruskal's algorithm works.
-Why does the greedy strategy guarantee that we
-will find a minimum spanning tree?
+Es una buena pregunta por qué funciona el algoritmo de Kruskal.
+¿Por qué la estrategia codiciosa garantiza que nosotros
+encontrar un árbol de expansión mínimo?
 
-Let us see what happens if the minimum weight edge of
-the graph is \emph{not} included in the spanning tree.
-For example, suppose that a spanning tree
-for the previous graph would not contain the
-minimum weight edge 5--6.
-We do not know the exact structure of such a spanning tree,
-but in any case it has to contain some edges.
-Assume that the tree would be as follows:
+Veamos qué pasa si el borde de peso mínimo de
+el gráfico \emph{no} está incluido en el árbol de expansión.
+Por ejemplo, supongamos que un árbol de expansión
+para el gráfico anterior no contendría el
+borde de peso mínimo 5--6.
+No sabemos la estructura exacta de tal árbol de expansión,
+pero en cualquier caso tiene que contener algunos bordes.
+Asuma que el árbol sería como sigue:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -318,12 +316,12 @@ Assume that the tree would be as follows:
 \end{tikzpicture}
 \end{center}
 
-However, it is not possible that the above tree
-would be a minimum spanning tree for the graph.
-The reason for this is that we can remove an edge
-from the tree and replace it with the minimum weight edge 5--6.
-This produces a spanning tree whose weight is
-\emph{smaller}:
+Sin embargo, no es posible que el árbol anterior
+sería un árbol de expansión mínimo para el gráfico.
+La razón de esto es que podemos eliminar un borde
+del árbol y reemplazarlo con el borde de peso mínimo 5--6.
+Esto produce un árbol de expansión cuyo peso es
+\emph{más pequeño}:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -342,24 +340,24 @@ This produces a spanning tree whose weight is
 \end{tikzpicture}
 \end{center}
 
-For this reason, it is always optimal
-to include the minimum weight edge
-in the tree to produce a minimum spanning tree.
-Using a similar argument, we can show that it
-is also optimal to add the next edge in weight order
-to the tree, and so on.
-Hence, Kruskal's algorithm works correctly and
-always produces a minimum spanning tree.
+Por esta razón, siempre es óptimo
+incluir el borde de peso mínimo
+en el árbol para producir un árbol de expansión mínimo.
+Usando un argumento similar, podemos mostrar que es
+también es óptimo agregar el siguiente borde en orden de peso
+al árbol, y así sucesivamente.
+Por lo tanto, el algoritmo de Kruskal funciona correctamente y
+siempre produce un árbol de expansión mínimo.
 
-\subsubsection{Implementation}
+\subsubsection{Implementación}
 
-When implementing Kruskal's algorithm,
-it is convenient to use
-the edge list representation of the graph.
-The first phase of the algorithm sorts the
-edges in the list in $O(m \log m)$ time.
-After this, the second phase of the algorithm
-builds the minimum spanning tree as follows:
+Al implementar el algoritmo de Kruskal,
+es conveniente usar
+la representación de la lista de bordes del gráfico.
+La primera fase del algoritmo ordena la
+bordes en la lista en $O(m \log m)$ tiempo.
+Después de esto, la segunda fase del algoritmo
+construye el árbol de expansión mínimo como sigue:
 
 \begin{lstlisting}
 for (...) {
@@ -367,55 +365,54 @@ for (...) {
 }
 \end{lstlisting}
 
-The loop goes through the edges in the list
-and always processes an edge $a$--$b$
-where $a$ and $b$ are two nodes.
-Two functions are needed:
-the function \texttt{same} determines
-if $a$ and $b$ are in the same component,
-and the function \texttt{unite}
-joins the components that contain $a$ and $b$.
+El bucle recorre los bordes de la lista
+y siempre procesa un borde $a$--$b$
+donde $a$ y $b$ son dos nodos.
+Se necesitan dos funciones:
+la función \texttt{same} determina
+si $a$ y $b$ están en el mismo componente,
+y la función \texttt{unite}
+une los componentes que contienen $a$ y $b$.
 
-The problem is how to efficiently implement
-the functions \texttt{same} and \texttt{unite}.
-One possibility is to implement the function
-\texttt{same} as a graph traversal and check if
-we can get from node $a$ to node $b$.
-However, the time complexity of such a function
-would be $O(n+m)$
-and the resulting algorithm would be slow,
-because the function \texttt{same} will be called for each edge in the graph.
+El problema es cómo implementar eficientemente
+las funciones \texttt{same} y \texttt{unite}.
+Una posibilidad es implementar la función
+\texttt{same} como un recorrido del gráfico y verificar si
+podemos obtener del nodo $a$ al nodo $b$.
+Sin embargo, la complejidad temporal de tal función
+sería $O(n+m)$
+y el algoritmo resultante sería lento,
+porque la función \texttt{same} se llamará para cada borde del gráfico.
 
-We will solve the problem using a union-find structure
-that implements both functions in $O(\log n)$ time.
-Thus, the time complexity of Kruskal's algorithm
-will be $O(m \log n)$ after sorting the edge list.
+Resolveremos el problema utilizando una estructura de unión-búsqueda
+que implementa ambas funciones en $O(\log n)$ tiempo.
+Por lo tanto, la complejidad temporal del algoritmo de Kruskal
+será $O(m \log n)$ después de ordenar la lista de bordes.
 
-\section{Union-find structure}
+\section{Estructura de unión-búsqueda}
 
-\index{union-find structure}
+\index{estructura de unión-búsqueda}
 
-A \key{union-find structure} maintains
-a collection of sets.
-The sets are disjoint, so no element
-belongs to more than one set.
-Two $O(\log n)$ time operations are supported:
-the \texttt{unite} operation joins two sets,
-and the \texttt{find} operation finds the representative
-of the set that contains a given element\footnote{The structure presented here
-was introduced in 1971 by J. D. Hopcroft and J. D. Ullman \cite{hop71}.
-Later, in 1975, R. E. Tarjan studied a more sophisticated variant
-of the structure \cite{tar75} that is discussed in many algorithm
-textbooks nowadays.}.
+Una \key{estructura de unión-búsqueda} mantiene
+una colección de conjuntos.
+Los conjuntos son disjuntos, por lo que ningún elemento
+pertenece a más de un conjunto.
+Se admiten dos operaciones de tiempo $O(\log n)$:
+la operación \texttt{unite} une dos conjuntos,
+y la operación \texttt{find} encuentra el representante
+del conjunto que contiene un elemento dado\footnote{La estructura presentada aquí
+fue introducida en 1971 por J. D. Hopcroft y J. D. Ullman \cite{hop71}.
+Más tarde, en 1975, R. E. Tarjan estudió una variante más sofisticada
+de la estructura \cite{tar75} que se discute en muchos algoritmos
+libros de texto hoy en día.}.
 
-\subsubsection{Structure}
-
-In a union-find structure, one element in each set
-is the representative of the set,
-and there is a chain from any other element of the
-set to the representative.
-For example, assume that the sets are
-$\{1,4,7\}$, $\{5\}$ and $\{2,3,6,8\}$:
+\subsubsection{Estructura}
+En una estructura de unión-búsqueda, un elemento en cada conjunto
+es el representante del conjunto,
+y hay una cadena desde cualquier otro elemento del
+conjunto hasta el representante.
+Por ejemplo, suponga que los conjuntos son
+$\{1,4,7\}$, $\{5\}$ y $\{2,3,6,8\}$:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (0,-1) {$1$};
@@ -436,22 +433,22 @@ $\{1,4,7\}$, $\{5\}$ and $\{2,3,6,8\}$:
 
 \end{tikzpicture}
 \end{center}
-In this case the representatives
-of the sets are 4, 5 and 2.
-We can find the representative of any element
-by following the chain that begins at the element.
-For example, the element 2 is the representative
-for the element 6, because
-we follow the chain $6 \rightarrow 3 \rightarrow 2$.
-Two elements belong to the same set exactly when
-their representatives are the same.
+En este caso, los representantes
+de los conjuntos son 4, 5 y 2.
+Podemos encontrar el representante de cualquier elemento
+siguiendo la cadena que comienza en el elemento.
+Por ejemplo, el elemento 2 es el representante
+para el elemento 6, porque
+seguimos la cadena $6 \rightarrow 3 \rightarrow 2$.
+Dos elementos pertenecen al mismo conjunto exactamente cuando
+sus representantes son los mismos.
 
-Two sets can be joined by connecting the
-representative of one set to the
-representative of the other set.
-For example, the sets
-$\{1,4,7\}$ and $\{2,3,6,8\}$
-can be joined as follows:
+Dos conjuntos se pueden unir conectando el
+representante de un conjunto al
+representante del otro conjunto.
+Por ejemplo, los conjuntos
+$\{1,4,7\}$ y $\{2,3,6,8\}$
+se pueden unir de la siguiente manera:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (2,-1) {$1$};
@@ -473,46 +470,46 @@ can be joined as follows:
 \end{tikzpicture}
 \end{center}
 
-The resulting set contains the elements
+El conjunto resultante contiene los elementos
 $\{1,2,3,4,6,7,8\}$.
-From this on, the element 2 is the representative
-for the entire set and the old representative 4
-points to the element 2.
+A partir de este momento, el elemento 2 es el representante
+de todo el conjunto y el antiguo representante 4
+apunta al elemento 2.
 
-The efficiency of the union-find structure depends on
-how the sets are joined.
-It turns out that we can follow a simple strategy:
-always connect the representative of the
-\emph{smaller} set to the representative of the \emph{larger} set
-(or if the sets are of equal size,
-we can make an arbitrary choice).
-Using this strategy, the length of any chain
-will be $O(\log n)$, so we can
-find the representative of any element
-efficiently by following the corresponding chain.
+La eficiencia de la estructura de unión-búsqueda depende de
+cómo se unen los conjuntos.
+Resulta que podemos seguir una estrategia simple:
+siempre conectar el representante del
+conjunto \emph{más pequeño} al representante del conjunto \emph{más grande}
+(o si los conjuntos son del mismo tamaño,
+podemos hacer una elección arbitraria).
+Usando esta estrategia, la longitud de cualquier cadena
+será $O(\log n)$, por lo que podemos
+encontrar el representante de cualquier elemento
+eficientemente siguiendo la cadena correspondiente.
 
-\subsubsection{Implementation}
+\subsubsection{Implementación}
 
-The union-find structure can be implemented
-using arrays.
-In the following implementation,
-the array \texttt{link} contains for each element
-the next element
-in the chain or the element itself if it is
-a representative,
-and the array \texttt{size} indicates for each representative
-the size of the corresponding set.
+La estructura de unión-búsqueda se puede implementar
+usando matrices.
+En la siguiente implementación,
+la matriz \texttt{link} contiene para cada elemento
+el siguiente elemento
+en la cadena o el elemento mismo si es
+un representante,
+y la matriz \texttt{size} indica para cada representante
+el tamaño del conjunto correspondiente.
 
-Initially, each element belongs to a separate set:
+Inicialmente, cada elemento pertenece a un conjunto separado:
 \begin{lstlisting}
 for (int i = 1; i <= n; i++) link[i] = i;
 for (int i = 1; i <= n; i++) size[i] = 1;
 \end{lstlisting}
 
-The function \texttt{find} returns
-the representative for an element $x$.
-The representative can be found by following
-the chain that begins at $x$.
+La función \texttt{find} devuelve
+el representante para un elemento $x$.
+El representante se puede encontrar siguiendo
+la cadena que comienza en $x$.
 
 \begin{lstlisting}
 int find(int x) {
@@ -521,10 +518,10 @@ int find(int x) {
 }
 \end{lstlisting}
 
-The function \texttt{same} checks
-whether elements $a$ and $b$ belong to the same set.
-This can easily be done by using the
-function \texttt{find}:
+La función \texttt{same} comprueba
+si los elementos $a$ y $b$ pertenecen al mismo conjunto.
+Esto se puede hacer fácilmente utilizando el
+función \texttt{find}:
 
 \begin{lstlisting}
 bool same(int a, int b) {
@@ -533,12 +530,12 @@ bool same(int a, int b) {
 \end{lstlisting}
 
 \begin{samepage}
-The function \texttt{unite} joins the sets
-that contain elements $a$ and $b$
-(the elements have to be in different sets).
-The function first finds the representatives
-of the sets and then connects the smaller
-set to the larger set.
+La función \texttt{unite} une los conjuntos
+que contienen los elementos $a$ y $b$
+(los elementos deben estar en conjuntos diferentes).
+La función primero encuentra los representantes
+de los conjuntos y luego conecta el más pequeño
+conjunto al conjunto más grande.
 
 \begin{lstlisting}
 void unite(int a, int b) {
@@ -551,42 +548,44 @@ void unite(int a, int b) {
 \end{lstlisting}
 \end{samepage}
 
-The time complexity of the function \texttt{find}
-is $O(\log n)$ assuming that the length of each
-chain is $O(\log n)$.
-In this case, the functions \texttt{same} and \texttt{unite}
-also work in $O(\log n)$ time.
-The function \texttt{unite} makes sure that the
-length of each chain is $O(\log n)$ by connecting
-the smaller set to the larger set.
+La complejidad temporal de la función \texttt{find}
+es $O(\log n)$ asumiendo que la longitud de cada
+cadena es $O(\log n)$.
+En este caso, las funciones \texttt{same} y \texttt{unite}
+también funcionan en tiempo $O(\log n)$.
+La función \texttt{unite} se asegura de que el
+longitud de cada cadena es $O(\log n)$ conectando
+el conjunto más pequeño al conjunto más grande.
 
-\section{Prim's algorithm}
+\section{Algoritmo de Prim}
 
-\index{Prim's algorithm}
+\index{Algoritmo de Prim}
 
-\key{Prim's algorithm}\footnote{The algorithm is
-named after R. C. Prim who published it in 1957 \cite{pri57}.
-However, the same algorithm was discovered already in 1930
-by V. Jarník.} is an alternative method
-for finding a minimum spanning tree.
-The algorithm first adds an arbitrary node
-to the tree.
-After this, the algorithm always chooses
-a minimum-weight edge that
-adds a new node to the tree.
-Finally, all nodes have been added to the tree
-and a minimum spanning tree has been found.
+\key{Algoritmo de Prim}\footnote{El algoritmo es
+nombrado después de R. C. Prim quien lo publicó en 1957 \cite{pri57}.
+Sin embargo, el mismo algoritmo ya fue descubierto en 1930
+por V. Jarník.} es un método alternativo
+para encontrar un árbol de expansión mínimo.
+El algoritmo primero agrega un nodo arbitrario
+al árbol.
+Después de esto, el algoritmo siempre elige
+un borde de peso mínimo que
+agrega un nuevo nodo al árbol.
+Finalmente, todos los nodos han sido agregados al árbol
+y se ha encontrado un árbol de expansión mínimo.
 
-Prim's algorithm resembles Dijkstra's algorithm.
-The difference is that Dijkstra's algorithm always
-selects an edge whose distance from the starting
-node is minimum, but Prim's algorithm simply selects
-the minimum weight edge that adds a new node to the tree.
 
-\subsubsection{Example}
 
-Let us consider how Prim's algorithm works
-in the following graph:
+El algoritmo de Prim se parece al algoritmo de Dijkstra.
+La diferencia es que el algoritmo de Dijkstra siempre
+selecciona una arista cuya distancia desde el nodo de inicio
+es mínima, pero el algoritmo de Prim simplemente selecciona
+la arista de peso mínimo que agrega un nuevo nodo al árbol.
+
+\subsubsection{Ejemplo}
+
+Consideremos cómo funciona el algoritmo de Prim
+en el siguiente gráfico:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -608,7 +607,7 @@ in the following graph:
 %\path[draw=red,thick,-,line width=2pt] (5) -- (6);
 \end{tikzpicture}
 \end{center}
-Initially, there are no edges between the nodes:
+Inicialmente, no hay aristas entre los nodos:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1.5,2) {$1$};
@@ -627,10 +626,10 @@ Initially, there are no edges between the nodes:
 %\path[draw,thick,-] (3) -- node[font=\small,label=left:3] {} (6);
 \end{tikzpicture}
 \end{center}
-An arbitrary node can be the starting node,
-so let us choose node 1.
-First, we add node 2 that is connected by
-an edge of weight 3:
+Un nodo arbitrario puede ser el nodo de inicio,
+así que elijamos el nodo 1.
+Primero, agregamos el nodo 2 que está conectado por
+una arista de peso 3:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1.5,2) {$1$};
@@ -650,9 +649,9 @@ an edge of weight 3:
 \end{tikzpicture}
 \end{center}
 
-After this, there are two edges with weight 5,
-so we can add either node 3 or node 5 to the tree.
-Let us add node 3 first:
+Después de esto, hay dos aristas con peso 5,
+por lo que podemos agregar el nodo 3 o el nodo 5 al árbol.
+Agreguemos el nodo 3 primero:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1.5,2) {$1$};
@@ -672,8 +671,10 @@ Let us add node 3 first:
 \end{tikzpicture}
 \end{center}
 
+
+
 \begin{samepage}
-The process continues until all nodes have been included in the tree:
+El proceso continúa hasta que todos los nodos se han incluido en el árbol:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1.5,2) {$1$};
@@ -694,19 +695,19 @@ The process continues until all nodes have been included in the tree:
 \end{center}
 \end{samepage}
 
-\subsubsection{Implementation}
+\subsubsection{Implementación}
 
-Like Dijkstra's algorithm, Prim's algorithm can be
-efficiently implemented using a priority queue.
-The priority queue should contain all nodes
-that can be connected to the current component using
-a single edge, in increasing order of the weights
-of the corresponding edges.
+Al igual que el algoritmo de Dijkstra, el algoritmo de Prim se puede
+implementar de manera eficiente utilizando una cola de prioridad.
+La cola de prioridad debe contener todos los nodos
+que se pueden conectar al componente actual utilizando
+un solo borde, en orden creciente de los pesos
+de los bordes correspondientes.
 
-The time complexity of Prim's algorithm is
-$O(n + m \log m)$ that equals the time complexity
-of Dijkstra's algorithm.
-In practice, Prim's and Kruskal's algorithms
-are both efficient, and the choice of the algorithm
-is a matter of taste.
-Still, most competitive programmers use Kruskal's algorithm.
+La complejidad temporal del algoritmo de Prim es
+$O(n + m \log m)$ que es igual a la complejidad temporal
+del algoritmo de Dijkstra.
+En la práctica, los algoritmos de Prim y Kruskal
+son ambos eficientes, y la elección del algoritmo
+es una cuestión de gusto.
+Aún así, la mayoría de los programadores competitivos utilizan el algoritmo de Kruskal. 

@@ -1,52 +1,51 @@
-\chapter{Shortest paths}
+\chapter{Caminos más cortos}
 
-\index{shortest path}
+\index{camino más corto}
 
-Finding a shortest path between two nodes
-of a graph
-is an important problem that has many
-practical applications.
-For example, a natural problem related to a road network
-is to calculate the shortest possible length of a route
-between two cities, given the lengths of the roads.
+Encontrar un camino más corto entre dos nodos
+de un grafo
+es un problema importante que tiene muchas
+aplicaciones prácticas.
+Por ejemplo, un problema natural relacionado con una red de carreteras
+es calcular la longitud más corta posible de una ruta
+entre dos ciudades, dadas las longitudes de las carreteras.
 
-In an unweighted graph, the length of a path equals
-the number of its edges, and we can
-simply use breadth-first search to find
-a shortest path.
-However, in this chapter we focus on
-weighted graphs
-where more sophisticated algorithms
-are needed
-for finding shortest paths.
+En un grafo no ponderado, la longitud de un camino es igual
+al número de sus aristas, y podemos
+simplemente usar la búsqueda en amplitud para encontrar
+un camino más corto.
+Sin embargo, en este capítulo nos centramos en
+grafos ponderados
+donde se necesitan algoritmos más sofisticados
+para encontrar caminos más cortos.
 
-\section{Bellman–Ford algorithm}
+\section{Algoritmo de Bellman–Ford}
 
-\index{Bellman–Ford algorithm}
+\index{Algoritmo de Bellman–Ford}
 
-The \key{Bellman–Ford algorithm}\footnote{The algorithm is named after
-R. E. Bellman and L. R. Ford who published it independently
-in 1958 and 1956, respectively \cite{bel58,for56a}.} finds
-shortest paths from a starting node to all
-nodes of the graph.
-The algorithm can process all kinds of graphs,
-provided that the graph does not contain a
-cycle with negative length.
-If the graph contains a negative cycle,
-the algorithm can detect this.
+El \key{algoritmo de Bellman–Ford}\footnote{El algoritmo lleva el nombre de
+R. E. Bellman y L. R. Ford quienes lo publicaron independientemente
+en 1958 y 1956, respectivamente \cite{bel58,for56a}.} encuentra
+caminos más cortos desde un nodo de inicio hasta todos
+los nodos del grafo.
+El algoritmo puede procesar todo tipo de grafos,
+siempre que el grafo no contenga un
+ciclo con longitud negativa.
+Si el grafo contiene un ciclo negativo,
+el algoritmo puede detectarlo.
 
-The algorithm keeps track of distances
-from the starting node to all nodes of the graph.
-Initially, the distance to the starting node is 0
-and the distance to all other nodes in infinite.
-The algorithm reduces the distances by finding
-edges that shorten the paths until it is not
-possible to reduce any distance.
+El algoritmo realiza un seguimiento de las distancias
+desde el nodo de inicio hasta todos los nodos del grafo.
+Inicialmente, la distancia al nodo de inicio es 0
+y la distancia a todos los demás nodos es infinita.
+El algoritmo reduce las distancias encontrando
+aristas que acortan los caminos hasta que ya no es
+posible reducir ninguna distancia.
 
-\subsubsection{Example}
+\subsubsection{Ejemplo}
 
-Let us consider how the Bellman–Ford algorithm
-works in the following graph:
+Consideremos cómo funciona el algoritmo de Bellman–Ford
+en el siguiente grafo:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (1,3) {1};
@@ -68,12 +67,12 @@ works in the following graph:
 \path[draw,thick,-] (1) -- node[font=\small,label=above:7] {} (4);
 \end{tikzpicture}
 \end{center}
-Each node of the graph is assigned a distance.
-Initially, the distance to the starting node is 0,
-and the distance to all other nodes is infinite.
+A cada nodo del grafo se le asigna una distancia.
+Inicialmente, la distancia al nodo de inicio es 0,
+y la distancia a todos los demás nodos es infinita.
 
-The algorithm searches for edges that reduce distances.
-First, all edges from node 1 reduce distances:
+El algoritmo busca aristas que reduzcan distancias.
+Primero, todas las aristas desde el nodo 1 reducen distancias:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (1,3) {1};
@@ -99,9 +98,9 @@ First, all edges from node 1 reduce distances:
 \path[draw=red,thick,->,line width=2pt] (1) -- (4);
 \end{tikzpicture}
 \end{center}
-After this, edges
-$2 \rightarrow 5$ and $3 \rightarrow 4$
-reduce distances:
+Después de esto, las aristas
+$2 \rightarrow 5$ y $3 \rightarrow 4$
+reducen distancias:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (1,3) {1};
@@ -126,7 +125,7 @@ reduce distances:
 \path[draw=red,thick,->,line width=2pt] (3) -- (4);
 \end{tikzpicture}
 \end{center}
-Finally, there is one more change:
+Finalmente, hay un cambio más:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (1,3) {1};
@@ -151,15 +150,15 @@ Finally, there is one more change:
 \end{tikzpicture}
 \end{center}
 
-After this, no edge can reduce any distance.
-This means that the distances are final,
-and we have successfully
-calculated the shortest distances
-from the starting node to all nodes of the graph.
+Después de esto, ninguna arista puede reducir ninguna distancia.
+Esto significa que las distancias son finales,
+y hemos calculado exitosamente
+las distancias más cortas
+desde el nodo inicial a todos los nodos del grafo.
 
-For example, the shortest distance 3
-from node 1 to node 5 corresponds to
-the following path:
+Por ejemplo, la distancia más corta 3
+desde el nodo 1 al nodo 5 corresponde a
+la siguiente ruta:
 
 \begin{center}
 \begin{tikzpicture}
@@ -187,25 +186,25 @@ the following path:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Implementation}
+\subsubsection{Implementación}
 
-The following implementation of the
-Bellman–Ford algorithm determines the shortest distances
-from a node $x$ to all nodes of the graph.
-The code assumes that the graph is stored
-as an edge list \texttt{edges}
-that consists of tuples of the form $(a,b,w)$,
-meaning that there is an edge from node $a$ to node $b$
-with weight $w$.
+La siguiente implementación del
+algoritmo de Bellman–Ford determina las distancias más cortas
+desde un nodo $x$ a todos los nodos del grafo.
+El código asume que el grafo está almacenado
+como una lista de aristas \texttt{edges}
+que consiste en tuplas de la forma $(a,b,w)$,
+lo que significa que hay una arista desde el nodo $a$ al nodo $b$
+con peso $w$.
 
-The algorithm consists of $n-1$ rounds,
-and on each round the algorithm goes through
-all edges of the graph and tries to
-reduce the distances.
-The algorithm constructs an array \texttt{distance}
-that will contain the distances from $x$
-to all nodes of the graph.
-The constant \texttt{INF} denotes an infinite distance.
+El algoritmo consta de $n-1$ rondas,
+y en cada ronda el algoritmo recorre
+todas las aristas del grafo e intenta
+reducir las distancias.
+El algoritmo construye una matriz \texttt{distance}
+que contendrá las distancias desde $x$
+a todos los nodos del grafo.
+La constante \texttt{INF} denota una distancia infinita.
 
 \begin{lstlisting}
 for (int i = 1; i <= n; i++) distance[i] = INF;
@@ -219,26 +218,26 @@ for (int i = 1; i <= n-1; i++) {
 }
 \end{lstlisting}
 
-The time complexity of the algorithm is $O(nm)$,
-because the algorithm consists of $n-1$ rounds and
-iterates through all $m$ edges during a round.
-If there are no negative cycles in the graph,
-all distances are final after $n-1$ rounds,
-because each shortest path can contain at most $n-1$ edges.
+La complejidad temporal del algoritmo es $O(nm)$,
+porque el algoritmo consta de $n-1$ rondas y
+itera a través de todas las $m$ aristas durante una ronda.
+Si no hay ciclos negativos en el grafo,
+todas las distancias son finales después de $n-1$ rondas,
+porque cada ruta más corta puede contener como máximo $n-1$ aristas.
 
-In practice, the final distances can usually
-be found faster than in $n-1$ rounds.
-Thus, a possible way to make the algorithm more efficient
-is to stop the algorithm if no distance
-can be reduced during a round.
+En la práctica, las distancias finales generalmente
+se pueden encontrar más rápido que en $n-1$ rondas.
+Por lo tanto, una forma posible de hacer que el algoritmo sea más eficiente
+es detener el algoritmo si ninguna distancia
+se puede reducir durante una ronda.
 
-\subsubsection{Negative cycles}
+\subsubsection{Ciclos negativos}
 
-\index{negative cycle}
+\index{ciclo negativo}
 
-The Bellman–Ford algorithm can also be used to
-check if the graph contains a cycle with negative length.
-For example, the graph
+El algoritmo de Bellman–Ford también se puede usar para
+comprobar si el grafo contiene un ciclo con longitud negativa.
+Por ejemplo, el grafo
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -255,53 +254,55 @@ For example, the graph
 \end{tikzpicture}
 \end{center}
 \noindent
-contains a negative cycle
+contiene un ciclo negativo
 $2 \rightarrow 3 \rightarrow 4 \rightarrow 2$
-with length $-4$.
+con longitud $-4$.
 
-If the graph contains a negative cycle,
-we can shorten infinitely many times
-any path that contains the cycle by repeating the cycle
-again and again.
-Thus, the concept of a shortest path
-is not meaningful in this situation.
 
-A negative cycle can be detected
-using the Bellman–Ford algorithm by
-running the algorithm for $n$ rounds.
-If the last round reduces any distance,
-the graph contains a negative cycle.
-Note that this algorithm can be used to
-search for
-a negative cycle in the whole graph
-regardless of the starting node.
 
-\subsubsection{SPFA algorithm}
+Si el grafo contiene un ciclo negativo,
+podemos acortar infinitamente muchas veces
+cualquier camino que contenga el ciclo repitiendo el ciclo
+una y otra vez.
+Por lo tanto, el concepto de camino más corto
+no tiene sentido en esta situación.
 
-\index{SPFA algorithm}
+Un ciclo negativo se puede detectar
+utilizando el algoritmo de Bellman–Ford mediante
+la ejecución del algoritmo durante $n$ rondas.
+Si la última ronda reduce cualquier distancia,
+el grafo contiene un ciclo negativo.
+Tenga en cuenta que este algoritmo se puede usar para
+buscar
+un ciclo negativo en todo el grafo
+independientemente del nodo de inicio.
 
-The \key{SPFA algorithm} (''Shortest Path Faster Algorithm'') \cite{fan94}
-is a variant of the Bellman–Ford algorithm,
-that is often more efficient than the original algorithm.
-The SPFA algorithm does not go through all the edges on each round,
-but instead, it chooses the edges to be examined
-in a more intelligent way.
+\subsubsection{Algoritmo SPFA}
 
-The algorithm maintains a queue of nodes that might
-be used for reducing the distances.
-First, the algorithm adds the starting node $x$
-to the queue.
-Then, the algorithm always processes the
-first node in the queue, and when an edge
-$a \rightarrow b$ reduces a distance,
-node $b$ is added to the queue.
+\index{Algoritmo SPFA}
+
+El \key{algoritmo SPFA} (''Shortest Path Faster Algorithm'') \cite{fan94}
+es una variante del algoritmo de Bellman–Ford,
+que a menudo es más eficiente que el algoritmo original.
+El algoritmo SPFA no recorre todos los bordes en cada ronda,
+sino que, en cambio, elige los bordes que se examinarán
+de una manera más inteligente.
+
+El algoritmo mantiene una cola de nodos que podrían
+usarse para reducir las distancias.
+Primero, el algoritmo agrega el nodo de inicio $x$
+a la cola.
+Luego, el algoritmo siempre procesa el
+primer nodo en la cola, y cuando un borde
+$a \rightarrow b$ reduce una distancia,
+el nodo $b$ se agrega a la cola.
 % 
-% The following implementation uses a 
-% \texttt{queue} \texttt{q}.
-% In addition, an array \texttt{inqueue} indicates
-% if a node is already in the queue,
-% in which case the algorithm does not add
-% the node to the queue again.
+% La siguiente implementación utiliza una 
+% \texttt{cola} \texttt{q}.
+% Además, una matriz \texttt{inqueue} indica
+% si un nodo ya está en la cola,
+% en cuyo caso el algoritmo no agrega
+% el nodo a la cola de nuevo.
 % 
 % \begin{lstlisting}
 % for (int i = 1; i <= n; i++) distance[i] = INF;
@@ -319,42 +320,42 @@ node $b$ is added to the queue.
 % }
 % \end{lstlisting}
 
-The efficiency of the SPFA algorithm depends
-on the structure of the graph:
-the algorithm is often efficient,
-but its worst case time complexity is still
-$O(nm)$ and it is possible to create inputs
-that make the algorithm as slow as the
-original Bellman–Ford algorithm.
+La eficiencia del algoritmo SPFA depende
+de la estructura del grafo:
+el algoritmo suele ser eficiente,
+pero su complejidad temporal en el peor de los casos sigue siendo
+$O(nm)$ y es posible crear entradas
+que hagan que el algoritmo sea tan lento como el
+algoritmo original de Bellman–Ford.
 
-\section{Dijkstra's algorithm}
+\section{Algoritmo de Dijkstra}
 
-\index{Dijkstra's algorithm}
+\index{Algoritmo de Dijkstra}
 
-\key{Dijkstra's algorithm}\footnote{E. W. Dijkstra published the algorithm in 1959 \cite{dij59};
-however, his original paper does not mention how to implement the algorithm efficiently.}
-finds shortest
-paths from the starting node to all nodes of the graph,
-like the Bellman–Ford algorithm.
-The benefit of Dijsktra's algorithm is that
-it is more efficient and can be used for
-processing large graphs.
-However, the algorithm requires that there
-are no negative weight edges in the graph.
+El \key{algoritmo de Dijkstra}\footnote{E. W. Dijkstra publicó el algoritmo en 1959 \cite{dij59};
+sin embargo, su documento original no menciona cómo implementar el algoritmo de manera eficiente.}
+encuentra los caminos más cortos
+desde el nodo de inicio hasta todos los nodos del grafo,
+como el algoritmo de Bellman–Ford.
+La ventaja del algoritmo de Dijsktra es que
+es más eficiente y se puede usar para
+procesar grafos grandes.
+Sin embargo, el algoritmo requiere que haya
+bordes sin peso negativo en el grafo.
 
-Like the Bellman–Ford algorithm,
-Dijkstra's algorithm maintains distances
-to the nodes and reduces them during the search.
-Dijkstra's algorithm is efficient, because
-it only processes
-each edge in the graph once, using the fact
-that there are no negative edges.
+Al igual que el algoritmo de Bellman–Ford,
+el algoritmo de Dijkstra mantiene las distancias
+a los nodos y las reduce durante la búsqueda.
+El algoritmo de Dijkstra es eficiente porque
+solo procesa
+cada borde en el grafo una vez, utilizando el hecho
+de que no hay bordes negativos.
 
-\subsubsection{Example}
+\subsubsection{Ejemplo}
 
-Let us consider how Dijkstra's algorithm
-works in the following graph when the
-starting node is node 1:
+Consideremos cómo funciona el algoritmo de Dijkstra
+en el siguiente grafo cuando el
+nodo de inicio es el nodo 1:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,3) {3};
@@ -377,18 +378,18 @@ starting node is node 1:
 \path[draw,thick,-] (4) -- node[font=\small,label=below:1] {} (5);
 \end{tikzpicture}
 \end{center}
-Like in the Bellman–Ford algorithm,
-initially the distance to the starting node is 0
-and the distance to all other nodes is infinite.
+Al igual que en el algoritmo de Bellman–Ford,
+inicialmente la distancia al nodo de inicio es 0
+y la distancia a todos los demás nodos es infinita.
 
-At each step, Dijkstra's algorithm selects a node
-that has not been processed yet and whose distance
-is as small as possible.
-The first such node is node 1 with distance 0.
+En cada paso, el algoritmo de Dijkstra selecciona un nodo
+que aún no se ha procesado y cuya distancia
+es lo más pequeña posible.
+El primer nodo de este tipo es el nodo 1 con distancia 0.
 
-When a node is selected, the algorithm
-goes through all edges that start at the node
-and reduces the distances using them:
+Cuando se selecciona un nodo, el algoritmo
+recorre todos los bordes que comienzan en el nodo
+y reduce las distancias usándolos:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,3) {3};
@@ -415,12 +416,12 @@ and reduces the distances using them:
 \path[draw=red,thick,->,line width=2pt] (4) -- (5);
 \end{tikzpicture}
 \end{center}
-In this case,
-the edges from node 1 reduced the distances of
-nodes 2, 4 and 5, whose distances are now 5, 9 and 1.
+En este caso,
+los bordes del nodo 1 redujeron las distancias de
+los nodos 2, 4 y 5, cuyas distancias ahora son 5, 9 y 1.
 
-The next node to be processed is node 5 with distance 1.
-This reduces the distance to node 4 from 9 to 3:
+El siguiente nodo que se procesará es el nodo 5 con distancia 1.
+Esto reduce la distancia al nodo 4 de 9 a 3:
 \begin{center}
 \begin{tikzpicture}
 \node[draw, circle] (1) at (1,3) {3};
@@ -445,8 +446,8 @@ This reduces the distance to node 4 from 9 to 3:
 \path[draw=red,thick,->,line width=2pt] (5) -- (2);
 \end{tikzpicture}
 \end{center}
-After this, the next node is node 4, which reduces
-the distance to node 3 to 9:
+Después de esto, el siguiente nodo es el nodo 4, que reduce
+la distancia al nodo 3 a 9:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,3) {3};
@@ -472,14 +473,14 @@ the distance to node 3 to 9:
 \end{tikzpicture}
 \end{center}
 
-A remarkable property in Dijkstra's algorithm is that
-whenever a node is selected, its distance is final.
-For example, at this point of the algorithm,
-the distances 0, 1 and 3 are the final distances
-to nodes 1, 5 and 4.
+Una propiedad notable en el algoritmo de Dijkstra es que
+cada vez que se selecciona un nodo, su distancia es final.
+Por ejemplo, en este punto del algoritmo,
+las distancias 0, 1 y 3 son las distancias finales
+a los nodos 1, 5 y 4.
 
-After this, the algorithm processes the two
-remaining nodes, and the final distances are as follows:
+Después de esto, el algoritmo procesa los dos
+nodos restantes, y las distancias finales son las siguientes:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -504,14 +505,14 @@ remaining nodes, and the final distances are as follows:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Negative edges}
+\subsubsection{Aristas negativas}
 
-The efficiency of Dijkstra's algorithm is
-based on the fact that the graph does not
-contain negative edges.
-If there is a negative edge,
-the algorithm may give incorrect results.
-As an example, consider the following graph:
+La eficiencia del algoritmo de Dijkstra es
+basada en el hecho de que el gráfico no
+contiene aristas negativas.
+Si hay una arista negativa,
+el algoritmo puede dar resultados incorrectos.
+Como ejemplo, considere el siguiente gráfico:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -527,41 +528,41 @@ As an example, consider the following graph:
 \end{tikzpicture}
 \end{center}
 \noindent
-The shortest path from node 1 to node 4 is
+El camino más corto desde el nodo 1 hasta el nodo 4 es
 $1 \rightarrow 3 \rightarrow 4$
-and its length is 1.
-However, Dijkstra's algorithm
-finds the path $1 \rightarrow 2 \rightarrow 4$
-by following the minimum weight edges.
-The algorithm does not take into account that
-on the other path, the weight $-5$
-compensates the previous large weight $6$.
+y su longitud es 1.
+Sin embargo, el algoritmo de Dijkstra
+encuentra el camino $1 \rightarrow 2 \rightarrow 4$
+siguiendo las aristas de peso mínimo.
+El algoritmo no tiene en cuenta que
+en el otro camino, el peso $-5$
+compensa el peso anterior grande $6$.
 
-\subsubsection{Implementation}
+\subsubsection{Implementación}
 
-The following implementation of Dijkstra's algorithm
-calculates the minimum distances from a node $x$
-to other nodes of the graph.
-The graph is stored as adjacency lists
-so that \texttt{adj[$a$]} contains a pair $(b,w)$
-always when there is an edge from node $a$ to node $b$
-with weight $w$.
+La siguiente implementación del algoritmo de Dijkstra
+calcula las distancias mínimas desde un nodo $x$
+a otros nodos del gráfico.
+El gráfico se almacena como listas de adyacencia
+de modo que \texttt{adj[$a$]} contiene un par $(b,w)$
+siempre que haya una arista desde el nodo $a$ hasta el nodo $b$
+con peso $w$.
 
-An efficient implementation of Dijkstra's algorithm
-requires that it is possible to efficiently find the
-minimum distance node that has not been processed.
-An appropriate data structure for this is a priority queue
-that contains the nodes ordered by their distances.
-Using a priority queue, the next node to be processed
-can be retrieved in logarithmic time.
+Una implementación eficiente del algoritmo de Dijkstra
+requiere que sea posible encontrar eficientemente el
+nodo de distancia mínima que no se ha procesado.
+Una estructura de datos apropiada para esto es una cola de prioridad
+que contiene los nodos ordenados por sus distancias.
+Usando una cola de prioridad, el siguiente nodo a procesar
+se puede recuperar en tiempo logarítmico.
 
-In the following code, the priority queue
-\texttt{q} contains pairs of the form $(-d,x)$,
-meaning that the current distance to node $x$ is $d$.
-The array $\texttt{distance}$ contains the distance to
-each node, and the array $\texttt{processed}$ indicates
-whether a node has been processed.
-Initially the distance is $0$ to $x$ and $\infty$ to all other nodes.
+En el siguiente código, la cola de prioridad
+\texttt{q} contiene pares de la forma $(-d,x)$,
+lo que significa que la distancia actual al nodo $x$ es $d$.
+El array \texttt{distance} contiene la distancia a
+cada nodo, y el array \texttt{processed} indica
+si un nodo se ha procesado.
+Inicialmente la distancia es $0$ a $x$ e $\infty$ a todos los demás nodos.
 
 \begin{lstlisting}
 for (int i = 1; i <= n; i++) distance[i] = INF;
@@ -581,48 +582,48 @@ while (!q.empty()) {
 }
 \end{lstlisting}
 
-Note that the priority queue contains \emph{negative}
-distances to nodes.
-The reason for this is that the
-default version of the C++ priority queue finds maximum
-elements, while we want to find minimum elements.
-By using negative distances,
-we can directly use the default priority queue\footnote{Of
-course, we could also declare the priority queue as in Chapter 4.5
-and use positive distances, but the implementation would be a bit longer.}.
-Also note that there may be several instances of the same
-node in the priority queue; however, only the instance with the
-minimum distance will be processed.
+Tenga en cuenta que la cola de prioridad contiene \emph{negativas}
+distancias a los nodos.
+La razón de esto es que
+la versión predeterminada de la cola de prioridad de C++ encuentra el máximo
+elementos, mientras que queremos encontrar elementos mínimos.
+Al usar distancias negativas,
+podemos usar directamente la cola de prioridad predeterminada\footnote{Por
+supuesto, también podríamos declarar la cola de prioridad como en el Capítulo 4.5
+y usar distancias positivas, pero la implementación sería un poco más larga.}.
+También tenga en cuenta que puede haber varias instancias del mismo
+nodo en la cola de prioridad; sin embargo, solo la instancia con la
+distancia mínima será procesada.
 
-The time complexity of the above implementation is
-$O(n+m \log m)$, because the algorithm goes through
-all nodes of the graph and adds for each edge
-at most one distance to the priority queue.
+La complejidad temporal de la implementación anterior es
+$O(n+m \log m)$, porque el algoritmo pasa por
+todos los nodos del gráfico y agrega para cada arista
+como máximo una distancia a la cola de prioridad.
 
-\section{Floyd–Warshall algorithm}
+\section{Algoritmo de Floyd–Warshall}
 
-\index{Floyd–Warshall algorithm}
+\index{Algoritmo de Floyd–Warshall}
 
-The \key{Floyd–Warshall algorithm}\footnote{The algorithm
-is named after R. W. Floyd and S. Warshall
-who published it independently in 1962 \cite{flo62,war62}.}
-provides an alternative way to approach the problem
-of finding shortest paths.
-Unlike the other algorithms of this chapter,
-it finds all shortest paths between the nodes
-in a single run.
+El \key{algoritmo de Floyd–Warshall}\footnote{El algoritmo
+lleva el nombre de R. W. Floyd y S. Warshall
+que lo publicaron de forma independiente en 1962 \cite{flo62,war62}.}
+proporciona una forma alternativa de abordar el problema
+de encontrar las rutas más cortas.
+A diferencia de los otros algoritmos de este capítulo,
+encuentra todas las rutas más cortas entre los nodos
+en una sola pasada.
 
-The algorithm maintains a two-dimensional array
-that contains distances between the nodes.
-First, distances are calculated only using
-direct edges between the nodes,
-and after this, the algorithm reduces distances
-by using intermediate nodes in paths.
+El algoritmo mantiene una matriz bidimensional
+que contiene las distancias entre los nodos.
+Primero, las distancias se calculan solo usando
+aristas directas entre los nodos,
+y después de esto, el algoritmo reduce las distancias
+usando nodos intermedios en las rutas.
 
-\subsubsection{Example}
+\subsubsection{Ejemplo}
 
-Let us consider how the Floyd–Warshall algorithm
-works in the following graph:
+Consideremos cómo funciona el algoritmo de Floyd–Warshall
+en el siguiente gráfico:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -641,12 +642,11 @@ works in the following graph:
 \end{tikzpicture}
 \end{center}
 
-Initially, the distance from each node to itself is $0$,
-and the distance between nodes $a$ and $b$ is $x$
-if there is an edge between nodes $a$ and $b$ with weight $x$.
-All other distances are infinite.
-
-In this graph, the initial array is as follows:
+Inicialmente, la distancia desde cada nodo a sí mismo es $0$,
+y la distancia entre los nodos $a$ y $b$ es $x$
+si hay una arista entre los nodos $a$ y $b$ con peso $x$.
+Todas las demás distancias son infinitas.
+En este gráfico, la matriz inicial es la siguiente:
 \begin{center}
 \begin{tabular}{r|rrrrr}
  & 1 & 2 & 3 & 4 & 5 \\
@@ -659,16 +659,16 @@ In this graph, the initial array is as follows:
 \end{tabular}
 \end{center}
 \vspace{10pt}
-The algorithm consists of consecutive rounds.
-On each round, the algorithm selects a new node
-that can act as an intermediate node in paths from now on,
-and distances are reduced using this node.
+El algoritmo consiste en rondas consecutivas.
+En cada ronda, el algoritmo selecciona un nuevo nodo
+que puede actuar como un nodo intermedio en las rutas a partir de ahora,
+y las distancias se reducen usando este nodo.
 
-On the first round, node 1 is the new intermediate node.
-There is a new path between nodes 2 and 4
-with length 14, because node 1 connects them.
-There is also a new path 
-between nodes 2 and 5 with length 6.
+En la primera ronda, el nodo 1 es el nuevo nodo intermedio.
+Hay una nueva ruta entre los nodos 2 y 4
+con longitud 14, porque el nodo 1 los conecta.
+También hay una nueva ruta 
+entre los nodos 2 y 5 con longitud 6.
 
 \begin{center}
 \begin{tabular}{r|rrrrr}
@@ -683,9 +683,9 @@ between nodes 2 and 5 with length 6.
 \end{center}
 \vspace{10pt}
 
-On the second round, node 2 is the new intermediate node.
-This creates new paths between nodes 1 and 3
-and between nodes 3 and 5:
+En la segunda ronda, el nodo 2 es el nuevo nodo intermedio.
+Esto crea nuevas rutas entre los nodos 1 y 3
+y entre los nodos 3 y 5:
 
 \begin{center}
 \begin{tabular}{r|rrrrr}
@@ -700,8 +700,8 @@ and between nodes 3 and 5:
 \end{center}
 \vspace{10pt}
 
-On the third round, node 3 is the new intermediate round.
-There is a new path between nodes 2 and 4:
+En la tercera ronda, el nodo 3 es el nuevo nodo intermedio.
+Hay una nueva ruta entre los nodos 2 y 4:
 
 \begin{center}
 \begin{tabular}{r|rrrrr}
@@ -716,10 +716,10 @@ There is a new path between nodes 2 and 4:
 \end{center}
 \vspace{10pt}
 
-The algorithm continues like this,
-until all nodes have been appointed intermediate nodes.
-After the algorithm has finished, the array contains
-the minimum distances between any two nodes:
+El algoritmo continúa así,
+hasta que todos los nodos han sido nombrados nodos intermedios.
+Después de que el algoritmo ha terminado, la matriz contiene
+las distancias mínimas entre dos nodos cualesquiera:
 
 \begin{center}
 \begin{tabular}{r|rrrrr}
@@ -733,9 +733,9 @@ the minimum distances between any two nodes:
 \end{tabular}
 \end{center}
 
-For example, the array tells us that the
-shortest distance between nodes 2 and 4 is 8.
-This corresponds to the following path:
+Por ejemplo, la matriz nos dice que la
+distancia más corta entre los nodos 2 y 4 es 8.
+Esto corresponde a la siguiente ruta:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -758,16 +758,16 @@ This corresponds to the following path:
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Implementation}
+\subsubsection{Implementación}
 
-The advantage of the
-Floyd–Warshall algorithm that it is
-easy to implement.
-The following code constructs a
-distance matrix where $\texttt{distance}[a][b]$
-is the shortest distance between nodes $a$ and $b$.
-First, the algorithm initializes \texttt{distance}
-using the adjacency matrix \texttt{adj} of the graph:
+La ventaja del
+algoritmo de Floyd–Warshall es que es
+fácil de implementar.
+El siguiente código construye una
+matriz de distancia donde $\texttt{distance}[a][b]$
+es la distancia más corta entre los nodos $a$ y $b$.
+Primero, el algoritmo inicializa \texttt{distance}
+usando la matriz de adyacencia \texttt{adj} del gráfico:
 
 \begin{lstlisting}
 for (int i = 1; i <= n; i++) {
@@ -778,7 +778,7 @@ for (int i = 1; i <= n; i++) {
     }
 }
 \end{lstlisting}
-After this, the shortest distances can be found as follows:
+Después de esto, las distancias más cortas se pueden encontrar de la siguiente manera:
 \begin{lstlisting}
 for (int k = 1; k <= n; k++) {
     for (int i = 1; i <= n; i++) {
@@ -790,13 +790,13 @@ for (int k = 1; k <= n; k++) {
 }
 \end{lstlisting}
 
-The time complexity of the algorithm is $O(n^3)$,
-because it contains three nested loops
-that go through the nodes of the graph.
+La complejidad temporal del algoritmo es $O(n^3)$,
+porque contiene tres bucles anidados
+que recorren los nodos del gráfico.
 
-Since the implementation of the Floyd–Warshall
-algorithm is simple, the algorithm can be
-a good choice even if it is only needed to find a
-single shortest path in the graph.
-However, the algorithm can only be used when the graph
-is so small that a cubic time complexity is fast enough.
+Dado que la implementación del algoritmo de Floyd–Warshall
+es simple, el algoritmo puede ser
+una buena opción incluso si solo se necesita para encontrar un
+solo camino más corto en el gráfico.
+Sin embargo, el algoritmo solo se puede usar cuando el gráfico
+es tan pequeño que una complejidad temporal cúbica es lo suficientemente rápida.

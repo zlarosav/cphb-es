@@ -1,132 +1,131 @@
-\chapter{Greedy algorithms}
+\chapter{Algoritmos voraces}
 
-\index{greedy algorithm}
+\index{algoritmo voraz}
 
-A \key{greedy algorithm}
-constructs a solution to the problem
-by always making a choice that looks
-the best at the moment.
-A greedy algorithm never takes back
-its choices, but directly constructs
-the final solution.
-For this reason, greedy algorithms
-are usually very efficient.
+Un \key{algoritmo voraz}
+construye una solución al problema
+tomando siempre la decisión que parece
+mejor en ese momento.
+Un algoritmo voraz nunca revoca
+sus decisiones, sino que construye directamente
+la solución final.
+Por esta razón, los algoritmos voraces
+suelen ser muy eficientes.
 
-The difficulty in designing greedy algorithms
-is to find a greedy strategy
-that always produces an optimal solution
-to the problem.
-The locally optimal choices in a greedy
-algorithm should also be globally optimal.
-It is often difficult to argue that
-a greedy algorithm works.
+La dificultad en el diseño de algoritmos voraces
+es encontrar una estrategia voraz
+que siempre produzca una solución óptima
+al problema.
+Las decisiones localmente óptimas en un algoritmo voraz
+también deberían ser globalmente óptimas.
+A menudo es difícil argumentar que
+un algoritmo voraz funciona.
 
-\section{Coin problem}
+\section{Problema de la moneda}
 
-As a first example, we consider a problem
-where we are given a set of coins
-and our task is to form a sum of money $n$
-using the coins.
-The values of the coins are
+Como primer ejemplo, consideramos un problema
+en el que se nos da un conjunto de monedas
+y nuestra tarea es formar una suma de dinero $n$
+usando las monedas.
+Los valores de las monedas son
 $\texttt{coins}=\{c_1,c_2,\ldots,c_k\}$,
-and each coin can be used as many times we want.
-What is the minimum number of coins needed?
+y cada moneda se puede usar tantas veces como queramos.
+¿Cuál es el número mínimo de monedas necesarias?
 
-For example, if the coins are the euro coins (in cents)
+Por ejemplo, si las monedas son las monedas de euro (en céntimos)
 \[\{1,2,5,10,20,50,100,200\}\]
-and $n=520$,
-we need at least four coins.
-The optimal solution is to select coins
-$200+200+100+20$ whose sum is 520.
+y $n=520$,
+necesitamos al menos cuatro monedas.
+La solución óptima es seleccionar monedas
+$200+200+100+20$ cuya suma es 520.
 
-\subsubsection{Greedy algorithm}
+\subsubsection{Algoritmo voraz}
 
-A simple greedy algorithm to the problem
-always selects the largest possible coin,
-until the required sum of money has been constructed.
-This algorithm works in the example case,
-because we first select two 200 cent coins,
-then one 100 cent coin and finally one 20 cent coin.
-But does this algorithm always work?
+Un algoritmo voraz simple para el problema
+siempre selecciona la moneda más grande posible,
+hasta que se ha construido la suma de dinero requerida.
+Este algoritmo funciona en el caso de ejemplo,
+porque primero seleccionamos dos monedas de 200 céntimos,
+luego una moneda de 100 céntimos y finalmente una moneda de 20 céntimos.
+¿Pero este algoritmo siempre funciona?
 
-It turns out that if the coins are the euro coins,
-the greedy algorithm \emph{always} works, i.e.,
-it always produces a solution with the fewest
-possible number of coins.
-The correctness of the algorithm can be
-shown as follows:
+Resulta que si las monedas son las monedas de euro,
+el algoritmo voraz \emph{siempre} funciona, es decir,
+siempre produce una solución con el menor
+número posible de monedas.
+La corrección del algoritmo se puede
+mostrar como sigue:
 
-First, each coin 1, 5, 10, 50 and 100 appears
-at most once in an optimal solution,
-because if the
-solution would contain two such coins,
-we could replace them by one coin and
-obtain a better solution.
-For example, if the solution would contain
-coins $5+5$, we could replace them by coin $10$.
+Primero, cada moneda 1, 5, 10, 50 y 100 aparece
+como máximo una vez en una solución óptima,
+porque si la
+solución contendría dos de esas monedas,
+podríamos reemplazarlas por una moneda y
+obtener una mejor solución.
+Por ejemplo, si la solución contendría
+monedas $5+5$, podríamos reemplazarlas por la moneda $10$.
 
-In the same way, coins 2 and 20 appear
-at most twice in an optimal solution,
-because we could replace
-coins $2+2+2$ by coins $5+1$ and
-coins $20+20+20$ by coins $50+10$.
-Moreover, an optimal solution cannot contain
-coins $2+2+1$ or $20+20+10$,
-because we could replace them by coins $5$ and $50$.
+De la misma manera, las monedas 2 y 20 aparecen
+como máximo dos veces en una solución óptima,
+porque podríamos reemplazar
+monedas $2+2+2$ por monedas $5+1$ y
+monedas $20+20+20$ por monedas $50+10$.
+Además, una solución óptima no puede contener
+monedas $2+2+1$ o $20+20+10$,
+porque podríamos reemplazarlas por monedas $5$ y $50$.
 
-Using these observations,
-we can show for each coin $x$ that
-it is not possible to optimally construct
-a sum $x$ or any larger sum by only using coins
-that are smaller than $x$.
-For example, if $x=100$, the largest optimal
-sum using the smaller coins is  $50+20+20+5+2+2=99$.
-Thus, the greedy algorithm that always selects
-the largest coin produces the optimal solution.
+Usando estas observaciones,
+podemos mostrar para cada moneda $x$ que
+no es posible construir óptimamente
+una suma $x$ o cualquier suma mayor usando solo monedas
+que son más pequeñas que $x$.
+Por ejemplo, si $x=100$, la suma óptima más grande
+usando las monedas más pequeñas es  $50+20+20+5+2+2=99$.
+Por lo tanto, el algoritmo voraz que siempre selecciona
+la moneda más grande produce la solución óptima.
 
-This example shows that it can be difficult
-to argue that a greedy algorithm works,
-even if the algorithm itself is simple.
+Este ejemplo muestra que puede ser difícil
+argumentar que un algoritmo voraz funciona,
+incluso si el algoritmo en sí es simple.
 
-\subsubsection{General case}
+\subsubsection{Caso general}
 
-In the general case, the coin set can contain any coins
-and the greedy algorithm \emph{does not} necessarily produce
-an optimal solution.
+En el caso general, el conjunto de monedas puede contener cualquier moneda
+y el algoritmo voraz \emph{no} produce necesariamente
+una solución óptima.
 
-We can prove that a greedy algorithm does not work
-by showing a counterexample
-where the algorithm gives a wrong answer.
-In this problem we can easily find a counterexample:
-if the coins are $\{1,3,4\}$ and the target sum
-is 6, the greedy algorithm produces the solution
-$4+1+1$ while the optimal solution is $3+3$.
+Podemos probar que un algoritmo voraz no funciona
+mostrando un contraejemplo
+donde el algoritmo da una respuesta incorrecta.
+En este problema podemos encontrar fácilmente un contraejemplo:
+si las monedas son $\{1,3,4\}$ y la suma objetivo
+es 6, el algoritmo voraz produce la solución
+$4+1+1$ mientras que la solución óptima es $3+3$.
 
-It is not known if the general coin problem
-can be solved using any greedy algorithm\footnote{However, it is possible
-to \emph{check} in polynomial time
-if the greedy algorithm presented in this chapter works for
-a given set of coins \cite{pea05}.}.
-However, as we will see in Chapter 7,
-in some cases,
-the general problem can be efficiently
-solved using a dynamic
-programming algorithm that always gives the
-correct answer.
+No se sabe si el problema general de la moneda
+se puede resolver usando algún algoritmo voraz\footnote{Sin embargo, es posible
+\emph{comprobar} en tiempo polinomial
+si el algoritmo voraz presentado en este capítulo funciona para
+un conjunto dado de monedas \cite{pea05}.}.
+Sin embargo, como veremos en el Capítulo 7,
+en algunos casos,
+el problema general se puede resolver de manera eficiente
+utilizando un algoritmo de programación dinámica que siempre da la
+respuesta correcta.
 
-\section{Scheduling}
+\section{Planificación}
 
-Many scheduling problems can be solved
-using greedy algorithms.
-A classic problem is as follows:
-Given $n$ events with their starting and ending
-times, find a schedule
-that includes as many events as possible.
-It is not possible to select an event partially.
-For example, consider the following events:
+Muchos problemas de planificación se pueden resolver
+usando algoritmos voraces.
+Un problema clásico es el siguiente:
+Dado $n$ eventos con sus tiempos de inicio y fin,
+encuentra un horario
+que incluya tantos eventos como sea posible.
+No es posible seleccionar un evento parcialmente.
+Por ejemplo, considere los siguientes eventos:
 \begin{center}
 \begin{tabular}{lll}
-event & starting time & ending time \\
+evento & tiempo de inicio & tiempo de fin \\
 \hline
 $A$ & 1 & 3 \\
 $B$ & 2 & 5 \\
@@ -134,9 +133,9 @@ $C$ & 3 & 9 \\
 $D$ & 6 & 8 \\
 \end{tabular}
 \end{center}
-In this case the maximum number of events is two.
-For example, we can select events $B$ and $D$
-as follows:
+En este caso, el número máximo de eventos es dos.
+Por ejemplo, podemos seleccionar los eventos $B$ y $D$
+de la siguiente manera:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -152,15 +151,13 @@ as follows:
 \end{tikzpicture}
 \end{center}
 
-It is possible to invent several greedy algorithms
-for the problem, but which of them works in every case?
+Es posible inventar varios algoritmos voraces
+para el problema, pero ¿cuál de ellos funciona en todos los casos?
 
-\subsubsection*{Algorithm 1}
-
-The first idea is to select as \emph{short}
-events as possible.
-In the example case this algorithm
-selects the following events:
+\subsubsection*{Algoritmo 1}
+La primera idea es seleccionar eventos tan \emph{cortos} como sea posible.
+En el caso del ejemplo, este algoritmo
+selecciona los siguientes eventos:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -176,9 +173,9 @@ selects the following events:
 \end{tikzpicture}
 \end{center}
 
-However, selecting short events is not always
-a correct strategy. For example, the algorithm fails
-in the following case:
+Sin embargo, seleccionar eventos cortos no siempre
+es una estrategia correcta. Por ejemplo, el algoritmo falla
+en el siguiente caso:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -188,14 +185,14 @@ in the following case:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-If we select the short event, we can only select one event.
-However, it would be possible to select both long events.
+Si seleccionamos el evento corto, solo podemos seleccionar un evento.
+Sin embargo, sería posible seleccionar ambos eventos largos.
 
-\subsubsection*{Algorithm 2}
+\subsubsection*{Algoritmo 2}
 
-Another idea is to always select the next possible
-event that \emph{begins} as \emph{early} as possible.
-This algorithm selects the following events:
+Otra idea es siempre seleccionar el siguiente posible
+evento que \emph{comience} lo más \emph{temprano} posible.
+Este algoritmo selecciona los siguientes eventos:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -211,10 +208,10 @@ This algorithm selects the following events:
 \end{tikzpicture}
 \end{center}
 
-However, we can find a counterexample
-also for this algorithm.
-For example, in the following case,
-the algorithm only selects one event:
+Sin embargo, podemos encontrar un contraejemplo
+también para este algoritmo.
+Por ejemplo, en el siguiente caso,
+el algoritmo solo selecciona un evento:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -224,16 +221,16 @@ the algorithm only selects one event:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-If we select the first event, it is not possible
-to select any other events.
-However, it would be possible to select the
-other two events.
+Si seleccionamos el primer evento, no es posible
+seleccionar ningún otro evento.
+Sin embargo, sería posible seleccionar los
+otros dos eventos.
 
-\subsubsection*{Algorithm 3}
+\subsubsection*{Algoritmo 3}
 
-The third idea is to always select the next
-possible event that \emph{ends} as \emph{early} as possible.
-This algorithm selects the following events: 
+La tercera idea es siempre seleccionar el siguiente
+evento posible que \emph{termine} lo más \emph{temprano} posible.
+Este algoritmo selecciona los siguientes eventos: 
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -249,42 +246,42 @@ This algorithm selects the following events:
 \end{tikzpicture}
 \end{center}
 
-It turns out that this algorithm
-\emph{always} produces an optimal solution.
-The reason for this is that it is always an optimal choice
-to first select an event that ends
-as early as possible.
-After this, it is an optimal choice
-to select the next event
-using the same strategy, etc.,
-until we cannot select any more events.
+Resulta que este algoritmo
+\emph{siempre} produce una solución óptima.
+La razón de esto es que siempre es una opción óptima
+seleccionar primero un evento que termine
+lo más temprano posible.
+Después de esto, es una opción óptima
+seleccionar el siguiente evento
+usando la misma estrategia, etc.,
+hasta que no podamos seleccionar más eventos.
 
-One way to argue that the algorithm works
-is to consider
-what happens if we first select an event
-that ends later than the event that ends
-as early as possible.
-Now, we will have at most an equal number of
-choices how we can select the next event.
-Hence, selecting an event that ends later
-can never yield a better solution,
-and the greedy algorithm is correct.
+Una forma de argumentar que el algoritmo funciona
+es considerar
+qué sucede si primero seleccionamos un evento
+que termina más tarde que el evento que termina
+lo más temprano posible.
+Ahora, tendremos como máximo un número igual de
+opciones sobre cómo podemos seleccionar el siguiente evento.
+Por lo tanto, seleccionar un evento que termina más tarde
+nunca puede producir una mejor solución,
+y el algoritmo voraz es correcto.
 
-\section{Tasks and deadlines}
+\section{Tareas y plazos}
 
-Let us now consider a problem where
-we are given $n$ tasks with durations and deadlines
-and our task is to choose an order to perform the tasks.
-For each task, we earn $d-x$ points
-where $d$ is the task's deadline
-and $x$ is the moment when we finish the task.
-What is the largest possible total score
-we can obtain?
+Consideremos ahora un problema donde
+se nos dan $n$ tareas con duraciones y plazos
+y nuestra tarea es elegir un orden para realizar las tareas.
+Para cada tarea, ganamos $d-x$ puntos
+donde $d$ es el plazo de la tarea
+y $x$ es el momento en que terminamos la tarea.
+¿Cuál es la mayor puntuación total posible
+que podemos obtener?
 
-For example, suppose that the tasks are as follows:
+Por ejemplo, supongamos que las tareas son las siguientes:
 \begin{center}
 \begin{tabular}{lll}
-task & duration & deadline \\
+tarea & duración & plazo \\
 \hline
 $A$ & 4 & 2 \\
 $B$ & 3 & 5 \\
@@ -292,8 +289,8 @@ $C$ & 2 & 7 \\
 $D$ & 4 & 5 \\
 \end{tabular}
 \end{center}
-In this case, an optimal schedule for the tasks
-is as follows:
+En este caso, un programa óptimo para las tareas
+es el siguiente:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -319,21 +316,20 @@ is as follows:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-In this solution, $C$ yields 5 points,
-$B$ yields 0 points, $A$ yields $-7$ points
-and $D$ yields $-8$ points,
-so the total score is $-10$.
-
-Surprisingly, the optimal solution to the problem
-does not depend on the deadlines at all,
-but a correct greedy strategy is to simply
-perform the tasks \emph{sorted by their durations}
-in increasing order.
-The reason for this is that if we ever perform
-two tasks one after another such that the first task
-takes longer than the second task,
-we can obtain a better solution if we swap the tasks.
-For example, consider the following schedule:
+En esta solución, $C$ produce 5 puntos,
+$B$ produce 0 puntos, $A$ produce $-7$ puntos
+y $D$ produce $-8$ puntos,
+por lo que la puntuación total es $-10$.
+Sorprendentemente, la solución óptima al problema
+no depende en absoluto de las fechas límite,
+sino que una estrategia codiciosa correcta es simplemente
+realizar las tareas \emph{ordenadas por sus duraciones}
+en orden creciente.
+La razón de esto es que si alguna vez realizamos
+dos tareas una después de la otra de modo que la primera tarea
+dure más que la segunda tarea,
+podemos obtener una mejor solución si intercambiamos las tareas.
+Por ejemplo, considere el siguiente horario:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -352,7 +348,7 @@ For example, consider the following schedule:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-Here $a>b$, so we should swap the tasks:
+Aquí $a>b$, por lo que debemos intercambiar las tareas:
 \begin{center}
 \begin{tikzpicture}[scale=.4]
   \begin{scope}
@@ -371,97 +367,99 @@ Here $a>b$, so we should swap the tasks:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-Now $X$ gives $b$ points less and $Y$ gives $a$ points more,
-so the total score increases by $a-b > 0$.
-In an optimal solution,
-for any two consecutive tasks,
-it must hold that the shorter task comes
-before the longer task.
-Thus, the tasks must be performed
-sorted by their durations.
+Ahora $X$ da $b$ puntos menos e $Y$ da $a$ puntos más,
+por lo que la puntuación total aumenta en $a-b > 0$.
+En una solución óptima,
+para dos tareas consecutivas,
+debe cumplirse que la tarea más corta venga
+antes de la tarea más larga.
+Por lo tanto, las tareas deben realizarse
+ordenadas por sus duraciones.
 
-\section{Minimizing sums}
+\section{Minimizar sumas}
 
-We next consider a problem where
-we are given $n$ numbers $a_1,a_2,\ldots,a_n$
-and our task is to find a value $x$
-that minimizes the sum
+A continuación, consideramos un problema en el que
+se nos dan $n$ números $a_1,a_2,\ldots,a_n$
+y nuestra tarea es encontrar un valor $x$
+que minimice la suma
 \[|a_1-x|^c+|a_2-x|^c+\cdots+|a_n-x|^c.\]
-We focus on the cases $c=1$ and $c=2$.
+Nos centramos en los casos $c=1$ y $c=2$.
 
-\subsubsection{Case $c=1$}
+\subsubsection{Caso $c=1$}
 
-In this case, we should minimize the sum
+En este caso, debemos minimizar la suma
 \[|a_1-x|+|a_2-x|+\cdots+|a_n-x|.\]
-For example, if the numbers are $[1,2,9,2,6]$,
-the best solution is to select $x=2$
-which produces the sum
+Por ejemplo, si los números son $[1,2,9,2,6]$,
+la mejor solución es seleccionar $x=2$
+que produce la suma
 \[
 |1-2|+|2-2|+|9-2|+|2-2|+|6-2|=12.
 \]
-In the general case, the best choice for $x$
-is the \textit{median} of the numbers,
-i.e., the middle number after sorting.
-For example, the list $[1,2,9,2,6]$
-becomes $[1,2,2,6,9]$ after sorting,
-so the median is 2.
+En el caso general, la mejor opción para $x$
+es la \textit{mediana} de los números,
+es decir, el número del medio después de la ordenación.
+Por ejemplo, la lista $[1,2,9,2,6]$
+se convierte en $[1,2,2,6,9]$ después de la ordenación,
+por lo que la mediana es 2.
 
-The median is an optimal choice,
-because if $x$ is smaller than the median,
-the sum becomes smaller by increasing $x$,
-and if $x$ is larger then the median,
-the sum becomes smaller by decreasing $x$.
-Hence, the optimal solution is that $x$
-is the median.
-If $n$ is even and there are two medians,
-both medians and all values between them
-are optimal choices.
+La mediana es una opción óptima,
+porque si $x$ es menor que la mediana,
+la suma se hace más pequeña al aumentar $x$,
+y si $x$ es mayor que la mediana,
+la suma se hace más pequeña al disminuir $x$.
+Por lo tanto, la solución óptima es que $x$
+sea la mediana.
+Si $n$ es par y hay dos medianas,
+tanto las medianas como todos los valores entre ellas
+son opciones óptimas.
 
-\subsubsection{Case $c=2$}
+\subsubsection{Caso $c=2$}
 
-In this case, we should minimize the sum
+En este caso, debemos minimizar la suma
 \[(a_1-x)^2+(a_2-x)^2+\cdots+(a_n-x)^2.\]
-For example, if the numbers are $[1,2,9,2,6]$,
-the best solution is to select $x=4$
-which produces the sum
+Por ejemplo, si los números son $[1,2,9,2,6]$,
+la mejor solución es seleccionar $x=4$
+que produce la suma
 \[
 (1-4)^2+(2-4)^2+(9-4)^2+(2-4)^2+(6-4)^2=46.
 \]
-In the general case, the best choice for $x$
-is the \emph{average} of the numbers.
-In the example the average is $(1+2+9+2+6)/5=4$.
-This result can be derived by presenting
-the sum as follows:
+En el caso general, la mejor opción para $x$
+es la \emph{media} de los números.
+En el ejemplo, la media es $(1+2+9+2+6)/5=4$.
+Este resultado se puede derivar presentando
+la suma de la siguiente manera:
 \[
 nx^2 - 2x(a_1+a_2+\cdots+a_n) + (a_1^2+a_2^2+\cdots+a_n^2)
 \]
-The last part does not depend on $x$,
-so we can ignore it.
-The remaining parts form a function
-$nx^2-2xs$ where $s=a_1+a_2+\cdots+a_n$.
-This is a parabola opening upwards
-with roots $x=0$ and $x=2s/n$,
-and the minimum value is the average
-of the roots $x=s/n$, i.e.,
-the average of the numbers $a_1,a_2,\ldots,a_n$.
+La última parte no depende de $x$,
+por lo que podemos ignorarla.
+Las partes restantes forman una función
+$nx^2-2xs$ donde $s=a_1+a_2+\cdots+a_n$.
+Esta es una parábola que se abre hacia arriba
+con raíces $x=0$ y $x=2s/n$,
+y el valor mínimo es la media
+de las raíces $x=s/n$, es decir,
+la media de los números $a_1,a_2,\ldots,a_n$.
 
-\section{Data compression}
+\section{Compresión de datos}
 
-\index{data compression}
-\index{binary code}
-\index{codeword}
+\index{compresión de datos}
+\index{código binario}
+\index{palabra de código}
 
-A \key{binary code} assigns for each character
-of a string a \key{codeword} that consists of bits.
-We can \emph{compress} the string using the binary code
-by replacing each character by the
-corresponding codeword.
-For example, the following binary code
-assigns codewords for characters
+
+
+Un \key{código binario} asigna a cada carácter
+de una cadena una \key{palabra de código} que consiste en bits.
+Podemos \emph{comprimir} la cadena usando el código binario
+reemplazando cada carácter por la
+palabra de código correspondiente.
+Por ejemplo, el siguiente código binario
+asigna palabras de código para los caracteres
 \texttt{A}–\texttt{D}:
 \begin{center}
 \begin{tabular}{rr}
-character & codeword \\
+carácter & palabra de código \\
 \hline
 \texttt{A} & 00 \\
 \texttt{B} & 01 \\
@@ -469,26 +467,26 @@ character & codeword \\
 \texttt{D} & 11 \\
 \end{tabular}
 \end{center}
-This is a \key{constant-length} code
-which means that the length of each
-codeword is the same.
-For example, we can compress the string
-\texttt{AABACDACA} as follows:
+Este es un código de \key{longitud constante}
+lo que significa que la longitud de cada
+palabra de código es la misma.
+Por ejemplo, podemos comprimir la cadena
+\texttt{AABACDACA} como sigue:
 \[00\,00\,01\,00\,10\,11\,00\,10\,00\]
-Using this code, the length of the compressed
-string is 18 bits.
-However, we can compress the string better
-if we use a \key{variable-length} code
-where codewords may have different lengths.
-Then we can give short codewords for
-characters that appear often
-and long codewords for characters
-that appear rarely.
-It turns out that an \key{optimal} code
-for the above string is as follows:
+Usando este código, la longitud de la cadena comprimida
+es de 18 bits.
+Sin embargo, podemos comprimir la cadena mejor
+si usamos un código de \key{longitud variable}
+donde las palabras de código pueden tener diferentes longitudes.
+Entonces podemos dar palabras de código cortas para
+los caracteres que aparecen a menudo
+y palabras de código largas para los caracteres
+que aparecen raramente.
+Resulta que un código \key{óptimo}
+para la cadena anterior es el siguiente:
 \begin{center}
 \begin{tabular}{rr}
-character & codeword \\
+carácter & palabra de código \\
 \hline
 \texttt{A} & 0 \\
 \texttt{B} & 110 \\
@@ -496,29 +494,29 @@ character & codeword \\
 \texttt{D} & 111 \\
 \end{tabular}
 \end{center}
-An optimal code produces a compressed string
-that is as short as possible.
-In this case, the compressed string using
-the optimal code is
+Un código óptimo produce una cadena comprimida
+que es lo más corta posible.
+En este caso, la cadena comprimida usando
+el código óptimo es
 \[0\,0\,110\,0\,10\,111\,0\,10\,0,\]
-so only 15 bits are needed instead of 18 bits.
-Thus, thanks to a better code it was possible to
-save 3 bits in the compressed string.
+por lo que solo se necesitan 15 bits en lugar de 18 bits.
+Por lo tanto, gracias a un mejor código fue posible
+ahorrar 3 bits en la cadena comprimida.
 
-We require that no codeword
-is a prefix of another codeword.
-For example, it is not allowed that a code
-would contain both codewords 10
-and 1011.
-The reason for this is that we want
-to be able to generate the original string
-from the compressed string.
-If a codeword could be a prefix of another codeword,
-this would not always be possible.
-For example, the following code is \emph{not} valid:
+Requerimos que ninguna palabra de código
+sea un prefijo de otra palabra de código.
+Por ejemplo, no está permitido que un código
+contenga ambas palabras de código 10
+y 1011.
+La razón de esto es que queremos
+poder generar la cadena original
+a partir de la cadena comprimida.
+Si una palabra de código pudiera ser un prefijo de otra palabra de código,
+esto no siempre sería posible.
+Por ejemplo, el siguiente código no es \emph{válido}:
 \begin{center}
 \begin{tabular}{rr}
-character & codeword \\
+carácter & palabra de código \\
 \hline
 \texttt{A} & 10 \\
 \texttt{B} & 11 \\
@@ -526,42 +524,42 @@ character & codeword \\
 \texttt{D} & 111 \\
 \end{tabular}
 \end{center}
-Using this code, it would not be possible to know
-if the compressed string 1011 corresponds to
-the string \texttt{AB} or the string \texttt{C}.
+Usando este código, no sería posible saber
+si la cadena comprimida 1011 corresponde a
+la cadena \texttt{AB} o la cadena \texttt{C}.
 
-\index{Huffman coding}
+\index{Codificación de Huffman}
 
-\subsubsection{Huffman coding}
+\subsubsection{Codificación de Huffman}
 
-\key{Huffman coding}\footnote{D. A. Huffman discovered this method
-when solving a university course assignment
-and published the algorithm in 1952 \cite{huf52}.} is a greedy algorithm
-that constructs an optimal code for
-compressing a given string.
-The algorithm builds a binary tree
-based on the frequencies of the characters
-in the string,
-and each character's codeword can be read
-by following a path from the root to
-the corresponding node.
-A move to the left corresponds to bit 0,
-and a move to the right corresponds to bit 1.
+\key{Codificación de Huffman}\footnote{D. A. Huffman descubrió este método
+al resolver una tarea de un curso universitario
+y publicó el algoritmo en 1952 \cite{huf52}.} es un algoritmo voraz
+que construye un código óptimo para
+comprimir una cadena dada.
+El algoritmo construye un árbol binario
+basado en las frecuencias de los caracteres
+en la cadena,
+y la palabra de código de cada carácter se puede leer
+siguiendo un camino desde la raíz hasta
+el nodo correspondiente.
+Un movimiento hacia la izquierda corresponde al bit 0,
+y un movimiento hacia la derecha corresponde al bit 1.
 
-Initially, each character of the string is
-represented by a node whose weight is the
-number of times the character occurs in the string.
-Then at each step two nodes with minimum weights
-are combined by creating
-a new node whose weight is the sum of the weights
-of the original nodes.
-The process continues until all nodes have been combined.
+Inicialmente, cada carácter de la cadena es
+representado por un nodo cuyo peso es el
+número de veces que el carácter aparece en la cadena.
+Luego, en cada paso, dos nodos con pesos mínimos
+se combinan creando
+un nuevo nodo cuyo peso es la suma de los pesos
+de los nodos originales.
+El proceso continúa hasta que todos los nodos se han combinado.
 
-Next we will see how Huffman coding creates
-the optimal code for the string
+A continuación, veremos cómo la codificación de Huffman crea
+el código óptimo para la cadena
 \texttt{AABACDACA}.
-Initially, there are four nodes that correspond
-to the characters of the string:
+Inicialmente, hay cuatro nodos que corresponden
+a los caracteres de la cadena:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -578,16 +576,16 @@ to the characters of the string:
 %\path[draw,thick,-] (4) -- (5);
 \end{tikzpicture}
 \end{center}
-The node that represents character \texttt{A}
-has weight 5 because character \texttt{A}
-appears 5 times in the string.
-The other weights have been calculated
-in the same way.
+El nodo que representa el carácter \texttt{A}
+tiene peso 5 porque el carácter \texttt{A}
+aparece 5 veces en la cadena.
+Los otros pesos se han calculado
+de la misma manera.
 
-The first step is to combine the nodes that
-correspond to characters \texttt{B} and \texttt{D},
-both with weight 1.
-The result is:
+El primer paso es combinar los nodos que
+corresponden a los caracteres \texttt{B} y \texttt{D},
+ambos con peso 1.
+El resultado es:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {$5$};
@@ -603,12 +601,11 @@ The result is:
 
 \node at (4.3,0.7) {0};
 \node at (5.7,0.7) {1};
-
 \path[draw,thick,-] (2) -- (5);
 \path[draw,thick,-] (4) -- (5);
 \end{tikzpicture}
 \end{center}
-After this, the nodes with weight 2 are combined:
+Después de esto, los nodos con peso 2 se combinan:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,0) {$5$};
@@ -634,7 +631,7 @@ After this, the nodes with weight 2 are combined:
 \path[draw,thick,-] (5) -- (6);
 \end{tikzpicture}
 \end{center}
-Finally, the two remaining nodes are combined:
+Finalmente, los dos nodos restantes se combinan:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (2,2) {$5$};
@@ -666,11 +663,11 @@ Finally, the two remaining nodes are combined:
 \end{tikzpicture}
 \end{center}
 
-Now all nodes are in the tree, so the code is ready.
-The following codewords can be read from the tree:
+Ahora todos los nodos están en el árbol, por lo que el código está listo.
+Las siguientes palabras de código se pueden leer del árbol:
 \begin{center}
 \begin{tabular}{rr}
-character & codeword \\
+carácter & palabra de código \\
 \hline
 \texttt{A} & 0 \\
 \texttt{B} & 110 \\

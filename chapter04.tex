@@ -1,39 +1,39 @@
-\chapter{Data structures}
+\chapter{Estructuras de datos}
 
-\index{data structure}
+\index{estructura de datos}
 
-A \key{data structure} is a way to store
-data in the memory of a computer.
-It is important to choose an appropriate
-data structure for a problem,
-because each data structure has its own
-advantages and disadvantages.
-The crucial question is: which operations
-are efficient in the chosen data structure?
+Una \key{estructura de datos} es una forma de almacenar
+datos en la memoria de una computadora.
+Es importante elegir una estructura de datos apropiada
+para un problema,
+porque cada estructura de datos tiene sus propias
+ventajas y desventajas.
+La pregunta crucial es: ¿qué operaciones
+son eficientes en la estructura de datos elegida?
 
-This chapter introduces the most important
-data structures in the C++ standard library.
-It is a good idea to use the standard library
-whenever possible,
-because it will save a lot of time.
-Later in the book we will learn about more sophisticated
-data structures that are not available
-in the standard library.
+Este capítulo presenta las estructuras de datos más importantes
+en la biblioteca estándar de C++.
+Es una buena idea usar la biblioteca estándar
+siempre que sea posible,
+porque ahorrará mucho tiempo.
+Más adelante en el libro, aprenderemos sobre estructuras de datos más sofisticadas
+que no están disponibles
+en la biblioteca estándar.
 
-\section{Dynamic arrays}
+\section{Arreglos dinámicos}
 
-\index{dynamic array}
+\index{arreglo dinámico}
 \index{vector}
 
-A \key{dynamic array} is an array whose
-size can be changed during the execution
-of the program.
-The most popular dynamic array in C++ is
-the \texttt{vector} structure,
-which can be used almost like an ordinary array.
+Un \key{arreglo dinámico} es un arreglo cuyo
+tamaño se puede cambiar durante la ejecución
+del programa.
+El arreglo dinámico más popular en C++ es
+la estructura \texttt{vector},
+que se puede usar casi como un arreglo ordinario.
 
-The following code creates an empty vector and
-adds three elements to it:
+El siguiente código crea un vector vacío y
+agrega tres elementos a él:
 
 \begin{lstlisting}
 vector<int> v;
@@ -42,7 +42,7 @@ v.push_back(2); // [3,2]
 v.push_back(5); // [3,2,5]
 \end{lstlisting}
 
-After this, the elements can be accessed like in an ordinary array:
+Después de esto, los elementos se pueden acceder como en un arreglo ordinario:
 
 \begin{lstlisting}
 cout << v[0] << "\n"; // 3
@@ -50,9 +50,9 @@ cout << v[1] << "\n"; // 2
 cout << v[2] << "\n"; // 5
 \end{lstlisting}
 
-The function \texttt{size} returns the number of elements in the vector.
-The following code iterates through
-the vector and prints all elements in it:
+La función \texttt{size} devuelve el número de elementos en el vector.
+El siguiente código itera a través
+del vector e imprime todos los elementos en él:
 
 \begin{lstlisting}
 for (int i = 0; i < v.size(); i++) {
@@ -61,7 +61,7 @@ for (int i = 0; i < v.size(); i++) {
 \end{lstlisting}
 
 \begin{samepage}
-A shorter way to iterate through a vector is as follows:
+Una forma más corta de iterar a través de un vector es la siguiente:
 
 \begin{lstlisting}
 for (auto x : v) {
@@ -70,9 +70,9 @@ for (auto x : v) {
 \end{lstlisting}
 \end{samepage}
 
-The function \texttt{back} returns the last element
-in the vector, and
-the function \texttt{pop\_back} removes the last element:
+La función \texttt{back} devuelve el último elemento
+en el vector, y
+la función \texttt{pop\_back} elimina el último elemento:
 
 \begin{lstlisting}
 vector<int> v;
@@ -83,47 +83,47 @@ v.pop_back();
 cout << v.back() << "\n"; // 5
 \end{lstlisting}
 
-The following code creates a vector with five elements:
+El siguiente código crea un vector con cinco elementos:
 
 \begin{lstlisting}
 vector<int> v = {2,4,2,5,1};
 \end{lstlisting}
 
-Another way to create a vector is to give the number
-of elements and the initial value for each element:
+Otra forma de crear un vector es dar el número
+de elementos y el valor inicial para cada elemento:
 
 \begin{lstlisting}
-// size 10, initial value 0
+// tamano 10, valor inicial 0
 vector<int> v(10);
 \end{lstlisting}
 \begin{lstlisting}
-// size 10, initial value 5
+// tamano 10, valor inicial 5
 vector<int> v(10, 5);
 \end{lstlisting}
 
-The internal implementation of a vector
-uses an ordinary array.
-If the size of the vector increases and
-the array becomes too small,
-a new array is allocated and all the
-elements are moved to the new array.
-However, this does not happen often and the
-average time complexity of
-\texttt{push\_back} is $O(1)$.
+La implementación interna de un vector
+utiliza un arreglo ordinario.
+Si el tamaño del vector aumenta y
+el arreglo se vuelve demasiado pequeño,
+se asigna un nuevo arreglo y todos los
+elementos se mueven al nuevo arreglo.
+Sin embargo, esto no sucede a menudo y el
+tiempo de complejidad promedio de
+\texttt{push\_back} es $O(1)$.
 
-\index{string}
+\index{cadena}
 
-The \texttt{string} structure
-is also a dynamic array that can be used almost like a vector.
-In addition, there is special syntax for strings
-that is not available in other data structures.
-Strings can be combined using the \texttt{+} symbol.
-The function $\texttt{substr}(k,x)$ returns the substring
-that begins at position $k$ and has length $x$,
-and the function $\texttt{find}(\texttt{t})$ finds the position
-of the first occurrence of a substring \texttt{t}.
+La estructura \texttt{string}
+también es un arreglo dinámico que se puede usar casi como un vector.
+Además, hay una sintaxis especial para cadenas
+que no está disponible en otras estructuras de datos.
+Las cadenas se pueden combinar usando el símbolo \texttt{+}.
+La función $\texttt{substr}(k,x)$ devuelve la subcadena
+que comienza en la posición $k$ y tiene longitud $x$,
+y la función $\texttt{find}(\texttt{t})$ encuentra la posición
+de la primera aparición de una subcadena \texttt{t}.
 
-The following code presents some string operations:
+El siguiente código presenta algunas operaciones de cadena:
 
 \begin{lstlisting}
 string a = "hatti";
@@ -135,38 +135,36 @@ string c = b.substr(3,4);
 cout << c << "\n"; // tiva
 \end{lstlisting}
 
-\section{Set structures}
+\section{Estructuras de conjunto}
 
-\index{set}
+\index{conjunto}
 
-A \key{set} is a data structure that
-maintains a collection of elements.
-The basic operations of sets are element
-insertion, search and removal.
+Un \key{conjunto} es una estructura de datos que
+mantiene una colección de elementos.
+Las operaciones básicas de los conjuntos son la inserción de elementos, la búsqueda y la eliminación.
 
-The C++ standard library contains two set
-implementations:
-The structure \texttt{set} is based on a balanced
-binary tree and its operations work in $O(\log n)$ time.
-The structure \texttt{unordered\_set} uses hashing,
-and its operations work in $O(1)$ time on average.
+La biblioteca estándar de C++ contiene dos implementaciones de conjunto:
+La estructura \texttt{set} se basa en un árbol binario equilibrado
+y sus operaciones funcionan en tiempo $O(\log n)$.
+La estructura \texttt{unordered\_set} usa hashing,
+y sus operaciones funcionan en tiempo $O(1)$ en promedio.
 
-The choice of which set implementation to use
-is often a matter of taste.
-The benefit of the \texttt{set} structure
-is that it maintains the order of the elements
-and provides functions that are not available
-in \texttt{unordered\_set}.
-On the other hand, \texttt{unordered\_set}
-can be more efficient.
+La elección de qué implementación de conjunto usar
+es a menudo una cuestión de gusto.
+El beneficio de la estructura \texttt{set}
+es que mantiene el orden de los elementos
+y proporciona funciones que no están disponibles
+en \texttt{unordered\_set}.
+Por otro lado, \texttt{unordered\_set}
+puede ser más eficiente.
 
-The following code creates a set
-that contains integers,
-and shows some of the operations.
-The function \texttt{insert} adds an element to the set,
-the function \texttt{count} returns the number of occurrences
-of an element in the set,
-and the function \texttt{erase} removes an element from the set.
+El siguiente código crea un conjunto
+que contiene enteros,
+y muestra algunas de las operaciones.
+La función \texttt{insert} agrega un elemento al conjunto,
+la función \texttt{count} devuelve el número de ocurrencias
+de un elemento en el conjunto,
+y la función \texttt{erase} elimina un elemento del conjunto.
 
 \begin{lstlisting}
 set<int> s;
@@ -181,12 +179,13 @@ cout << s.count(3) << "\n"; // 0
 cout << s.count(4) << "\n"; // 1
 \end{lstlisting}
 
-A set can be used mostly like a vector,
-but it is not possible to access
-the elements using the \texttt{[]} notation.
-The following code creates a set,
-prints the number of elements in it, and then
-iterates through all the elements:
+
+Un conjunto se puede usar principalmente como un vector,
+pero no es posible acceder
+a los elementos usando la notación \texttt{[]}.
+El siguiente código crea un conjunto,
+imprime el número de elementos en él, y luego
+itera a través de todos los elementos:
 \begin{lstlisting}
 set<int> s = {2,5,6,8};
 cout << s.size() << "\n"; // 4
@@ -195,15 +194,15 @@ for (auto x : s) {
 }
 \end{lstlisting}
 
-An important property of sets is
-that all their elements are \emph{distinct}.
-Thus, the function \texttt{count} always returns
-either 0 (the element is not in the set)
-or 1 (the element is in the set),
-and the function \texttt{insert} never adds
-an element to the set if it is
-already there.
-The following code illustrates this:
+Una propiedad importante de los conjuntos es
+que todos sus elementos son \emph{distintos}.
+Por lo tanto, la función \texttt{count} siempre devuelve
+ya sea 0 (el elemento no está en el conjunto)
+o 1 (el elemento está en el conjunto),
+y la función \texttt{insert} nunca agrega
+un elemento al conjunto si ya está
+ahí.
+El siguiente código ilustra esto:
 
 \begin{lstlisting}
 set<int> s;
@@ -213,13 +212,13 @@ s.insert(5);
 cout << s.count(5) << "\n"; // 1
 \end{lstlisting}
 
-C++ also contains the structures
-\texttt{multiset} and \texttt{unordered\_multiset}
-that otherwise work like \texttt{set}
-and \texttt{unordered\_set}
-but they can contain multiple instances of an element.
-For example, in the following code all three instances
-of the number 5 are added to a multiset:
+C++ también contiene las estructuras
+\texttt{multiset} y \texttt{unordered\_multiset}
+que de otra manera funcionan como \texttt{set}
+y \texttt{unordered\_set}
+pero pueden contener múltiples instancias de un elemento.
+Por ejemplo, en el siguiente código todas las tres instancias
+del número 5 se agregan a un multiset:
 
 \begin{lstlisting}
 multiset<int> s;
@@ -228,44 +227,44 @@ s.insert(5);
 s.insert(5);
 cout << s.count(5) << "\n"; // 3
 \end{lstlisting}
-The function \texttt{erase} removes
-all instances of an element
-from a multiset:
+La función \texttt{erase} elimina
+todas las instancias de un elemento
+de un multiset:
 \begin{lstlisting}
 s.erase(5);
 cout << s.count(5) << "\n"; // 0
 \end{lstlisting}
-Often, only one instance should be removed,
-which can be done as follows:
+A menudo, solo se debe eliminar una instancia,
+lo que se puede hacer de la siguiente manera:
 \begin{lstlisting}
 s.erase(s.find(5));
 cout << s.count(5) << "\n"; // 2
 \end{lstlisting}
 
-\section{Map structures}
+\section{Estructuras de mapa}
 
 \index{map}
 
-A \key{map} is a generalized array
-that consists of key-value-pairs.
-While the keys in an ordinary array are always
-the consecutive integers $0,1,\ldots,n-1$,
-where $n$ is the size of the array,
-the keys in a map can be of any data type and
-they do not have to be consecutive values.
+Un \key{mapa} es una matriz generalizada
+que consta de pares clave-valor.
+Si bien las claves en una matriz ordinaria son siempre
+los enteros consecutivos $0,1,\ldots,n-1$,
+donde $n$ es el tamaño de la matriz,
+las claves en un mapa pueden ser de cualquier tipo de datos y
+no tienen que ser valores consecutivos.
 
-The C++ standard library contains two map
-implementations that correspond to the set
-implementations: the structure
-\texttt{map} is based on a balanced
-binary tree and accessing elements
-takes $O(\log n)$ time,
-while the structure
-\texttt{unordered\_map} uses hashing
-and accessing elements takes $O(1)$ time on average.
+La biblioteca estándar de C++ contiene dos mapas
+implementaciones que corresponden al conjunto
+implementaciones: la estructura
+\texttt{map} se basa en un balanceado
+árbol binario y acceder a elementos
+toma $O(\log n)$ tiempo,
+mientras que la estructura
+\texttt{unordered\_map} usa hashing
+y acceder a elementos toma $O(1)$ tiempo en promedio.
 
-The following code creates a map
-where the keys are strings and the values are integers:
+El siguiente código crea un mapa
+donde las claves son cadenas y los valores son enteros:
 
 \begin{lstlisting}
 map<string,int> m;
@@ -275,50 +274,50 @@ m["harpsichord"] = 9;
 cout << m["banana"] << "\n"; // 3
 \end{lstlisting}
 
-If the value of a key is requested
-but the map does not contain it,
-the key is automatically added to the map with
-a default value.
-For example, in the following code,
-the key ''aybabtu'' with value 0
-is added to the map.
+Si se solicita el valor de una clave
+pero el mapa no lo contiene,
+la clave se agrega automáticamente al mapa con
+un valor predeterminado.
+Por ejemplo, en el siguiente código,
+la clave ''aybabtu'' con valor 0
+se agrega al mapa.
 
 \begin{lstlisting}
 map<string,int> m;
 cout << m["aybabtu"] << "\n"; // 0
 \end{lstlisting}
-The function \texttt{count} checks
-if a key exists in a map:
+La función \texttt{count} comprueba
+si una clave existe en un mapa:
 \begin{lstlisting}
 if (m.count("aybabtu")) {
-    // key exists
+    // clave existe
 }
 \end{lstlisting}
-The following code prints all the keys and values
-in a map:
+El siguiente código imprime todas las claves y valores
+en un mapa:
 \begin{lstlisting}
 for (auto x : m) {
     cout << x.first << " " << x.second << "\n";
 }
 \end{lstlisting}
 
-\section{Iterators and ranges}
+\section{Iteradores y rangos}
 
 \index{iterator}
 
-Many functions in the C++ standard library
-operate with iterators.
-An \key{iterator} is a variable that points
-to an element in a data structure.
+Muchas funciones en la biblioteca estándar de C++
+operan con iteradores.
+Un \key{iterador} es una variable que apunta
+a un elemento en una estructura de datos.
 
-The often used iterators \texttt{begin}
-and \texttt{end} define a range that contains
-all elements in a data structure.
-The iterator \texttt{begin} points to
-the first element in the data structure,
-and the iterator \texttt{end} points to
-the position \emph{after} the last element.
-The situation looks as follows:
+Los iteradores que se usan a menudo \texttt{begin}
+y \texttt{end} definen un rango que contiene
+todos los elementos en una estructura de datos.
+El iterador \texttt{begin} apunta a
+el primer elemento en la estructura de datos,
+y el iterador \texttt{end} apunta a
+la posición \emph{después} del último elemento.
+La situación se ve de la siguiente manera:
 
 \begin{center}
 \begin{tabular}{llllllllll}
@@ -328,24 +327,24 @@ The situation looks as follows:
 \end{tabular}
 \end{center}
 
-Note the asymmetry in the iterators:
-\texttt{s.begin()} points to an element in the data structure,
-while \texttt{s.end()} points outside the data structure.
-Thus, the range defined by the iterators is \emph{half-open}.
+Tenga en cuenta la asimetría en los iteradores:
+\texttt{s.begin()} apunta a un elemento en la estructura de datos,
+mientras que \texttt{s.end()} apunta fuera de la estructura de datos.
+Por lo tanto, el rango definido por los iteradores es \emph{semiabierto}.
 
-\subsubsection{Working with ranges}
+\subsubsection{Trabajando con rangos}
 
-Iterators are used in C++ standard library functions
-that are given a range of elements in a data structure.
-Usually, we want to process all elements in a
-data structure, so the iterators
-\texttt{begin} and \texttt{end} are given for the function.
+Los iteradores se utilizan en las funciones de la biblioteca estándar de C++
+que reciben un rango de elementos en una estructura de datos.
+Por lo general, queremos procesar todos los elementos en un
+estructura de datos, por lo que los iteradores
+\texttt{begin} y \texttt{end} se dan para la función.
 
-For example, the following code sorts a vector
-using the function \texttt{sort},
-then reverses the order of the elements using the function
-\texttt{reverse}, and finally shuffles the order of
-the elements using the function \texttt{random\_shuffle}.
+Por ejemplo, el siguiente código ordena un vector
+usando la función \texttt{sort},
+luego invierte el orden de los elementos usando la función
+\texttt{reverse}, y finalmente baraja el orden de
+los elementos usando la función \texttt{random\_shuffle}.
 
 \index{sort@\texttt{sort}}
 \index{reverse@\texttt{reverse}}
@@ -357,9 +356,9 @@ reverse(v.begin(), v.end());
 random_shuffle(v.begin(), v.end());
 \end{lstlisting}
 
-These functions can also be used with an ordinary array.
-In this case, the functions are given pointers to the array
-instead of iterators:
+Estas funciones también se pueden usar con una matriz ordinaria.
+En este caso, las funciones reciben punteros a la matriz
+en lugar de iteradores:
 
 \newpage
 \begin{lstlisting}
@@ -368,74 +367,73 @@ reverse(a, a+n);
 random_shuffle(a, a+n);
 \end{lstlisting}
 
-\subsubsection{Set iterators}
+\subsubsection{Iteradores de conjunto}
 
-Iterators are often used to access
-elements of a set.
-The following code creates an iterator
-\texttt{it} that points to the smallest element in a set:
+Los iteradores se utilizan a menudo para acceder a los elementos de un conjunto.
+El siguiente código crea un iterador
+\texttt{it} que apunta al elemento más pequeño de un conjunto:
 \begin{lstlisting}
 set<int>::iterator it = s.begin();
 \end{lstlisting}
-A shorter way to write the code is as follows:
+Una forma más corta de escribir el código es la siguiente:
 \begin{lstlisting}
 auto it = s.begin();
 \end{lstlisting}
-The element to which an iterator points
-can be accessed using the \texttt{*} symbol.
-For example, the following code prints
-the first element in the set:
+El elemento al que apunta un iterador
+se puede acceder utilizando el símbolo \texttt{*}.
+Por ejemplo, el siguiente código imprime
+el primer elemento del conjunto:
 
 \begin{lstlisting}
 auto it = s.begin();
 cout << *it << "\n";
 \end{lstlisting}
 
-Iterators can be moved using the operators
-\texttt{++} (forward) and \texttt{--} (backward),
-meaning that the iterator moves to the next
-or previous element in the set.
+Los iteradores se pueden mover utilizando los operadores
+\texttt{++} (hacia adelante) y \texttt{--} (hacia atrás),
+lo que significa que el iterador se mueve al siguiente
+o elemento anterior del conjunto.
 
-The following code prints all the elements
-in increasing order:
+El siguiente código imprime todos los elementos
+en orden creciente:
 \begin{lstlisting}
 for (auto it = s.begin(); it != s.end(); it++) {
     cout << *it << "\n";
 }
 \end{lstlisting}
-The following code prints the largest element in the set:
+El siguiente código imprime el elemento más grande del conjunto:
 \begin{lstlisting}
 auto it = s.end(); it--;
 cout << *it << "\n";
 \end{lstlisting}
 
-The function $\texttt{find}(x)$ returns an iterator
-that points to an element whose value is $x$.
-However, if the set does not contain $x$,
-the iterator will be \texttt{end}.
+La función $\texttt{find}(x)$ devuelve un iterador
+que apunta a un elemento cuyo valor es $x$.
+Sin embargo, si el conjunto no contiene $x$,
+el iterador será \texttt{end}.
 
 \begin{lstlisting}
 auto it = s.find(x);
 if (it == s.end()) {
-    // x is not found
+    // x no se encuentra
 }
 \end{lstlisting}
 
-The function $\texttt{lower\_bound}(x)$ returns
-an iterator to the smallest element in the set
-whose value is \emph{at least} $x$, and
-the function $\texttt{upper\_bound}(x)$
-returns an iterator to the smallest element in the set
-whose value is \emph{larger than} $x$.
-In both functions, if such an element does not exist,
-the return value is \texttt{end}.
-These functions are not supported by the
-\texttt{unordered\_set} structure which
-does not maintain the order of the elements.
+La función $\texttt{lower\_bound}(x)$ devuelve
+un iterador al elemento más pequeño del conjunto
+cuyo valor es \emph{al menos} $x$, y
+la función $\texttt{upper\_bound}(x)$
+devuelve un iterador al elemento más pequeño del conjunto
+cuyo valor es \emph{mayor que} $x$.
+En ambas funciones, si no existe tal elemento,
+el valor de retorno es \texttt{end}.
+Estas funciones no son compatibles con
+la estructura \texttt{unordered\_set} que
+no mantiene el orden de los elementos.
 
 \begin{samepage}
-For example, the following code finds the element
-nearest to $x$:
+Por ejemplo, el siguiente código encuentra el elemento
+más cercano a $x$:
 
 \begin{lstlisting}
 auto it = s.lower_bound(x);
@@ -452,30 +450,30 @@ if (it == s.begin()) {
 }
 \end{lstlisting}
 
-The code assumes that the set is not empty,
-and goes through all possible cases
-using an iterator \texttt{it}.
-First, the iterator points to the smallest
-element whose value is at least $x$.
-If \texttt{it} equals \texttt{begin},
-the corresponding element is nearest to $x$.
-If \texttt{it} equals \texttt{end},
-the largest element in the set is nearest to $x$.
-If none of the previous cases hold,
-the element nearest to $x$ is either the
-element that corresponds to \texttt{it} or the previous element.
+El código asume que el conjunto no está vacío,
+y recorre todos los casos posibles
+utilizando un iterador \texttt{it}.
+Primero, el iterador apunta al elemento más pequeño
+cuyo valor es al menos $x$.
+Si \texttt{it} es igual a \texttt{begin},
+el elemento correspondiente está más cerca de $x$.
+Si \texttt{it} es igual a \texttt{end},
+el elemento más grande del conjunto está más cerca de $x$.
+Si ninguno de los casos anteriores se cumple,
+el elemento más cercano a $x$ es o bien el
+elemento que corresponde a \texttt{it} o el elemento anterior.
 \end{samepage}
 
-\section{Other structures}
+\section{Otras estructuras}
 
 \subsubsection{Bitset}
 
 \index{bitset}
 
-A \key{bitset} is an array
-whose each value is either 0 or 1.
-For example, the following code creates
-a bitset that contains 10 elements:
+Un \key{bitset} es una matriz
+cuyo valor de cada elemento es 0 o 1.
+Por ejemplo, el siguiente código crea
+un bitset que contiene 10 elementos:
 \begin{lstlisting}
 bitset<10> s;
 s[1] = 1;
@@ -486,35 +484,35 @@ cout << s[4] << "\n"; // 1
 cout << s[5] << "\n"; // 0
 \end{lstlisting}
 
-The benefit of using bitsets is that
-they require less memory than ordinary arrays,
-because each element in a bitset only
-uses one bit of memory.
-For example, 
-if $n$ bits are stored in an \texttt{int} array,
-$32n$ bits of memory will be used,
-but a corresponding bitset only requires $n$ bits of memory.
-In addition, the values of a bitset
-can be efficiently manipulated using
-bit operators, which makes it possible to
-optimize algorithms using bit sets.
+La ventaja de usar bitsets es que
+requieren menos memoria que las matrices ordinarias,
+porque cada elemento de un bitset solo
+utiliza un bit de memoria.
+Por ejemplo, 
+si se almacenan $n$ bits en una matriz \texttt{int},
+se utilizarán $32n$ bits de memoria,
+pero un bitset correspondiente solo requiere $n$ bits de memoria.
+Además, los valores de un bitset
+se pueden manipular de manera eficiente utilizando
+operadores bit a bit, lo que permite
+optimizar algoritmos utilizando bitsets.
 
-The following code shows another way to create the above bitset:
+El siguiente código muestra otra forma de crear el bitset anterior:
 \begin{lstlisting}
-bitset<10> s(string("0010011010")); // from right to left
+bitset<10> s(string("0010011010")); // de derecha a izquierda
 cout << s[4] << "\n"; // 1
 cout << s[5] << "\n"; // 0
 \end{lstlisting}
 
-The function \texttt{count} returns the number
-of ones in the bitset:
+La función \texttt{count} devuelve el número
+de unos en el bitset:
 
 \begin{lstlisting}
 bitset<10> s(string("0010011010"));
 cout << s.count() << "\n"; // 4
 \end{lstlisting}
 
-The following code shows examples of using bit operations:
+El siguiente código muestra ejemplos de uso de operaciones bit a bit:
 \begin{lstlisting}
 bitset<10> a(string("0010110110"));
 bitset<10> b(string("1011011000"));
@@ -527,16 +525,16 @@ cout << (a^b) << "\n"; // 1001101110
 
 \index{deque}
 
-A \key{deque} is a dynamic array
-whose size can be efficiently
-changed at both ends of the array.
-Like a vector, a deque provides the functions
-\texttt{push\_back} and \texttt{pop\_back}, but
-it also includes the functions
-\texttt{push\_front} and \texttt{pop\_front}
-which are not available in a vector.
+Un \key{deque} es una matriz dinámica
+cuyo tamaño se puede cambiar de forma eficiente
+en ambos extremos de la matriz.
+Al igual que un vector, un deque proporciona las funciones
+\texttt{push\_back} y \texttt{pop\_back}, pero
+también incluye las funciones
+\texttt{push\_front} y \texttt{pop\_front}
+que no están disponibles en un vector.
 
-A deque can be used as follows:
+Un deque se puede utilizar de la siguiente manera:
 \begin{lstlisting}
 deque<int> d;
 d.push_back(5); // [5]
@@ -546,25 +544,27 @@ d.pop_back(); // [3,5]
 d.pop_front(); // [5]
 \end{lstlisting}
 
-The internal implementation of a deque
-is more complex than that of a vector,
-and for this reason, a deque is slower than a vector.
-Still, both adding and removing
-elements take $O(1)$ time on average at both ends.
 
-\subsubsection{Stack}
 
-\index{stack}
+La implementación interna de una cola de doble extremo
+es más compleja que la de un vector,
+y por esta razón, una cola de doble extremo es más lenta que un vector.
+Aun así, tanto agregar como eliminar
+elementos toma $O(1)$ tiempo en promedio en ambos extremos.
 
-A \key{stack}
-is a data structure that provides two
-$O(1)$ time operations:
-adding an element to the top,
-and removing an element from the top.
-It is only possible to access the top
-element of a stack.
+\subsubsection{Pila}
 
-The following code shows how a stack can be used:
+\index{pila}
+
+Una \key{pila}
+es una estructura de datos que proporciona dos
+operaciones de tiempo $O(1)$:
+agregar un elemento a la cima,
+y eliminar un elemento de la cima.
+Solo es posible acceder al elemento superior
+de una pila.
+
+El siguiente código muestra cómo se puede usar una pila:
 \begin{lstlisting}
 stack<int> s;
 s.push(3);
@@ -574,18 +574,18 @@ cout << s.top(); // 5
 s.pop();
 cout << s.top(); // 2
 \end{lstlisting}
-\subsubsection{Queue}
+\subsubsection{Cola}
 
-\index{queue}
+\index{cola}
 
-A \key{queue} also
-provides two $O(1)$ time operations:
-adding an element to the end of the queue,
-and removing the first element in the queue.
-It is only possible to access the first
-and last element of a queue.
+Una \key{cola} también
+proporciona dos operaciones de tiempo $O(1)$:
+agregar un elemento al final de la cola,
+y eliminar el primer elemento de la cola.
+Solo es posible acceder al primero
+y al último elemento de una cola.
 
-The following code shows how a queue can be used:
+El siguiente código muestra cómo se puede usar una cola:
 \begin{lstlisting}
 queue<int> q;
 q.push(3);
@@ -596,34 +596,34 @@ q.pop();
 cout << q.front(); // 2
 \end{lstlisting}
 
-\subsubsection{Priority queue}
+\subsubsection{Cola de prioridad}
 
-\index{priority queue}
-\index{heap}
+\index{cola de prioridad}
+\index{montículo}
 
-A \key{priority queue}
-maintains a set of elements.
-The supported operations are insertion and,
-depending on the type of the queue,
-retrieval and removal of
-either the minimum or maximum element.
-Insertion and removal take $O(\log n)$ time,
-and retrieval takes $O(1)$ time.
+Una \key{cola de prioridad}
+mantiene un conjunto de elementos.
+Las operaciones compatibles son la inserción y,
+dependiendo del tipo de la cola,
+la recuperación y la eliminación de
+ya sea el elemento mínimo o máximo.
+La inserción y la eliminación toman $O(\log n)$ tiempo,
+y la recuperación toma $O(1)$ tiempo.
 
-While an ordered set efficiently supports
-all the operations of a priority queue,
-the benefit of using a priority queue is
-that it has smaller constant factors.
-A priority queue is usually implemented using
-a heap structure that is much simpler than a
-balanced binary tree used in an ordered set.
+Si bien un conjunto ordenado admite de manera eficiente
+todas las operaciones de una cola de prioridad,
+la ventaja de usar una cola de prioridad es
+que tiene factores constantes más pequeños.
+Una cola de prioridad generalmente se implementa utilizando
+una estructura de montón que es mucho más simple que un
+árbol binario equilibrado utilizado en un conjunto ordenado.
 
 \begin{samepage}
-By default, the elements in a C++
-priority queue are sorted in decreasing order,
-and it is possible to find and remove the
-largest element in the queue.
-The following code illustrates this:
+De forma predeterminada, los elementos de una cola de prioridad de C++
+están ordenados en orden decreciente,
+y es posible encontrar y eliminar el
+elemento más grande en la cola.
+El siguiente código ilustra esto:
 
 \begin{lstlisting}
 priority_queue<int> q;
@@ -641,36 +641,35 @@ q.pop();
 \end{lstlisting}
 \end{samepage}
 
-If we want to create a priority queue
-that supports finding and removing
-the smallest element,
-we can do it as follows:
+Si queremos crear una cola de prioridad
+que admita la búsqueda y la eliminación
+del elemento más pequeño,
+podemos hacerlo de la siguiente manera:
 
 \begin{lstlisting}
 priority_queue<int,vector<int>,greater<int>> q;
 \end{lstlisting}
 
-\subsubsection{Policy-based data structures}
+\subsubsection{Estructuras de datos basadas en políticas}
 
-The \texttt{g++} compiler also supports
-some data structures that are not part
-of the C++ standard library.
-Such structures are called \emph{policy-based}
-data structures.
-To use these structures, the following lines
-must be added to the code:
+El compilador \texttt{g++} también admite
+algunas estructuras de datos que no son parte
+de la biblioteca estándar de C++.
+Tales estructuras se llaman estructuras de datos \emph{basadas en políticas}.
+Para usar estas estructuras, las siguientes líneas
+deben agregarse al código:
 \begin{lstlisting}
 #include <ext/pb_ds/assoc_container.hpp>
 using namespace __gnu_pbds; 
 \end{lstlisting}
-After this, we can define a data structure \texttt{indexed\_set} that
-is like \texttt{set} but can be indexed like an array.
-The definition for \texttt{int} values is as follows:
+Después de esto, podemos definir una estructura de datos \texttt{indexed\_set} que
+es como \texttt{set} pero se puede indexar como una matriz.
+La definición para valores \texttt{int} es la siguiente:
 \begin{lstlisting}
 typedef tree<int,null_type,less<int>,rb_tree_tag,
              tree_order_statistics_node_update> indexed_set; 
 \end{lstlisting}
-Now we can create a set as follows:
+Ahora podemos crear un conjunto de la siguiente manera:
 \begin{lstlisting}
 indexed_set s;
 s.insert(2);
@@ -678,92 +677,91 @@ s.insert(3);
 s.insert(7);
 s.insert(9);
 \end{lstlisting}
-The speciality of this set is that we have access to
-the indices that the elements would have in a sorted array.
-The function $\texttt{find\_by\_order}$ returns
-an iterator to the element at a given position:
+La especialidad de este conjunto es que tenemos acceso a
+los índices que los elementos tendrían en una matriz ordenada.
+La función $\texttt{find\_by\_order}$ devuelve
+un iterador al elemento en una posición dada:
 \begin{lstlisting}
 auto x = s.find_by_order(2);
 cout << *x << "\n"; // 7
 \end{lstlisting}
-And the function $\texttt{order\_of\_key}$
-returns the position of a given element:
+Y la función $\texttt{order\_of\_key}$
+devuelve la posición de un elemento dado:
 \begin{lstlisting}
 cout << s.order_of_key(7) << "\n"; // 2
 \end{lstlisting}
-If the element does not appear in the set,
-we get the position that the element would have
-in the set:
+Si el elemento no aparece en el conjunto,
+obtenemos la posición que el elemento tendría
+en el conjunto:
 \begin{lstlisting}
 cout << s.order_of_key(6) << "\n"; // 2
 cout << s.order_of_key(8) << "\n"; // 3
 \end{lstlisting}
-Both the functions work in logarithmic time.
+Ambas funciones funcionan en tiempo logarítmico.
 
-\section{Comparison to sorting}
+\section{Comparación con la clasificación}
 
-It is often possible to solve a problem
-using either data structures or sorting.
-Sometimes there are remarkable differences
-in the actual efficiency of these approaches,
-which may be hidden in their time complexities.
+A menudo es posible resolver un problema
+utilizando estructuras de datos o clasificación.
+A veces hay diferencias notables
+en la eficiencia real de estos enfoques,
+que pueden estar ocultas en sus complejidades de tiempo.
 
-Let us consider a problem where
-we are given two lists $A$ and $B$
-that both contain $n$ elements.
-Our task is to calculate the number of elements
-that belong to both of the lists.
-For example, for the lists
-\[A = [5,2,8,9] \hspace{10px} \textrm{and} \hspace{10px} B = [3,2,9,5],\]
-the answer is 3 because the numbers 2, 5
-and 9 belong to both of the lists.
+Consideremos un problema donde
+se nos dan dos listas $A$ y $B$
+que ambas contienen $n$ elementos.
+Nuestra tarea es calcular el número de elementos
+que pertenecen a ambas listas.
+Por ejemplo, para las listas
+\[A = [5,2,8,9] \hspace{10px} \textrm{y} \hspace{10px} B = [3,2,9,5],\]
+la respuesta es 3 porque los números 2, 5
+y 9 pertenecen a ambas listas.
 
-A straightforward solution to the problem is
-to go through all pairs of elements in $O(n^2)$ time,
-but next we will focus on
-more efficient algorithms.
+Una solución sencilla al problema es
+recorrer todos los pares de elementos en $O(n^2)$ tiempo,
+pero a continuación nos centraremos en
+algoritmos más eficientes.
 
-\subsubsection{Algorithm 1}
+\subsubsection{Algoritmo 1}
+Construimos un conjunto de los elementos que aparecen en $A$,
+y después de esto, iteramos a través de los elementos
+de $B$ y verificamos para cada elemento si también
+pertenece a $A$.
+Esto es eficiente porque los elementos de $A$
+están en un conjunto.
+Usando la estructura \texttt{set},
+la complejidad temporal del algoritmo es $O(n \log n)$.
 
-We construct a set of the elements that appear in $A$,
-and after this, we iterate through the elements
-of $B$ and check for each elements if it
-also belongs to $A$.
-This is efficient because the elements of $A$
-are in a set.
-Using the \texttt{set} structure,
-the time complexity of the algorithm is $O(n \log n)$.
+\subsubsection{Algoritmo 2}
 
-\subsubsection{Algorithm 2}
+No es necesario mantener un conjunto ordenado,
+así que en lugar de la estructura \texttt{set}
+también podemos usar la estructura \texttt{unordered\_set}.
+Esta es una forma fácil de hacer el algoritmo
+más eficiente, porque solo tenemos que cambiar
+la estructura de datos subyacente.
+La complejidad temporal del nuevo algoritmo es $O(n)$.
 
-It is not necessary to maintain an ordered set,
-so instead of the \texttt{set} structure
-we can also use the \texttt{unordered\_set} structure.
-This is an easy way to make the algorithm
-more efficient, because we only have to change
-the underlying data structure.
-The time complexity of the new algorithm is $O(n)$.
+\subsubsection{Algoritmo 3}
 
-\subsubsection{Algorithm 3}
+En lugar de estructuras de datos, podemos usar la ordenación.
+Primero, ordenamos ambas listas $A$ y $B$.
+Después de esto, iteramos a través de ambas listas
+al mismo tiempo y encontramos los elementos comunes.
+La complejidad temporal de la ordenación es $O(n \log n)$,
+y el resto del algoritmo funciona en tiempo $O(n)$,
+por lo que la complejidad temporal total es $O(n \log n)$.
 
-Instead of data structures, we can use sorting.
-First, we sort both lists $A$ and $B$.
-After this, we iterate through both the lists
-at the same time and find the common elements.
-The time complexity of sorting is $O(n \log n)$,
-and the rest of the algorithm works in $O(n)$ time,
-so the total time complexity is $O(n \log n)$.
+\subsubsection{Comparación de eficiencia}
 
-\subsubsection{Efficiency comparison}
-
-The following table shows how efficient
-the above algorithms are when $n$ varies and
-the elements of the lists are random
-integers between $1 \ldots 10^9$:
+La siguiente tabla muestra qué tan eficientes
+son los algoritmos anteriores cuando $n$ varía y
+los elementos de las listas son enteros aleatorios
+entre $1 \ldots 10^9$:
 
 \begin{center}
 \begin{tabular}{rrrr}
-$n$ & Algorithm 1 & Algorithm 2 & Algorithm 3 \\
+$n$ & Algoritmo 1 & Algoritmo 2 & Algoritmo 3 \\
 \hline
 $10^6$ & $1.5$ s & $0.3$ s & $0.2$ s \\
 $2 \cdot 10^6$ & $3.7$ s & $0.8$ s & $0.3$ s \\
@@ -773,22 +771,22 @@ $5 \cdot 10^6$ & $10.0$ s & $2.3$ s & $0.9$ s \\
 \end{tabular}
 \end{center}
 
-Algorithms 1 and 2 are equal except that
-they use different set structures.
-In this problem, this choice has an important effect on
-the running time, because Algorithm 2
-is 4–5 times faster than Algorithm 1.
+Los algoritmos 1 y 2 son iguales excepto que
+usan diferentes estructuras de conjuntos.
+En este problema, esta elección tiene un efecto importante en
+el tiempo de ejecución, porque el Algoritmo 2
+es 4–5 veces más rápido que el Algoritmo 1.
 
-However, the most efficient algorithm is Algorithm 3
-which uses sorting.
-It only uses half the time compared to Algorithm 2.
-Interestingly, the time complexity of both
-Algorithm 1 and Algorithm 3 is $O(n \log n)$,
-but despite this, Algorithm 3 is ten times faster.
-This can be explained by the fact that
-sorting is a simple procedure and it is done
-only once at the beginning of Algorithm 3,
-and the rest of the algorithm works in linear time.
-On the other hand,
-Algorithm 1 maintains a complex balanced binary tree
-during the whole algorithm.
+Sin embargo, el algoritmo más eficiente es el Algoritmo 3
+que utiliza la ordenación.
+Solo usa la mitad del tiempo en comparación con el Algoritmo 2.
+Curiosamente, la complejidad temporal de ambos
+Algoritmo 1 y Algoritmo 3 es $O(n \log n)$,
+pero a pesar de esto, el Algoritmo 3 es diez veces más rápido.
+Esto se puede explicar por el hecho de que
+la ordenación es un procedimiento simple y se realiza
+solo una vez al principio del Algoritmo 3,
+y el resto del algoritmo funciona en tiempo lineal.
+Por otro lado,
+el Algoritmo 1 mantiene un complejo árbol binario balanceado
+durante todo el algoritmo.

@@ -1,31 +1,31 @@
-\chapter{Sweep line algorithms}
+\chapter{Algoritmos de línea de barrido}
 
-\index{sweep line}
+\index{línea de barrido}
 
-Many geometric problems can be solved using
-\key{sweep line} algorithms.
-The idea in such algorithms is to represent
-an instance of the problem as a set of events that correspond
-to points in the plane.
-The events are processed in increasing order
-according to their x or y coordinates.
+Muchos problemas geométricos se pueden resolver utilizando
+\key{algoritmos de línea de barrido}.
+La idea en estos algoritmos es representar
+una instancia del problema como un conjunto de eventos que corresponden
+a puntos en el plano.
+Los eventos se procesan en orden creciente
+de acuerdo con sus coordenadas x o y.
 
-As an example, consider the following problem:
-There is a company that has $n$ employees,
-and we know for each employee their arrival and
-leaving times on a certain day.
-Our task is to calculate the maximum number of
-employees that were in the office at the same time.
+Como ejemplo, considere el siguiente problema:
+Hay una empresa que tiene $n$ empleados,
+y conocemos para cada empleado su hora de llegada y
+su hora de salida en un día determinado.
+Nuestra tarea es calcular el número máximo de
+empleados que estaban en la oficina al mismo tiempo.
 
-The problem can be solved by modeling the situation
-so that each employee is assigned two events that
-correspond to their arrival and leaving times.
-After sorting the events, we go through them
-and keep track of the number of people in the office.
-For example, the table
+El problema se puede resolver modelando la situación
+de modo que cada empleado reciba dos eventos que
+correspondan a su hora de llegada y su hora de salida.
+Después de ordenar los eventos, los revisamos
+y hacemos un seguimiento del número de personas en la oficina.
+Por ejemplo, la tabla
 \begin{center}
 \begin{tabular}{ccc}
-person & arrival time & leaving time \\
+persona & hora de llegada & hora de salida \\
 \hline
 John & 10 & 15 \\
 Maria & 6 & 12 \\
@@ -33,7 +33,7 @@ Peter & 14 & 16 \\
 Lisa & 5 & 13 \\
 \end{tabular}
 \end{center}
-corresponds to the following events:
+corresponde a los siguientes eventos:
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
 \draw (0,0) rectangle (17,-6.5);
@@ -57,16 +57,16 @@ corresponds to the following events:
 \node at (2,-5.5) {Lisa};
 \end{tikzpicture}
 \end{center}
-We go through the events from left to right
-and maintain a counter.
-Always when a person arrives, we increase
-the value of the counter by one,
-and when a person leaves,
-we decrease the value of the counter by one.
-The answer to the problem is the maximum
-value of the counter during the algorithm.
+Revisamos los eventos de izquierda a derecha
+y mantenemos un contador.
+Siempre que una persona llega, aumentamos
+el valor del contador en uno,
+y cuando una persona se va,
+disminuimos el valor del contador en uno.
+La respuesta al problema es el máximo
+valor del contador durante el algoritmo.
 
-In the example, the events are processed as follows:
+En el ejemplo, los eventos se procesan de la siguiente manera:
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
 \path[draw,thick,->] (0.5,0.5) -- (16.5,0.5);
@@ -118,24 +118,24 @@ In the example, the events are processed as follows:
 \node at (13,-8) {$1$};
 \end{tikzpicture}
 \end{center}
-The symbols $+$ and $-$ indicate whether the
-value of the counter increases or decreases,
-and the value of the counter is shown below.
-The maximum value of the counter is 3
-between John's arrival and Maria's leaving.
+Los símbolos $+$ y $-$ indican si el
+valor del contador aumenta o disminuye,
+y el valor del contador se muestra debajo.
+El valor máximo del contador es 3
+entre la llegada de John y la salida de María.
 
-The running time of the algorithm is $O(n \log n)$,
-because sorting the events takes $O(n \log n)$ time
-and the rest of the algorithm takes $O(n)$ time.
+El tiempo de ejecución del algoritmo es $O(n \log n)$,
+porque ordenar los eventos lleva $O(n \log n)$ tiempo
+y el resto del algoritmo lleva $O(n)$ tiempo.
 
-\section{Intersection points}
+\section{Puntos de intersección}
 
-\index{intersection point}
+\index{punto de intersección}
 
-Given a set of $n$ line segments, each of them being either
-horizontal or vertical, consider the problem of
-counting the total number of intersection points.
-For example, when the line segments are
+Dado un conjunto de $n$ segmentos de línea, cada uno de ellos siendo
+horizontal o vertical, considere el problema de
+contar el número total de puntos de intersección.
+Por ejemplo, cuando los segmentos de línea son
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \path[draw,thick,-] (0,2) -- (5,2);
@@ -145,7 +145,7 @@ For example, when the line segments are
 \path[draw,thick,-] (8,2) -- (8,5);
 \end{tikzpicture}
 \end{center}
-there are three intersection points:
+hay tres puntos de intersección:
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
 \path[draw,thick,-] (0,2) -- (5,2);
@@ -161,23 +161,24 @@ there are three intersection points:
 \end{tikzpicture}
 \end{center}
 
-It is easy to solve the problem in $O(n^2)$ time,
-because we can go through all possible pairs of line segments
-and check if they intersect.
-However, we can solve the problem more efficiently
-in $O(n \log n)$ time using a sweep line algorithm
-and a range query data structure.
 
-The idea is to process the endpoints of the line
-segments from left to right and 
-focus on three types of events:
+Es fácil resolver el problema en tiempo $O(n^2)$,
+porque podemos recorrer todas las parejas posibles de segmentos de línea
+y verificar si se intersecan.
+Sin embargo, podemos resolver el problema de manera más eficiente
+en tiempo $O(n \log n)$ usando un algoritmo de línea de barrido
+y una estructura de datos de consulta de rango.
+
+La idea es procesar los puntos finales de la línea
+segmentos de izquierda a derecha y
+centrarse en tres tipos de eventos:
 \begin{enumerate}[noitemsep]
-\item[(1)] horizontal segment begins
-\item[(2)] horizontal segment ends
-\item[(3)] vertical segment
+\item[(1)] segmento horizontal comienza
+\item[(2)] segmento horizontal termina
+\item[(3)] segmento vertical
 \end{enumerate}
 
-The following events correspond to the example:
+Los siguientes eventos corresponden al ejemplo:
 \begin{center}
 \begin{tikzpicture}[scale=0.6]
 \path[draw,dashed] (0,2) -- (5,2);
@@ -198,34 +199,34 @@ The following events correspond to the example:
 \end{tikzpicture}
 \end{center}
 
-We go through the events from left to right
-and use a data structure that maintains a set of
-y coordinates where there is an active horizontal segment.
-At event 1, we add the y coordinate of the segment
-to the set, and at event 2, we remove the
-y coordinate from the set.
+Recorremos los eventos de izquierda a derecha
+y usamos una estructura de datos que mantiene un conjunto de
+coordenadas y donde hay un segmento horizontal activo.
+En el evento 1, agregamos la coordenada y del segmento
+al conjunto, y en el evento 2, quitamos la
+coordenada y del conjunto.
 
-Intersection points are calculated at event 3.
-When there is a vertical segment between points
-$y_1$ and $y_2$, we count the number of active
-horizontal segments whose y coordinate is between
-$y_1$ and $y_2$, and add this number to the total
-number of intersection points.
+Los puntos de intersección se calculan en el evento 3.
+Cuando hay un segmento vertical entre los puntos
+$y_1$ e $y_2$, contamos el número de
+segmentos horizontales activos cuya coordenada y está entre
+$y_1$ e $y_2$, y agregamos este número al total
+número de puntos de intersección.
 
-To store y coordinates of horizontal segments,
-we can use a binary indexed or segment tree,
-possibly with index compression.
-When such structures are used, processing each event
-takes $O(\log n)$ time, so the total running
-time of the algorithm is $O(n \log n)$.
+Para almacenar las coordenadas y de los segmentos horizontales,
+podemos usar un árbol binario indexado o un árbol de segmentos,
+posiblemente con compresión de índices.
+Cuando se utilizan tales estructuras, el procesamiento de cada evento
+lleva $O(\log n)$ tiempo, por lo que el tiempo total de ejecución
+del algoritmo es $O(n \log n)$.
 
-\section{Closest pair problem}
+\section{Problema del par más cercano}
 
-\index{closest pair}
+\index{par más cercano}
 
-Given a set of $n$ points, our next problem is
-to find two points whose Euclidean distance is minimum.
-For example, if the points are
+Dado un conjunto de $n$ puntos, nuestro siguiente problema es
+encontrar dos puntos cuya distancia euclidiana sea mínima.
+Por ejemplo, si los puntos son
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0)--(12,0)--(12,4)--(0,4)--(0,0);
@@ -247,7 +248,7 @@ For example, if the points are
 \end{tikzpicture}
 \end{center}
 \begin{samepage}
-we should find the following points:
+deberíamos encontrar los siguientes puntos:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0)--(12,0)--(12,4)--(0,4)--(0,0);
@@ -270,35 +271,35 @@ we should find the following points:
 \end{center}
 \end{samepage}
 
-This is another example of a problem
-that can be solved in $O(n \log n)$ time
-using a sweep line algorithm\footnote{Besides this approach,
-there is also an
-$O(n \log n)$ time divide-and-conquer algorithm \cite{sha75}
-that divides the points into two sets and recursively
-solves the problem for both sets.}.
-We go through the points from left to right
-and maintain a value $d$: the minimum distance
-between two points seen so far.
-At each point, we find the nearest point to the left.
-If the distance is less than $d$, it is the
-new minimum distance and we update
-the value of $d$.
+Este es otro ejemplo de un problema
+que se puede resolver en tiempo $O(n \log n)$
+usando un algoritmo de línea de barrido\footnote{Además de este enfoque,
+también hay un
+algoritmo de dividir y conquistar de tiempo $O(n \log n)$ \cite{sha75}
+que divide los puntos en dos conjuntos y recursivamente
+resuelve el problema para ambos conjuntos.}.
+Recorremos los puntos de izquierda a derecha
+y mantenemos un valor $d$: la distancia mínima
+entre dos puntos vistos hasta ahora.
+En cada punto, encontramos el punto más cercano a la izquierda.
+Si la distancia es menor que $d$, es la
+nueva distancia mínima y actualizamos
+el valor de $d$.
 
-If the current point is $(x,y)$
-and there is a point to the left
-within a distance of less than $d$,
-the x coordinate of such a point must
-be between $[x-d,x]$ and the y coordinate
-must be between $[y-d,y+d]$.
-Thus, it suffices to only consider points
-that are located in those ranges,
-which makes the algorithm efficient.
+Si el punto actual es $(x,y)$
+y hay un punto a la izquierda
+a una distancia menor que $d$,
+la coordenada x de dicho punto debe
+estar entre $[x-d,x]$ y la coordenada y
+debe estar entre $[y-d,y+d]$.
+Por lo tanto, basta con considerar puntos
+que están ubicados en esos rangos,
+lo que hace que el algoritmo sea eficiente.
 
-For example, in the following picture, the
-region marked with dashed lines contains
-the points that can be within a distance of $d$
-from the active point:
+Por ejemplo, en la siguiente imagen, la
+región marcada con líneas discontinuas contiene
+los puntos que pueden estar a una distancia de $d$
+del punto activo:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -319,6 +320,8 @@ from the active point:
 \draw (5.25,0.5) circle [radius=0.1];
 \draw[fill] (6.5,2) circle [radius=0.1];
 
+
+
 \draw[dashed] (6.5,0.75)--(6.5,3.25);
 \draw[dashed] (5.25,0.75)--(5.25,3.25);
 \draw[dashed] (5.25,0.75)--(6.5,0.75);
@@ -331,29 +334,29 @@ from the active point:
 \end{tikzpicture}
 \end{center}
 
-The efficiency of the algorithm is based on the fact
-that the region always contains
-only $O(1)$ points.
-We can go through those points in $O(\log n)$ time
-by maintaining a set of points whose x coordinate
-is between $[x-d,x]$, in increasing order according
-to their y coordinates.
+La eficiencia del algoritmo se basa en el hecho de
+que la región siempre contiene
+solo $O(1)$ puntos.
+Podemos recorrer esos puntos en tiempo $O(\log n)$
+manteniendo un conjunto de puntos cuya coordenada x
+está entre $[x-d,x]$, en orden creciente
+según sus coordenadas y.
 
-The time complexity of the algorithm is $O(n \log n)$,
-because we go through $n$ points and
-find for each point the nearest point to the left
-in $O(\log n)$ time.
+La complejidad temporal del algoritmo es $O(n \log n)$,
+porque recorremos $n$ puntos y
+encontramos para cada punto el punto más cercano a la izquierda
+en tiempo $O(\log n)$.
 
-\section{Convex hull problem}
+\section{Problema de la envolvente convexa}
 
-A \key{convex hull} is the smallest convex polygon
-that contains all points of a given set.
-Convexity means that a line segment between
-any two vertices of the polygon is completely
-inside the polygon.
+Una \key{envolvente convexa} es el polígono convexo más pequeño
+que contiene todos los puntos de un conjunto dado.
+La convexidad significa que un segmento de línea entre
+dos vértices cualesquiera del polígono está completamente
+dentro del polígono.
 
 \begin{samepage}
-For example, for the points
+Por ejemplo, para los puntos
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) circle [radius=0.1];
@@ -373,7 +376,7 @@ For example, for the points
 \end{tikzpicture}
 \end{center}
 \end{samepage}
-the convex hull is as follows:
+la envolvente convexa es la siguiente:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0)--(4,-1)--(7,1)--(6,3)--(2,4)--(0,2)--(0,0);
@@ -395,31 +398,31 @@ the convex hull is as follows:
 \end{tikzpicture}
 \end{center}
 
-\index{Andrew's algorithm}
+\index{Algoritmo de Andrew}
 
-\key{Andrew's algorithm} \cite{and79} provides
-an easy way to
-construct the convex hull for a set of points
-in $O(n \log n)$ time.
-The algorithm first locates the leftmost
-and rightmost points, and then
-constructs the convex hull in two parts:
-first the upper hull and then the lower hull.
-Both parts are similar, so we can focus on
-constructing the upper hull.
+\key{Algoritmo de Andrew} \cite{and79} proporciona
+una forma sencilla de
+construir la envolvente convexa para un conjunto de puntos
+en tiempo $O(n \log n)$.
+El algoritmo primero localiza los puntos más a la izquierda
+y más a la derecha, y luego
+construye la envolvente convexa en dos partes:
+primero la envolvente superior y luego la envolvente inferior.
+Ambas partes son similares, por lo que podemos concentrarnos en
+construir la envolvente superior.
 
-First, we sort the points primarily according to
-x coordinates and secondarily according to y coordinates.
-After this, we go through the points and
-add each point to the hull.
-Always after adding a point to the hull,
-we make sure that the last line segment
-in the hull does not turn left.
-As long as it turns left, we repeatedly remove the
-second last point from the hull.
+Primero, ordenamos los puntos principalmente según
+las coordenadas x y secundariamente según las coordenadas y.
+Después de esto, recorremos los puntos y
+agregamos cada punto a la envolvente.
+Siempre después de agregar un punto a la envolvente,
+nos aseguramos de que el último segmento de línea
+en la envolvente no gire a la izquierda.
+Mientras gire a la izquierda, eliminamos repetidamente el
+penúltimo punto de la envolvente.
 
-The following pictures show how
-Andrew's algorithm works:
+Las siguientes imágenes muestran cómo
+funciona el algoritmo de Andrew:
 \\
 \begin{tabular}{ccccccc}
 \\

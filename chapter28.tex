@@ -1,19 +1,19 @@
-\chapter{Segment trees revisited}
+\chapter{Árboles de segmentos revisitados}
 
-\index{segment tree}
+\index{árbol de segmentos}
 
-A segment tree is a versatile data structure
-that can be used to solve a large number of algorithm problems.
-However, there are many topics related to segment trees
-that we have not touched yet.
-Now is time to discuss some more advanced variants
-of segment trees.
+Un árbol de segmentos es una estructura de datos versátil
+que se puede utilizar para resolver una gran cantidad de problemas de algoritmos.
+Sin embargo, hay muchos temas relacionados con los árboles de segmentos
+que aún no hemos tocado.
+Ahora es el momento de discutir algunas variantes más avanzadas
+de los árboles de segmentos.
 
-So far, we have implemented the operations
-of a segment tree by walking \emph{from bottom to top}
-in the tree.
-For example, we have calculated
-range sums as follows (Chapter 9.3):
+Hasta ahora, hemos implementado las operaciones
+de un árbol de segmentos caminando \emph{de abajo hacia arriba}
+en el árbol.
+Por ejemplo, hemos calculado
+sumas de rango de la siguiente manera (Capítulo 9.3):
 
 \begin{lstlisting}
 int sum(int a, int b) {
@@ -28,10 +28,10 @@ int sum(int a, int b) {
 }
 \end{lstlisting}
 
-However, in more advanced segment trees,
-it is often necessary to implement the operations
-in another way, \emph{from top to bottom}.
-Using this approach, the function becomes as follows:
+Sin embargo, en los árboles de segmentos más avanzados,
+a menudo es necesario implementar las operaciones
+de otra manera, \emph{de arriba hacia abajo}.
+Usando este enfoque, la función se convierte en la siguiente:
 \begin{lstlisting}
 int sum(int a, int b, int k, int x, int y) {
     if (b < x || a > y) return 0;
@@ -41,34 +41,34 @@ int sum(int a, int b, int k, int x, int y) {
 }
 \end{lstlisting}
 
-Now we can calculate any value of $\texttt{sum}_q(a,b)$
-(the sum of array values in range $[a,b]$) as follows:
+Ahora podemos calcular cualquier valor de $\texttt{sum}_q(a,b)$
+(la suma de los valores del arreglo en el rango $[a,b]$) de la siguiente manera:
 \begin{lstlisting}
 int s = sum(a, b, 1, 0, n-1);
 \end{lstlisting}
 
-The parameter $k$ indicates the current position
-in \texttt{tree}.
-Initially $k$ equals 1, because we begin
-at the root of the tree.
-The range $[x,y]$ corresponds to $k$
-and is initially $[0,n-1]$.
-When calculating the sum,
-if $[x,y]$ is outside $[a,b]$,
-the sum is 0,
-and if $[x,y]$ is completely inside $[a,b]$,
-the sum can be found in \texttt{tree}.
-If $[x,y]$ is partially inside $[a,b]$,
-the search continues recursively to the
-left and right half of $[x,y]$.
-The left half is $[x,d]$
-and the right half is $[d+1,y]$
-where $d=\lfloor \frac{x+y}{2} \rfloor$.
+El parámetro $k$ indica la posición actual
+en \texttt{tree}.
+Inicialmente $k$ es igual a 1, porque comenzamos
+en la raíz del árbol.
+El rango $[x,y]$ corresponde a $k$
+e inicialmente es $[0,n-1]$.
+Al calcular la suma,
+si $[x,y]$ está fuera de $[a,b]$,
+la suma es 0,
+y si $[x,y]$ está completamente dentro de $[a,b]$,
+la suma se puede encontrar en \texttt{tree}.
+Si $[x,y]$ está parcialmente dentro de $[a,b]$,
+la búsqueda continúa recursivamente a la
+mitad izquierda y derecha de $[x,y]$.
+La mitad izquierda es $[x,d]$
+y la mitad derecha es $[d+1,y]$
+donde $d=\lfloor \frac{x+y}{2} \rfloor$.
 
-The following picture shows how the search proceeds
-when calculating the value of $\texttt{sum}_q(a,b)$.
-The gray nodes indicate nodes where the recursion
-stops and the sum can be found in \texttt{tree}.
+La siguiente imagen muestra cómo procede la búsqueda
+al calcular el valor de $\texttt{sum}_q(a,b)$.
+Los nodos grises indican nodos donde la recursión
+se detiene y la suma se puede encontrar en \texttt{tree}.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -163,56 +163,56 @@ stops and the sum can be found in \texttt{tree}.
 \end{tikzpicture}
 \end{center}
 
-Also in this implementation,
-operations take $O(\log n)$ time,
-because the total number of visited nodes is $O(\log n)$.
+También en esta implementación,
+las operaciones toman $O(\log n)$ tiempo,
+porque el número total de nodos visitados es $O(\log n)$.
 
-\section{Lazy propagation}
+\section{Propagación perezosa}
 
-\index{lazy propagation}
-\index{lazy segment tree}
+\index{propagación perezosa}
+\index{árbol de segmentos perezoso}
 
-Using \key{lazy propagation}, we can build
-a segment tree that supports \emph{both} range updates
-and range queries in $O(\log n)$ time.
-The idea is to perform updates and queries
-from top to bottom and perform updates
-\emph{lazily} so that they are propagated
-down the tree only when it is necessary.
+Utilizando la \key{propagación perezosa}, podemos construir
+un árbol de segmentos que admite \emph{ambas} actualizaciones de rango
+y consultas de rango en $O(\log n)$ tiempo.
+La idea es realizar actualizaciones y consultas
+de arriba hacia abajo y realizar actualizaciones
+\emph{perezosa}mente para que se propaguen
+hacia abajo del árbol solo cuando sea necesario.
 
-In a lazy segment tree, nodes contain two types of
-information.
-Like in an ordinary segment tree,
-each node contains the sum or some other value
-related to the corresponding subarray.
-In addition, the node may contain information
-related to lazy updates, which has not been
-propagated to its children.
+En un árbol de segmentos perezoso, los nodos contienen dos tipos de
+información.
+Como en un árbol de segmentos ordinario,
+cada nodo contiene la suma o algún otro valor
+relacionado con la submatriz correspondiente.
+Además, el nodo puede contener información
+relacionada con actualizaciones perezosas, que no ha sido
+propagada a sus hijos.
 
-There are two types of range updates:
-each array value in the range is either
-\emph{increased} by some value
-or \emph{assigned} some value.
-Both operations can be implemented using
-similar ideas, and it is even possible to construct
-a tree that supports both operations at the same time.
+Hay dos tipos de actualizaciones de rango:
+cada valor de la matriz en el rango se
+\emph{aumenta} en algún valor
+o se le \emph{asigna} algún valor.
+Ambas operaciones se pueden implementar utilizando
+ideas similares, e incluso es posible construir
+un árbol que admita ambas operaciones al mismo tiempo.
 
-\subsubsection{Lazy segment trees}
+\subsubsection{Árboles de segmentos perezosos}
 
-Let us consider an example where our goal is to
-construct a segment tree that supports
-two operations: increasing each value in
-$[a,b]$ by a constant and calculating the sum of
-values in $[a,b]$.
+Consideremos un ejemplo donde nuestro objetivo es
+construir un árbol de segmentos que admita
+dos operaciones: aumentar cada valor en
+$[a,b]$ en una constante y calcular la suma de
+valores en $[a,b]$.
 
-We will construct a tree where each node
-has two values $s/z$:
-$s$ denotes the sum of values in the range,
-and $z$ denotes the value of a lazy update,
-which means that all values in the range
-should be increased by $z$.
-In the following tree, $z=0$ in all nodes,
-so there are no ongoing lazy updates.
+Construiremos un árbol donde cada nodo
+tiene dos valores $s/z$:
+$s$ denota la suma de valores en el rango,
+y $z$ denota el valor de una actualización perezosa,
+lo que significa que todos los valores en el rango
+deben aumentarse en $z$.
+En el siguiente árbol, $z=0$ en todos los nodos,
+por lo que no hay actualizaciones perezosas en curso.
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (16,1);
@@ -285,19 +285,20 @@ so there are no ongoing lazy updates.
 \end{tikzpicture}
 \end{center}
 
-When the elements in $[a,b]$ are increased by $u$,
-we walk from the root towards the leaves
-and modify the nodes of the tree as follows:
-If the range $[x,y]$ of a node is
-completely inside $[a,b]$,
-we increase the $z$ value of the node by $u$ and stop.
-If $[x,y]$ only partially belongs to $[a,b]$,
-we increase the $s$ value of the node by $hu$,
-where $h$ is the size of the intersection of $[a,b]$
-and $[x,y]$, and continue our walk recursively in the tree.
 
-For example, the following picture shows the tree after
-increasing the elements in $[a,b]$ by 2:
+Cuando los elementos en $[a,b]$ se incrementan por $u$,
+caminamos desde la raíz hacia las hojas
+y modificamos los nodos del árbol de la siguiente manera:
+Si el rango $[x,y]$ de un nodo es
+completamente dentro de $[a,b]$,
+incrementamos el valor $z$ del nodo por $u$ y detenemos.
+Si $[x,y]$ solo pertenece parcialmente a $[a,b]$,
+incrementamos el valor $s$ del nodo por $hu$,
+donde $h$ es el tamaño de la intersección de $[a,b]$
+y $[x,y]$, y continuamos nuestra caminata recursivamente en el árbol.
+
+Por ejemplo, la siguiente imagen muestra el árbol después de
+incrementar los elementos en $[a,b]$ por 2:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \fill[color=gray!50] (5,0) rectangle (6,1);
@@ -389,25 +390,25 @@ increasing the elements in $[a,b]$ by 2:
 \end{tikzpicture}
 \end{center}
 
-We also calculate the sum of elements in a range $[a,b]$
-by walking in the tree from top to bottom.
-If the range $[x,y]$ of a node completely belongs
-to $[a,b]$, we add the $s$ value of the node to the sum.
-Otherwise, we continue the search recursively
-downwards in the tree.
+También calculamos la suma de elementos en un rango $[a,b]$
+caminando en el árbol de arriba hacia abajo.
+Si el rango $[x,y]$ de un nodo pertenece completamente
+a $[a,b]$, sumamos el valor $s$ del nodo a la suma.
+De lo contrario, continuamos la búsqueda recursivamente
+hacia abajo en el árbol.
 
-Both in updates and queries,
-the value of a lazy update is always propagated
-to the children of the node
-before processing the node.
-The idea is that updates will be propagated
-downwards only when it is necessary,
-which guarantees that the operations are always efficient.
+Tanto en actualizaciones como en consultas,
+el valor de una actualización perezosa siempre se propaga
+a los hijos del nodo
+antes de procesar el nodo.
+La idea es que las actualizaciones se propaguen
+hacia abajo solo cuando sea necesario,
+lo que garantiza que las operaciones sean siempre eficientes.
 
-The following picture shows how the tree changes
-when we calculate the value of $\texttt{sum}_a(a,b)$.
-The rectangle shows the nodes whose values change,
-because a lazy update is propagated downwards.
+La siguiente imagen muestra cómo cambia el árbol
+cuando calculamos el valor de $\texttt{sum}_a(a,b)$.
+El rectángulo muestra los nodos cuyos valores cambian,
+porque una actualización perezosa se propaga hacia abajo.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -496,67 +497,69 @@ because a lazy update is propagated downwards.
 \end{tikzpicture}
 \end{center}
 
-Note that sometimes it is needed to combine lazy updates.
-This happens when a node that already has a lazy update
-is assigned another lazy update.
-When calculating sums, it is easy to combine lazy updates,
-because the combination of updates $z_1$ and $z_2$
-corresponds to an update $z_1+z_2$.
+Tenga en cuenta que a veces es necesario combinar actualizaciones perezosas.
+Esto sucede cuando un nodo que ya tiene una actualización perezosa
+se le asigna otra actualización perezosa.
+Al calcular sumas, es fácil combinar actualizaciones perezosas,
+porque la combinación de actualizaciones $z_1$ y $z_2$
+corresponde a una actualización $z_1+z_2$.
 
-\subsubsection{Polynomial updates}
+\subsubsection{Actualizaciones polinómicas}
 
-Lazy updates can be generalized so that it is
-possible to update ranges using polynomials of the form
+Las actualizaciones perezosas se pueden generalizar para que sea
+posible actualizar rangos utilizando polinomios de la forma
 \[p(u) = t_k u^k + t_{k-1} u^{k-1} + \cdots + t_0.\]
 
-In this case, the update for a value
-at position $i$ in $[a,b]$ is $p(i-a)$.
-For example, adding the polynomial $p(u)=u+1$
-to $[a,b]$ means that the value at position $a$
-increases by 1, the value at position $a+1$
-increases by 2, and so on.
+En este caso, la actualización para un valor
+en la posición $i$ en $[a,b]$ es $p(i-a)$.
+Por ejemplo, agregar el polinomio $p(u)=u+1$
+a $[a,b]$ significa que el valor en la posición $a$
+aumenta en 1, el valor en la posición $a+1$
+aumenta en 2, y así sucesivamente.
 
-To support polynomial updates,
-each node is assigned $k+2$ values,
-where $k$ equals the degree of the polynomial.
-The value $s$ is the sum of the elements in the range,
-and the values $z_0,z_1,\ldots,z_k$ are the coefficients
-of a polynomial that corresponds to a lazy update.
+Para soportar actualizaciones polinómicas,
+a cada nodo se le asignan $k+2$ valores,
+donde $k$ es igual al grado del polinomio.
+El valor $s$ es la suma de los elementos en el rango,
+y los valores $z_0,z_1,\ldots,z_k$ son los coeficientes
+de un polinomio que corresponde a una actualización perezosa.
 
-Now, the sum of values in a range $[x,y]$ equals
+Ahora, la suma de valores en un rango $[x,y]$ es igual a
 \[s+\sum_{u=0}^{y-x} z_k u^k + z_{k-1} u^{k-1} + \cdots + z_0.\]
 
-The value of such a sum
-can be efficiently calculated using sum formulas.
-For example, the term $z_0$ corresponds to the sum
-$(y-x+1)z_0$, and the term $z_1 u$ corresponds to the sum
+El valor de dicha suma
+se puede calcular eficientemente utilizando fórmulas de suma.
+Por ejemplo, el término $z_0$ corresponde a la suma
+$(y-x+1)z_0$, y el término $z_1 u$ corresponde a la suma
 \[z_1(0+1+\cdots+y-x) = z_1 \frac{(y-x)(y-x+1)}{2} .\]
 
-When propagating an update in the tree,
-the indices of $p(u)$ change,
-because in each range $[x,y]$,
-the values are
-calculated for $u=0,1,\ldots,y-x$.
-However, this is not a problem, because
-$p'(u)=p(u+h)$ is a polynomial
-of equal degree as $p(u)$.
-For example, if $p(u)=t_2 u^2+t_1 u-t_0$, then
+Cuando se propaga una actualización en el árbol,
+los índices de $p(u)$ cambian,
+porque en cada rango $[x,y]$,
+los valores son
+calculados para $u=0,1,\ldots,y-x$.
+Sin embargo, esto no es un problema, porque
+$p'(u)=p(u+h)$ es un polinomio
+del mismo grado que $p(u)$.
+Por ejemplo, si $p(u)=t_2 u^2+t_1 u-t_0$, entonces
 \[p'(u)=t_2(u+h)^2+t_1(u+h)-t_0=t_2 u^2 + (2ht_2+t_1)u+t_2h^2+t_1h-t_0.\]
 
-\section{Dynamic trees}
+\section{Árboles dinámicos}
 
-\index{dynamic segment tree}
+\index{árbol de segmentos dinámico}
 
-An ordinary segment tree is static,
-which means that each node has a fixed position
-in the array and the tree requires
-a fixed amount of memory.
-In a \key{dynamic segment tree},
-memory is allocated only for nodes that
-are actually accessed during the algorithm,
-which can save a large amount of memory.
 
-The nodes of a dynamic tree can be represented as structs:
+
+Un árbol de segmentos ordinario es estático,
+lo que significa que cada nodo tiene una posición fija
+en la matriz y el árbol requiere
+una cantidad fija de memoria.
+En un \key{árbol de segmentos dinámico},
+la memoria se asigna solo para los nodos que
+se acceden realmente durante el algoritmo,
+lo que puede ahorrar una gran cantidad de memoria.
+
+Los nodos de un árbol dinámico se pueden representar como estructuras:
 \begin{lstlisting}
 struct node {
     int value;
@@ -565,12 +568,12 @@ struct node {
     node(int v, int x, int y) : value(v), x(x), y(y) {}
 };
 \end{lstlisting}
-Here \texttt{value} is the value of the node,
-$[\texttt{x},\texttt{y}]$ is the corresponding range,
-and \texttt{left} and \texttt{right} point to the left
-and right subtree.
+Aquí \texttt{value} es el valor del nodo,
+$[\texttt{x},\texttt{y}]$ es el rango correspondiente,
+y \texttt{left} y \texttt{right} apuntan al subárbol izquierdo
+y derecho.
 
-After this, nodes can be created as follows:
+Después de esto, los nodos se pueden crear de la siguiente manera:
 \begin{lstlisting}
 // create new node
 node *x = new node(0, 0, 15);
@@ -578,27 +581,27 @@ node *x = new node(0, 0, 15);
 x->value = 5;
 \end{lstlisting}
 
-\subsubsection{Sparse segment trees}
+\subsubsection{Árboles de segmentos dispersos}
 
-\index{sparse segment tree}
+\index{árbol de segmentos disperso}
 
-A dynamic segment tree is useful when
-the underlying array is \emph{sparse},
-i.e., the range $[0,n-1]$
-of allowed indices is large,
-but most array values are zeros.
-While an ordinary segment tree uses $O(n)$ memory,
-a dynamic segment tree only uses $O(k \log n)$ memory,
-where $k$ is the number of operations performed.
+Un árbol de segmentos dinámico es útil cuando
+la matriz subyacente es \emph{dispersa},
+es decir, el rango $[0,n-1]$
+de índices permitidos es grande,
+pero la mayoría de los valores de la matriz son ceros.
+Mientras que un árbol de segmentos ordinario usa $O(n)$ memoria,
+un árbol de segmentos dinámico solo usa $O(k \log n)$ memoria,
+donde $k$ es el número de operaciones realizadas.
 
-A \key{sparse segment tree} initially has
-only one node $[0,n-1]$ whose value is zero,
-which means that every array value is zero.
-After updates, new nodes are dynamically added
-to the tree.
-For example, if $n=16$ and the elements
-in positions 3 and 10 have been modified,
-the tree contains the following nodes:
+Un \key{árbol de segmentos disperso} inicialmente tiene
+solo un nodo $[0,n-1]$ cuyo valor es cero,
+lo que significa que cada valor de la matriz es cero.
+Después de las actualizaciones, se agregan dinámicamente nuevos nodos
+al árbol.
+Por ejemplo, si $n=16$ y los elementos
+en las posiciones 3 y 10 se han modificado,
+el árbol contiene los siguientes nodos:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \scriptsize
@@ -624,44 +627,44 @@ the tree contains the following nodes:
 \end{tikzpicture}
 \end{center}
 
-Any path from the root node to a leaf contains
-$O(\log n)$ nodes,
-so each operation adds at most $O(\log n)$
-new nodes to the tree.
-Thus, after $k$ operations, the tree contains
-at most $O(k \log n)$ nodes.
+Cualquier camino desde el nodo raíz hasta una hoja contiene
+$O(\log n)$ nodos,
+por lo que cada operación agrega como máximo $O(\log n)$
+nuevos nodos al árbol.
+Por lo tanto, después de $k$ operaciones, el árbol contiene
+como máximo $O(k \log n)$ nodos.
 
-Note that if we know all elements to be updated
-at the beginning of the algorithm,
-a dynamic segment tree is not necessary,
-because we can use an ordinary segment tree with
-index compression (Chapter 9.4).
-However, this is not possible when the indices
-are generated during the algorithm.
+Tenga en cuenta que si sabemos todos los elementos que se actualizarán
+al comienzo del algoritmo,
+no es necesario un árbol de segmentos dinámico,
+porque podemos usar un árbol de segmentos ordinario con
+compresión de índice (Capítulo 9.4).
+Sin embargo, esto no es posible cuando los índices
+se generan durante el algoritmo.
 
-\subsubsection{Persistent segment trees}
+\subsubsection{Árboles de segmentos persistentes}
 
-\index{persistent segment tree}
+\index{árbol de segmentos persistente}
 
-Using a dynamic implementation,
-it is also possible to create a
-\key{persistent segment tree} that stores
-the \emph{modification history} of the tree.
-In such an implementation, we can
-efficiently access
-all versions of the tree that have
-existed during the algorithm.
+Usando una implementación dinámica,
+también es posible crear un
+\key{árbol de segmentos persistente} que almacena
+el \emph{historial de modificaciones} del árbol.
+En tal implementación, podemos
+acceder eficientemente a
+todas las versiones del árbol que han
+existido durante el algoritmo.
 
-When the modification history is available,
-we can perform queries in any previous tree
-like in an ordinary segment tree, because the
-full structure of each tree is stored.
-We can also create new trees based on previous
-trees and modify them independently.
+Cuando el historial de modificaciones está disponible,
+podemos realizar consultas en cualquier árbol anterior
+como en un árbol de segmentos ordinario, porque el
+estructura completa de cada árbol se almacena.
+También podemos crear nuevos árboles basados en anteriores
+árboles y modificarlos independientemente.
 
-Consider the following sequence of updates,
-where red nodes change
-and other nodes remain the same:
+Considere la siguiente secuencia de actualizaciones,
+donde los nodos rojos cambian
+y otros nodos permanecen iguales:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
@@ -707,18 +710,18 @@ and other nodes remain the same:
 \path[draw,thick,->] (3c) -- (6c);
 \path[draw,thick,->] (3c) -- (7c);
 
-\node at (3,-3) {step 1};
-\node at (3+5,-3) {step 2};
-\node at (3+10,-3) {step 3};
+\node at (3,-3) {paso 1};
+\node at (3+5,-3) {paso 2};
+\node at (3+10,-3) {paso 3};
 \end{tikzpicture}
 \end{center}
-After each update, most nodes of the tree
-remain the same,
-so an efficient way to store the modification history
-is to represent each tree in the history as a combination
-of new nodes and subtrees of previous trees.
-In this example, the modification history can be
-stored as follows:
+Después de cada actualización, la mayoría de los nodos del árbol
+permanecen iguales,
+por lo que una forma eficiente de almacenar el historial de modificaciones
+es representar cada árbol en el historial como una combinación
+de nuevos nodos y subárboles de árboles anteriores.
+En este ejemplo, el historial de modificaciones puede ser
+almacenado de la siguiente manera:
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
 \path[use as bounding box] (0, 1) rectangle (16, -3.5);
@@ -759,34 +762,34 @@ stored as follows:
 
 \path[draw,thick,->] (3c) -- (7c);
 
-\node at (3,-3) {step 1};
-\node at (3+5,-3) {step 2};
-\node at (3+10,-3) {step 3};
+\node at (3,-3) {paso 1};
+\node at (3+5,-3) {paso 2};
+\node at (3+10,-3) {paso 3};
 \end{tikzpicture}
 \end{center}
 
-The structure of each previous tree can be
-reconstructed by following the pointers
-starting at the corresponding root node.
-Since each operation
-adds only $O(\log n)$ new nodes to the tree,
-it is possible to store the full modification history of the tree.
+La estructura de cada árbol anterior puede ser
+reconstruida siguiendo los punteros
+comenzando en el nodo raíz correspondiente.
+Dado que cada operación
+agrega solo $O(\log n)$ nuevos nodos al árbol,
+es posible almacenar el historial completo de modificaciones del árbol.
 
-\section{Data structures}
+\section{Estructuras de datos}
 
-Instead of single values, nodes in a segment tree
-can also contain \emph{data structures} that maintain information
-about the corresponding ranges.
-In such a tree, the operations take
-$O(f(n) \log n)$ time, where $f(n)$ is
-the time needed for processing a single node during an operation.
+En lugar de valores únicos, los nodos en un árbol de segmentos
+también pueden contener \emph{estructuras de datos} que mantienen información
+sobre los rangos correspondientes.
+En tal árbol, las operaciones toman
+$O(f(n) \log n)$ tiempo, donde $f(n)$ es
+el tiempo necesario para procesar un solo nodo durante una operación.
 
-As an example, consider a segment tree that
-supports queries of the form
-''how many times does an element $x$ appear
-in the range $[a,b]$?''
-For example, the element 1 appears three times
-in the following range:
+Como ejemplo, considere un árbol de segmentos que
+soporta consultas de la forma
+"¿cuántas veces aparece un elemento $x$
+en el rango $[a,b]$?"
+Por ejemplo, el elemento 1 aparece tres veces
+en el siguiente rango:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
@@ -804,17 +807,17 @@ in the following range:
 \end{tikzpicture}
 \end{center}
 
-To support such queries, we build a segment tree
-where each node is assigned a data structure
-that can be asked how many times any element $x$
-appears in the corresponding range.
-Using this tree,
-the answer to a query can be calculated
-by combining the results from the nodes
-that belong to the range.
+Para soportar tales consultas, construimos un árbol de segmentos
+donde a cada nodo se le asigna una estructura de datos
+que se puede preguntar cuántas veces cualquier elemento $x$
+aparece en el rango correspondiente.
+Usando este árbol,
+la respuesta a una consulta se puede calcular
+combinando los resultados de los nodos
+que pertenecen al rango.
 
-For example, the following segment tree
-corresponds to the above array:
+Por ejemplo, el siguiente árbol de segmentos
+corresponde a la matriz anterior:
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 
@@ -958,29 +961,29 @@ corresponds to the above array:
 \end{tikzpicture}
 \end{center}
 
-We can build the tree so
-that each node contains a \texttt{map} structure.
-In this case, the time needed for processing each
-node is $O(\log n)$, so the total time complexity
-of a query is $O(\log^2 n)$.
-The tree uses $O(n \log n)$ memory,
-because there are $O(\log n)$ levels
-and each level contains
-$O(n)$ elements.
+Podemos construir el árbol de modo
+que cada nodo contenga una estructura \texttt{map}.
+En este caso, el tiempo necesario para procesar cada
+nodo es $O(\log n)$, por lo que la complejidad temporal total
+de una consulta es $O(\log^2 n)$.
+El árbol utiliza $O(n \log n)$ memoria,
+porque hay $O(\log n)$ niveles
+y cada nivel contiene
+$O(n)$ elementos.
 
-\section{Two-dimensionality}
+\section{Bidimensionalidad}
 
-\index{two-dimensional segment tree}
+\index{árbol de segmentos bidimensional}
 
-A \key{two-dimensional segment tree} supports
-queries related to rectangular subarrays
-of a two-dimensional array.
-Such a tree can be implemented as
-nested segment trees: a big tree corresponds to the
-rows of the array, and each node contains a small tree
-that corresponds to a column.
+Un \key{árbol de segmentos bidimensional} admite
+consultas relacionadas con subarreglos rectangulares
+de una matriz bidimensional.
+Dicho árbol se puede implementar como
+árboles de segmentos anidados: un árbol grande corresponde a las
+filas de la matriz, y cada nodo contiene un árbol pequeño
+que corresponde a una columna.
 
-For example, in the array
+Por ejemplo, en la matriz
 \begin{center}
 \begin{tikzpicture}[scale=0.7]
 \draw (0,0) grid (4,4);
@@ -1006,9 +1009,9 @@ For example, in the array
 \node[anchor=center] at (3.5, 3.5) {6};
 \end{tikzpicture}
 \end{center}
-the sum of any subarray
-can be calculated
-from the following segment tree:
+la suma de cualquier submatriz
+se puede calcular
+a partir del siguiente árbol de segmentos:
 \begin{center}
 \begin{tikzpicture}[scale=0.4]
 \footnotesize
@@ -1154,8 +1157,10 @@ from the following segment tree:
 \end{tikzpicture}
 \end{center}
 
-The operations of a two-dimensional segment tree
-take $O(\log^2 n)$ time, because the big tree
-and each small tree consist of $O(\log n)$ levels.
-The tree requires $O(n^2)$ memory, because each
-small tree contains $O(n)$ values.
+Las operaciones de un árbol de segmentos bidimensional
+toman $O(\log^2 n)$ tiempo, porque el árbol grande
+y cada árbol pequeño consisten en $O(\log n)$ niveles.
+El árbol requiere $O(n^2)$ memoria, porque cada
+árbol pequeño contiene $O(n)$ valores.
+
+

@@ -1,45 +1,45 @@
-\chapter{Complete search}
+\chapter{Búsqueda completa}
 
-\key{Complete search}
-is a general method that can be used
-to solve almost any algorithm problem.
-The idea is to generate all possible
-solutions to the problem using brute force,
-and then select the best solution or count the
-number of solutions, depending on the problem.
+\key{Búsqueda completa}
+es un método general que se puede utilizar
+para resolver casi cualquier problema de algoritmo.
+La idea es generar todas las posibles
+soluciones al problema utilizando la fuerza bruta,
+y luego seleccionar la mejor solución o contar la
+cantidad de soluciones, dependiendo del problema.
 
-Complete search is a good technique
-if there is enough time to go through all the solutions,
-because the search is usually easy to implement
-and it always gives the correct answer.
-If complete search is too slow,
-other techniques, such as greedy algorithms or
-dynamic programming, may be needed.
+La búsqueda completa es una buena técnica
+si hay tiempo suficiente para recorrer todas las soluciones,
+porque la búsqueda suele ser fácil de implementar
+y siempre da la respuesta correcta.
+Si la búsqueda completa es demasiado lenta,
+es posible que se necesiten otras técnicas, como los algoritmos voraces o
+la programación dinámica.
 
-\section{Generating subsets}
+\section{Generación de subconjuntos}
 
-\index{subset}
+\index{subconjunto}
 
-We first consider the problem of generating
-all subsets of a set of $n$ elements.
-For example, the subsets of $\{0,1,2\}$ are
+Primero consideramos el problema de generar
+todos los subconjuntos de un conjunto de $n$ elementos.
+Por ejemplo, los subconjuntos de $\{0,1,2\}$ son
 $\emptyset$, $\{0\}$, $\{1\}$, $\{2\}$, $\{0,1\}$,
-$\{0,2\}$, $\{1,2\}$ and $\{0,1,2\}$.
-There are two common methods to generate subsets:
-we can either perform a recursive search
-or exploit the bit representation of integers.
+$\{0,2\}$, $\{1,2\}$ y $\{0,1,2\}$.
+Hay dos métodos comunes para generar subconjuntos:
+podemos realizar una búsqueda recursiva
+o explotar la representación en bits de los enteros.
 
-\subsubsection{Method 1}
+\subsubsection{Método 1}
 
-An elegant way to go through all subsets
-of a set is to use recursion.
-The following function \texttt{search}
-generates the subsets of the set
+Una forma elegante de recorrer todos los subconjuntos
+de un conjunto es usar la recursión.
+La siguiente función \texttt{search}
+genera los subconjuntos del conjunto
 $\{0,1,\ldots,n-1\}$.
-The function maintains a vector \texttt{subset}
-that will contain the elements of each subset.
-The search begins when the function is called
-with parameter 0.
+La función mantiene un vector \texttt{subset}
+que contendrá los elementos de cada subconjunto.
+La búsqueda comienza cuando la función se llama
+con el parámetro 0.
 
 \begin{lstlisting}
 void search(int k) {
@@ -54,20 +54,20 @@ void search(int k) {
 }
 \end{lstlisting}
 
-When the function \texttt{search}
-is called with parameter $k$,
-it decides whether to include the
-element $k$ in the subset or not,
-and in both cases,
-then calls itself with parameter $k+1$
-However, if $k=n$, the function notices that
-all elements have been processed
-and a subset has been generated.
+Cuando la función \texttt{search}
+se llama con el parámetro $k$,
+decide si incluir el
+elemento $k$ en el subconjunto o no,
+y en ambos casos,
+luego se llama a sí misma con el parámetro $k+1$
+Sin embargo, si $k=n$, la función nota que
+todos los elementos se han procesado
+y se ha generado un subconjunto.
 
-The following tree illustrates the function calls when $n=3$.
-We can always choose either the left branch
-($k$ is not included in the subset) or the right branch
-($k$ is included in the subset).
+El siguiente árbol ilustra las llamadas a funciones cuando $n=3$.
+Siempre podemos elegir la rama izquierda
+($k$ no está incluido en el subconjunto) o la rama derecha
+($k$ está incluido en el subconjunto).
 
 \begin{center}
 \begin{tikzpicture}[scale=.45]
@@ -122,25 +122,25 @@ We can always choose either the left branch
 \end{tikzpicture}
 \end{center}
 
-\subsubsection{Method 2}
+\subsubsection{Método 2}
 
-Another way to generate subsets is based on
-the bit representation of integers.
-Each subset of a set of $n$ elements
-can be represented as a sequence of $n$ bits,
-which corresponds to an integer between $0 \ldots 2^n-1$.
-The ones in the bit sequence indicate
-which elements are included in the subset.
+Otra forma de generar subconjuntos se basa en
+la representación en bits de los enteros.
+Cada subconjunto de un conjunto de $n$ elementos
+se puede representar como una secuencia de $n$ bits,
+que corresponde a un entero entre $0 \ldots 2^n-1$.
+Los unos en la secuencia de bits indican
+qué elementos están incluidos en el subconjunto.
 
-The usual convention is that
-the last bit corresponds to element 0,
-the second last bit corresponds to element 1,
-and so on.
-For example, the bit representation of 25
-is 11001, which corresponds to the subset $\{0,3,4\}$.
+La convención habitual es que
+el último bit corresponde al elemento 0,
+el penúltimo bit corresponde al elemento 1,
+y así sucesivamente.
+Por ejemplo, la representación en bits de 25
+es 11001, que corresponde al subconjunto $\{0,3,4\}$.
 
-The following code goes through the subsets
-of a set of $n$ elements
+El siguiente código recorre los subconjuntos
+de un conjunto de $n$ elementos
 
 \begin{lstlisting}
 for (int b = 0; b < (1<<n); b++) {
@@ -148,12 +148,11 @@ for (int b = 0; b < (1<<n); b++) {
 }
 \end{lstlisting}
 
-The following code shows how we can find
-the elements of a subset that corresponds to a bit sequence.
-When processing each subset,
-the code builds a vector that contains the
-elements in the subset.
-
+El siguiente código muestra cómo podemos encontrar
+los elementos de un subconjunto que corresponde a una secuencia de bits.
+Al procesar cada subconjunto,
+el código construye un vector que contiene los
+elementos en el subconjunto.
 \begin{lstlisting}
 for (int b = 0; b < (1<<n); b++) {
     vector<int> subset;
@@ -163,29 +162,29 @@ for (int b = 0; b < (1<<n); b++) {
 }
 \end{lstlisting}
 
-\section{Generating permutations}
+\section{Generación de permutaciones}
 
-\index{permutation}
+\index{permutación}
 
-Next we consider the problem of generating
-all permutations of a set of $n$ elements.
-For example, the permutations of $\{0,1,2\}$ are
+A continuación, consideramos el problema de generar
+todas las permutaciones de un conjunto de $n$ elementos.
+Por ejemplo, las permutaciones de $\{0,1,2\}$ son
 $(0,1,2)$, $(0,2,1)$, $(1,0,2)$, $(1,2,0)$,
-$(2,0,1)$ and $(2,1,0)$.
-Again, there are two approaches:
-we can either use recursion or go through the
-permutations iteratively.
+$(2,0,1)$ y $(2,1,0)$.
+De nuevo, hay dos enfoques:
+podemos usar recursión o recorrer las
+permutaciones iterativamente.
 
-\subsubsection{Method 1}
+\subsubsection{Método 1}
 
-Like subsets, permutations can be generated
-using recursion.
-The following function \texttt{search} goes
-through the permutations of the set $\{0,1,\ldots,n-1\}$.
-The function builds a vector \texttt{permutation}
-that contains the permutation,
-and the search begins when the function is
-called without parameters.
+Al igual que los subconjuntos, las permutaciones se pueden generar
+usando recursión.
+La siguiente función \texttt{search}
+recorre las permutaciones del conjunto $\{0,1,\ldots,n-1\}$.
+La función construye un vector \texttt{permutation}
+que contiene la permutación,
+y la búsqueda comienza cuando la función se
+llama sin parámetros.
 
 \begin{lstlisting}
 void search() {
@@ -204,24 +203,24 @@ void search() {
 }
 \end{lstlisting}
 
-Each function call adds a new element to
+Cada llamada a la función agrega un nuevo elemento a
 \texttt{permutation}.
-The array \texttt{chosen} indicates which
-elements are already included in the permutation.
-If the size of \texttt{permutation} equals the size of the set,
-a permutation has been generated.
+La matriz \texttt{chosen} indica qué
+elementos ya están incluidos en la permutación.
+Si el tamaño de \texttt{permutation} es igual al tamaño del conjunto,
+se ha generado una permutación.
 
-\subsubsection{Method 2}
+\subsubsection{Método 2}
 
 \index{next\_permutation@\texttt{next\_permutation}}
 
-Another method for generating permutations
-is to begin with the permutation
-$\{0,1,\ldots,n-1\}$ and repeatedly
-use a function that constructs the next permutation
-in increasing order.
-The C++ standard library contains the function
-\texttt{next\_permutation} that can be used for this:
+Otro método para generar permutaciones
+es comenzar con la permutación
+$\{0,1,\ldots,n-1\}$ y repetir
+el uso de una función que construye la siguiente permutación
+en orden creciente.
+La biblioteca estándar de C++ contiene la función
+\texttt{next\_permutation} que se puede usar para esto:
 
 \begin{lstlisting}
 vector<int> permutation;
@@ -237,22 +236,22 @@ do {
 
 \index{backtracking}
 
-A \key{backtracking} algorithm
-begins with an empty solution
-and extends the solution step by step.
-The search recursively
-goes through all different ways how
-a solution can be constructed.
+Un algoritmo de \key{backtracking}
+comienza con una solución vacía
+y extiende la solución paso a paso.
+La búsqueda recursivamente
+recorre todas las formas diferentes de cómo
+se puede construir una solución.
 
-\index{queen problem}
+\index{problema de la reina}
 
-As an example, consider the problem of
-calculating the number
-of ways $n$ queens can be placed on
-an $n \times n$ chessboard so that
-no two queens attack each other.
-For example, when $n=4$,
-there are two possible solutions:
+Como ejemplo, considere el problema de
+calcular el número
+de formas en que se pueden colocar $n$ reinas en
+un tablero de ajedrez de $n \times n$ de modo que
+ninguna de las dos reinas se ataque entre sí.
+Por ejemplo, cuando $n=4$,
+hay dos soluciones posibles:
 
 \begin{center}
 \begin{tikzpicture}[scale=.65]
@@ -273,17 +272,17 @@ there are two possible solutions:
 \end{tikzpicture}
 \end{center}
 
-The problem can be solved using backtracking
-by placing queens to the board row by row.
-More precisely, exactly one queen will
-be placed on each row so that no queen attacks
-any of the queens placed before.
-A solution has been found when all
-$n$ queens have been placed on the board.
+El problema se puede resolver usando backtracking
+colocando reinas en el tablero fila por fila.
+Más precisamente, exactamente una reina
+se colocará en cada fila de modo que ninguna reina ataque
+a ninguna de las reinas colocadas antes.
+Se ha encontrado una solución cuando todas
+las $n$ reinas se han colocado en el tablero.
 
-For example, when $n=4$,
-some partial solutions generated by
-the backtracking algorithm are as follows:
+Por ejemplo, cuando $n=4$,
+algunas soluciones parciales generadas por
+el algoritmo de backtracking son las siguientes:
 
 \begin{center}
 \begin{tikzpicture}[scale=.55]
@@ -324,24 +323,23 @@ the backtracking algorithm are as follows:
     \draw (-1,-6) -- (1,-8);
     \draw (-1,-6) -- (6,-8);
 
-    \node at (-9,-13) {illegal};
-    \node at (-4,-13) {illegal};
-    \node at (1,-13) {illegal};
-    \node at (6,-13) {valid};
+    \node at (-9,-13) {inválida};
+    \node at (-4,-13) {inválida};
+    \node at (1,-13) {inválida};
+    \node at (6,-13) {válida};
 
   \end{scope}
 \end{tikzpicture}
 \end{center}
-
-At the bottom level, the three first configurations
-are illegal, because the queens attack each other.
-However, the fourth configuration is valid
-and it can be extended to a complete solution by
-placing two more queens to the board.
-There is only one way to place the two remaining queens.
+En el nivel inferior, las tres primeras configuraciones
+son ilegales, porque las reinas se atacan entre sí.
+Sin embargo, la cuarta configuración es válida
+y puede extenderse a una solución completa colocando
+dos reinas más en el tablero.
+Solo hay una forma de colocar las dos reinas restantes.
 
 \begin{samepage}
-The algorithm can be implemented as follows:
+El algoritmo se puede implementar de la siguiente manera:
 \begin{lstlisting}
 void search(int y) {
     if (y == n) {
@@ -357,28 +355,28 @@ void search(int y) {
 }
 \end{lstlisting}
 \end{samepage}
-The search begins by calling \texttt{search(0)}.
-The size of the board is $n \times n$,
-and the code calculates the number of solutions
-to \texttt{count}.
+La búsqueda comienza llamando a \texttt{search(0)}.
+El tamaño del tablero es $n \times n$,
+y el código calcula el número de soluciones
+a \texttt{count}.
 
-The code assumes that the rows and columns
-of the board are numbered from 0 to $n-1$.
-When the function \texttt{search} is
-called with parameter $y$,
-it places a queen on row $y$
-and then calls itself with parameter $y+1$.
-Then, if $y=n$, a solution has been found
-and the variable \texttt{count} is increased by one.
+El código asume que las filas y columnas
+del tablero están numeradas de 0 a $n-1$.
+Cuando se llama a la función \texttt{search} con
+el parámetro $y$,
+coloca una reina en la fila $y$
+y luego se llama a sí misma con el parámetro $y+1$.
+Luego, si $y=n$, se ha encontrado una solución
+y la variable \texttt{count} se incrementa en uno.
 
-The array \texttt{column} keeps track of columns
-that contain a queen,
-and the arrays \texttt{diag1} and \texttt{diag2}
-keep track of diagonals.
-It is not allowed to add another queen to a
-column or diagonal that already contains a queen. 
-For example, the columns and diagonals of
-the $4 \times 4$ board are numbered as follows:
+El arreglo \texttt{column} lleva un registro de las columnas
+que contienen una reina,
+y los arreglos \texttt{diag1} y \texttt{diag2}
+llevan un registro de las diagonales.
+No está permitido agregar otra reina a una
+columna o diagonal que ya contiene una reina.
+Por ejemplo, las columnas y diagonales de
+el tablero de $4 \times 4$ se numeran de la siguiente manera:
 
 \begin{center}
 \begin{tikzpicture}[scale=.65]
@@ -445,38 +443,40 @@ the $4 \times 4$ board are numbered as follows:
 \end{tikzpicture}
 \end{center}
 
-Let $q(n)$ denote the number of ways
-to place $n$ queens on an $n \times n$ chessboard.
-The above backtracking
-algorithm tells us that, for example, $q(8)=92$.
-When $n$ increases, the search quickly becomes slow,
-because the number of solutions increases
-exponentially.
-For example, calculating $q(16)=14772512$
-using the above algorithm already takes about a minute
-on a modern computer\footnote{There is no known way to efficiently
-calculate larger values of $q(n)$. The current record is
-$q(27)=234907967154122528$, calculated in 2016 \cite{q27}.}.
+Sea $q(n)$ el número de formas
+de colocar $n$ reinas en un tablero de ajedrez de $n \times n$.
+El algoritmo de retroceso anterior
+nos dice que, por ejemplo, $q(8)=92$.
+Cuando $n$ aumenta, la búsqueda se vuelve rápidamente lenta,
+porque el número de soluciones aumenta
+exponencialmente.
+Por ejemplo, calcular $q(16)=14772512$
+utilizando el algoritmo anterior ya lleva aproximadamente un minuto
+en una computadora moderna\footnote{No hay una forma conocida para
+calcular eficientemente valores mayores de $q(n)$. El récord actual es
+$q(27)=234907967154122528$, calculado en 2016 \cite{q27}.}.
 
-\section{Pruning the search}
+\section{Poda de la búsqueda}
 
-We can often optimize backtracking
-by pruning the search tree.
-The idea is to add ''intelligence'' to the algorithm
-so that it will notice as soon as possible
-if a partial solution cannot be extended
-to a complete solution.
-Such optimizations can have a tremendous
-effect on the efficiency of the search.
+A menudo podemos optimizar el retroceso
+podando el árbol de búsqueda.
+La idea es agregar ''inteligencia'' al algoritmo
+para que se dé cuenta lo antes posible
+si una solución parcial no se puede extender
+a una solución completa.
+Estas optimizaciones pueden tener un tremendo
+efecto en la eficiencia de la búsqueda.
 
-Let us consider the problem
-of calculating the number of paths
-in an $n \times n$ grid from the upper-left corner
-to the lower-right corner such that the
-path visits each square exactly once.
-For example, in a $7 \times 7$ grid,
-there are 111712 such paths.
-One of the paths is as follows:
+Consideremos el problema
+de calcular el número de caminos
+en una cuadrícula de $n \times n$ desde la esquina superior izquierda
+hasta la esquina inferior derecha, de modo que el
+camino visite cada cuadrado exactamente una vez.
+Por ejemplo, en una cuadrícula de $7 \times 7$,
+hay 111712 caminos de este tipo.
+Uno de los caminos es el siguiente:
+
+
 
 \begin{center}
 \begin{tikzpicture}[scale=.55]
@@ -494,39 +494,39 @@ One of the paths is as follows:
 \end{tikzpicture}
 \end{center}
 
-We focus on the $7 \times 7$ case,
-because its level of difficulty is appropriate to our needs.
-We begin with a straightforward backtracking algorithm,
-and then optimize it step by step using observations
-of how the search can be pruned.
-After each optimization, we measure the running time
-of the algorithm and the number of recursive calls,
-so that we clearly see the effect of each
-optimization on the efficiency of the search.
+Nos centramos en el caso $7 \times 7$,
+porque su nivel de dificultad es apropiado para nuestras necesidades.
+Comenzamos con un algoritmo de retroceso directo,
+y luego lo optimizamos paso a paso usando observaciones
+de cómo se puede podar la búsqueda.
+Después de cada optimización, medimos el tiempo de ejecución
+del algoritmo y el número de llamadas recursivas,
+para que veamos claramente el efecto de cada
+optimización en la eficiencia de la búsqueda.
 
-\subsubsection{Basic algorithm}
+\subsubsection{Algoritmo básico}
 
-The first version of the algorithm does not contain
-any optimizations. We simply use backtracking to generate
-all possible paths from the upper-left corner to
-the lower-right corner and count the number of such paths.
+La primera versión del algoritmo no contiene
+ninguna optimización. Simplemente usamos retroceso para generar
+todos los caminos posibles desde la esquina superior izquierda hasta
+la esquina inferior derecha y contamos el número de estos caminos.
 
 \begin{itemize}
 \item
-running time: 483 seconds
+tiempo de ejecución: 483 segundos
 \item
-number of recursive calls: 76 billion
+número de llamadas recursivas: 76 mil millones
 \end{itemize}
 
-\subsubsection{Optimization 1}
+\subsubsection{Optimización 1}
 
-In any solution, we first move one step
-down or right.
-There are always two paths that 
-are symmetric
-about the diagonal of the grid
-after the first step.
-For example, the following paths are symmetric:
+En cualquier solución, primero movemos un paso
+hacia abajo o hacia la derecha.
+Siempre hay dos caminos que 
+son simétricos
+respecto a la diagonal de la cuadrícula
+después del primer paso.
+Por ejemplo, los siguientes caminos son simétricos:
 
 \begin{center}
 \begin{tabular}{ccc}
@@ -561,24 +561,24 @@ For example, the following paths are symmetric:
 \end{tabular}
 \end{center}
 
-Hence, we can decide that we always first
-move one step down (or right),
-and finally multiply the number of solutions by two.
+Por lo tanto, podemos decidir que siempre nos movemos primero
+un paso hacia abajo (o hacia la derecha),
+y finalmente multiplicamos el número de soluciones por dos.
 
 \begin{itemize}
 \item
-running time: 244 seconds
+tiempo de ejecución: 244 segundos
 \item
-number of recursive calls: 38 billion
+número de llamadas recursivas: 38 mil millones
 \end{itemize}
 
-\subsubsection{Optimization 2}
+\subsubsection{Optimización 2}
 
-If the path reaches the lower-right square
-before it has visited all other squares of the grid,
-it is clear that
-it will not be possible to complete the solution.
-An example of this is the following path:
+Si el camino llega a la casilla inferior derecha
+antes de haber visitado todas las demás casillas de la cuadrícula,
+es claro que
+no será posible completar la solución.
+Un ejemplo de esto es el siguiente camino:
 
 \begin{center}
 \begin{tikzpicture}[scale=.55]
@@ -592,23 +592,23 @@ An example of this is the following path:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-Using this observation, we can terminate the search
-immediately if we reach the lower-right square too early.
+Usando esta observación, podemos terminar la búsqueda
+inmediatamente si llegamos a la casilla inferior derecha demasiado pronto.
 \begin{itemize}
 \item
-running time: 119 seconds
+tiempo de ejecución: 119 segundos
 \item
-number of recursive calls: 20 billion
+número de llamadas recursivas: 20 mil millones
 \end{itemize}
 
-\subsubsection{Optimization 3}
+\subsubsection{Optimización 3}
 
-If the path touches a wall
-and can turn either left or right,
-the grid splits into two parts
-that contain unvisited squares.
-For example, in the following situation,
-the path can turn either left or right:
+Si el camino toca una pared
+y puede girar a la izquierda o a la derecha,
+la cuadrícula se divide en dos partes
+que contienen casillas no visitadas.
+Por ejemplo, en la siguiente situación,
+el camino puede girar a la izquierda o a la derecha:
 
 \begin{center}
 \begin{tikzpicture}[scale=.55]
@@ -622,27 +622,26 @@ the path can turn either left or right:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-In this case, we cannot visit all squares anymore,
-so we can terminate the search.
-This optimization is very useful:
+En este caso, ya no podemos visitar todas las casillas,
+por lo que podemos terminar la búsqueda.
+Esta optimización es muy útil:
 
 \begin{itemize}
 \item
-running time: 1.8 seconds
+tiempo de ejecución: 1,8 segundos
 \item
-number of recursive calls: 221 million
+número de llamadas recursivas: 221 millones
 \end{itemize}
 
-\subsubsection{Optimization 4}
+\subsubsection{Optimización 4}
 
-The idea of Optimization 3
-can be generalized:
-if the path cannot continue forward
-but can turn either left or right,
-the grid splits into two parts
-that both contain unvisited squares.
-For example, consider the following path:
-
+La idea de la Optimización 3
+se puede generalizar:
+si el camino no puede continuar hacia adelante
+pero puede girar a la izquierda o a la derecha,
+la cuadrícula se divide en dos partes
+que ambas contienen casillas no visitadas.
+Por ejemplo, considere el siguiente camino:
 \begin{center}
 \begin{tikzpicture}[scale=.55]
   \begin{scope}
@@ -655,104 +654,104 @@ For example, consider the following path:
   \end{scope}
 \end{tikzpicture}
 \end{center}
-It is clear that we cannot visit all squares anymore,
-so we can terminate the search.
-After this optimization, the search is
-very efficient:
+Está claro que ya no podemos visitar todas las casillas,
+por lo que podemos terminar la búsqueda.
+Después de esta optimización, la búsqueda es
+muy eficiente:
 
 \begin{itemize}
 \item
-running time: 0.6 seconds
+tiempo de ejecución: 0.6 segundos
 \item
-number of recursive calls: 69 million
+número de llamadas recursivas: 69 millones
 \end{itemize}
 
 ~\\
-Now is a good moment to stop optimizing
-the algorithm and see what we have achieved.
-The running time of the original algorithm
-was 483 seconds,
-and now after the optimizations,
-the running time is only 0.6 seconds.
-Thus, the algorithm became nearly 1000 times
-faster after the optimizations.
+Ahora es un buen momento para dejar de optimizar
+el algoritmo y ver lo que hemos logrado.
+El tiempo de ejecución del algoritmo original
+era de 483 segundos,
+y ahora después de las optimizaciones,
+el tiempo de ejecución es de solo 0.6 segundos.
+Por lo tanto, el algoritmo se volvió casi 1000 veces
+más rápido después de las optimizaciones.
 
-This is a usual phenomenon in backtracking,
-because the search tree is usually large
-and even simple observations can effectively
-prune the search.
-Especially useful are optimizations that
-occur during the first steps of the algorithm,
-i.e., at the top of the search tree.
+Este es un fenómeno habitual en el backtracking,
+porque el árbol de búsqueda suele ser grande
+e incluso observaciones simples pueden
+podar la búsqueda de forma eficaz.
+Son especialmente útiles las optimizaciones que
+se producen durante los primeros pasos del algoritmo,
+es decir, en la parte superior del árbol de búsqueda.
 
-\section{Meet in the middle}
+\section{Encuentro en el medio}
 
-\index{meet in the middle}
+\index{encuentro en el medio}
 
-\key{Meet in the middle} is a technique
-where the search space is divided into
-two parts of about equal size.
-A separate search is performed
-for both of the parts,
-and finally the results of the searches are combined.
+\key{Encuentro en el medio} es una técnica
+en la que el espacio de búsqueda se divide en
+dos partes de aproximadamente igual tamaño.
+Se realiza una búsqueda separada
+para ambas partes,
+y finalmente se combinan los resultados de las búsquedas.
 
-The technique can be used
-if there is an efficient way to combine the
-results of the searches.
-In such a situation, the two searches may require less
-time than one large search.
-Typically, we can turn a factor of $2^n$
-into a factor of $2^{n/2}$ using the meet in the
-middle technique.
+La técnica se puede utilizar
+si hay una forma eficiente de combinar las
+resultados de las búsquedas.
+En tal situación, las dos búsquedas pueden requerir menos
+tiempo que una búsqueda grande.
+Típicamente, podemos convertir un factor de $2^n$
+en un factor de $2^{n/2}$ usando la técnica de encuentro en el
+medio.
 
-As an example, consider a problem where
-we are given a list of $n$ numbers and
-a number $x$,
-and we want to find out if it is possible
-to choose some numbers from the list so that
-their sum is $x$.
-For example, given the list $[2,4,5,9]$ and $x=15$,
-we can choose the numbers $[2,4,9]$ to get $2+4+9=15$.
-However, if $x=10$ for the same list,
-it is not possible to form the sum.
+Como ejemplo, considere un problema en el que
+se nos da una lista de $n$ números y
+un número $x$,
+y queremos saber si es posible
+elegir algunos números de la lista para que
+su suma sea $x$.
+Por ejemplo, dada la lista $[2,4,5,9]$ y $x=15$,
+podemos elegir los números $[2,4,9]$ para obtener $2+4+9=15$.
+Sin embargo, si $x=10$ para la misma lista,
+no es posible formar la suma.
 
-A simple algorithm to the problem is to
-go through all subsets of the elements and
-check if the sum of any of the subsets is $x$.
-The running time of such an algorithm is $O(2^n)$,
-because there are $2^n$ subsets.
-However, using the meet in the middle technique,
-we can achieve a more efficient $O(2^{n/2})$ time algorithm\footnote{This
-idea was introduced in 1974 by E. Horowitz and S. Sahni \cite{hor74}.}.
-Note that $O(2^n)$ and $O(2^{n/2})$ are different
-complexities because $2^{n/2}$ equals $\sqrt{2^n}$.
+Un algoritmo simple para el problema es
+recorrer todos los subconjuntos de los elementos y
+comprobar si la suma de alguno de los subconjuntos es $x$.
+El tiempo de ejecución de tal algoritmo es $O(2^n)$,
+porque hay $2^n$ subconjuntos.
+Sin embargo, utilizando la técnica de encuentro en el medio,
+podemos lograr un algoritmo más eficiente de tiempo $O(2^{n/2})$\footnote{Esta
+idea fue introducida en 1974 por E. Horowitz y S. Sahni \cite{hor74}.}.
+Tenga en cuenta que $O(2^n)$ y $O(2^{n/2})$ son diferentes
+complejidades porque $2^{n/2}$ es igual a $\sqrt{2^n}$.
 
-The idea is to divide the list into
-two lists $A$ and $B$ such that both
-lists contain about half of the numbers.
-The first search generates all subsets
-of $A$ and stores their sums to a list $S_A$.
-Correspondingly, the second search creates
-a list $S_B$ from $B$.
-After this, it suffices to check if it is possible
-to choose one element from $S_A$ and another
-element from $S_B$ such that their sum is $x$.
-This is possible exactly when there is a way to
-form the sum $x$ using the numbers of the original list.
+La idea es dividir la lista en
+dos listas $A$ y $B$ de modo que ambas
+listas contengan aproximadamente la mitad de los números.
+La primera búsqueda genera todos los subconjuntos
+de $A$ y almacena sus sumas en una lista $S_A$.
+De manera correspondiente, la segunda búsqueda crea
+una lista $S_B$ de $B$.
+Después de esto, basta con comprobar si es posible
+elegir un elemento de $S_A$ y otro
+elemento de $S_B$ de modo que su suma sea $x$.
+Esto es posible exactamente cuando hay una forma de
+formar la suma $x$ usando los números de la lista original.
 
-For example, suppose that the list is $[2,4,5,9]$ and $x=15$.
-First, we divide the list into $A=[2,4]$ and $B=[5,9]$.
-After this, we create lists
-$S_A=[0,2,4,6]$ and $S_B=[0,5,9,14]$.
-In this case, the sum $x=15$ is possible to form,
-because $S_A$ contains the sum $6$,
-$S_B$ contains the sum $9$, and $6+9=15$.
-This corresponds to the solution $[2,4,9]$.
+Por ejemplo, suponga que la lista es $[2,4,5,9]$ y $x=15$.
+Primero, dividimos la lista en $A=[2,4]$ y $B=[5,9]$.
+Después de esto, creamos listas
+$S_A=[0,2,4,6]$ y $S_B=[0,5,9,14]$.
+En este caso, la suma $x=15$ es posible de formar,
+porque $S_A$ contiene la suma $6$,
+$S_B$ contiene la suma $9$, y $6+9=15$.
+Esto corresponde a la solución $[2,4,9]$.
 
-We can implement the algorithm so that
-its time complexity is $O(2^{n/2})$.
-First, we generate \emph{sorted} lists $S_A$ and $S_B$,
-which can be done in $O(2^{n/2})$ time using a merge-like technique.
-After this, since the lists are sorted,
-we can check in $O(2^{n/2})$ time if
-the sum $x$ can be created from $S_A$ and $S_B$.
+Podemos implementar el algoritmo de modo que
+su complejidad temporal sea $O(2^{n/2})$.
+Primero, generamos listas \emph{ordenadas} $S_A$ y $S_B$,
+lo que se puede hacer en tiempo $O(2^{n/2})$ utilizando una técnica similar a la fusión.
+Después de esto, dado que las listas están ordenadas,
+podemos comprobar en tiempo $O(2^{n/2})$ si
+la suma $x$ se puede crear a partir de $S_A$ y $S_B$.

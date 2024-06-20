@@ -1,16 +1,16 @@
-\chapter{Tree algorithms}
+\chapter{Algoritmos de árbol}
 
-\index{tree}
+\index{árbol}
 
-A \key{tree} is a connected, acyclic graph
-that consists of $n$ nodes and $n-1$ edges.
-Removing any edge from a tree divides it
-into two components,
-and adding any edge to a tree creates a cycle.
-Moreover, there is always a unique path between any
-two nodes of a tree.
+Un \key{árbol} es un grafo conectado y acíclico
+que consiste en $n$ nodos y $n-1$ aristas.
+Eliminar cualquier arista de un árbol lo divide
+en dos componentes,
+y agregar cualquier arista a un árbol crea un ciclo.
+Además, siempre hay un camino único entre dos
+nodos de un árbol.
 
-For example, the following tree consists of 8 nodes and 7 edges:
+Por ejemplo, el siguiente árbol consta de 8 nodos y 7 aristas:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -31,22 +31,22 @@ For example, the following tree consists of 8 nodes and 7 edges:
 \end{tikzpicture}
 \end{center}
 
-\index{leaf}
+\index{hoja}
 
-The \key{leaves} of a tree are the nodes
-with degree 1, i.e., with only one neighbor.
-For example, the leaves of the above tree
-are nodes 3, 5, 7 and 8.
+Las \key{hojas} de un árbol son los nodos
+con grado 1, es decir, con solo un vecino.
+Por ejemplo, las hojas del árbol anterior
+son los nodos 3, 5, 7 y 8.
 
-\index{root}
-\index{rooted tree}
+\index{raíz}
+\index{árbol enraizado}
 
-In a \key{rooted} tree, one of the nodes
-is appointed the \key{root} of the tree,
-and all other nodes are
-placed underneath the root.
-For example, in the following tree,
-node 1 is the root node.
+En un árbol \key{enraizado}, uno de los nodos
+se designa como la \key{raíz} del árbol,
+y todos los demás nodos se
+colocan debajo de la raíz.
+Por ejemplo, en el siguiente árbol,
+el nodo 1 es el nodo raíz.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
@@ -67,26 +67,26 @@ node 1 is the root node.
 \path[draw,thick,-] (6) -- (8);
 \end{tikzpicture}
 \end{center}
-\index{child}
-\index{parent}
+\index{hijo}
+\index{padre}
 
-In a rooted tree, the \key{children} of a node
-are its lower neighbors, and the \key{parent} of a node
-is its upper neighbor.
-Each node has exactly one parent,
-except for the root that does not have a parent.
-For example, in the above tree,
-the children of node 2 are nodes 5 and 6,
-and its parent is node 1.
+En un árbol enraizado, los \key{hijos} de un nodo
+son sus vecinos inferiores, y el \key{padre} de un nodo
+es su vecino superior.
+Cada nodo tiene exactamente un padre,
+excepto por la raíz que no tiene padre.
+Por ejemplo, en el árbol anterior,
+los hijos del nodo 2 son los nodos 5 y 6,
+y su padre es el nodo 1.
 
-\index{subtree}
+\index{subárbol}
 
-The structure of a rooted tree is \emph{recursive}:
-each node of the tree acts as the root of a \key{subtree}
-that contains the node itself and all nodes
-that are in the subtrees of its children.
-For example, in the above tree, the subtree of node 2
-consists of nodes 2, 5, 6 and 8:
+La estructura de un árbol enraizado es \emph{recursiva}:
+cada nodo del árbol actúa como la raíz de un \key{subárbol}
+que contiene el nodo mismo y todos los nodos
+que están en los subárboles de sus hijos.
+Por ejemplo, en el árbol anterior, el subárbol del nodo 2
+contiene los nodos 2, 5, 6 y 8:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (2) at (-2,1) {$2$};
@@ -99,61 +99,61 @@ consists of nodes 2, 5, 6 and 8:
 \end{tikzpicture}
 \end{center}
 
-\section{Tree traversal}
+\section{Recorrido de árbol}
 
-General graph traversal algorithms
-can be used to traverse the nodes of a tree.
-However, the traversal of a tree is easier to implement than
-that of a general graph, because
-there are no cycles in the tree and it is not
-possible to reach a node from multiple directions.
+Los algoritmos de recorrido de grafo general
+se pueden utilizar para recorrer los nodos de un árbol.
+Sin embargo, el recorrido de un árbol es más fácil de implementar que
+el de un grafo general, porque
+no hay ciclos en el árbol y no es
+posible alcanzar un nodo desde múltiples direcciones.
 
-The typical way to traverse a tree is to start
-a depth-first search at an arbitrary node.
-The following recursive function can be used:
+La forma típica de recorrer un árbol es comenzar
+una búsqueda en profundidad en un nodo arbitrario.
+La siguiente función recursiva se puede usar:
 
 \begin{lstlisting}
 void dfs(int s, int e) {
-    // process node s
+    // procesar nodo s
     for (auto u : adj[s]) {
         if (u != e) dfs(u, s);
     }
 }
 \end{lstlisting}
 
-The function is given two parameters: the current node $s$
-and the previous node $e$.
-The purpose of the parameter $e$ is to make sure
-that the search only moves to nodes
-that have not been visited yet.
+La función recibe dos parámetros: el nodo actual $s$
+y el nodo anterior $e$.
+El propósito del parámetro $e$ es asegurar
+que la búsqueda solo se mueva a nodos
+que no se han visitado todavía.
 
-The following function call starts the search
-at node $x$:
+La siguiente llamada de función inicia la búsqueda
+en el nodo $x$:
 
 \begin{lstlisting}
 dfs(x, 0);
 \end{lstlisting}
 
-In the first call $e=0$, because there is no
-previous node, and it is allowed
-to proceed to any direction in the tree.
+En la primera llamada $e=0$, porque no hay
+nodo anterior, y se permite
+proceder a cualquier dirección en el árbol.
 
-\subsubsection{Dynamic programming}
+\subsubsection{Programación dinámica}
 
-Dynamic programming can be used to calculate
-some information during a tree traversal.
-Using dynamic programming, we can, for example,
-calculate in $O(n)$ time for each node of a rooted tree the
-number of nodes in its subtree
-or the length of the longest path from the node
-to a leaf.
+La programación dinámica se puede utilizar para calcular
+alguna información durante un recorrido de árbol.
+Usando programación dinámica, podemos, por ejemplo,
+calcular en tiempo $O(n)$ para cada nodo de un árbol enraizado
+la cantidad de nodos en su subárbol
+o la longitud del camino más largo desde el nodo
+a una hoja.
 
-As an example, let us calculate for each node $s$
-a value $\texttt{count}[s]$: the number of nodes in its subtree.
-The subtree contains the node itself and
-all nodes in the subtrees of its children,
-so we can calculate the number of nodes
-recursively using the following code:
+Como ejemplo, calculemos para cada nodo $s$
+un valor $\texttt{count}[s]$: la cantidad de nodos en su subárbol.
+El subárbol contiene el nodo mismo y
+todos los nodos en los subárboles de sus hijos,
+por lo que podemos calcular la cantidad de nodos
+recursivamente usando el siguiente código:
 
 \begin{lstlisting}
 void dfs(int s, int e) {
@@ -166,13 +166,12 @@ void dfs(int s, int e) {
 }
 \end{lstlisting}
 
-\section{Diameter}
+\section{Diámetro}
 
-\index{diameter}
-
-The \key{diameter} of a tree
-is the maximum length of a path between two nodes.
-For example, consider the following tree:
+\index{diámetro}
+El \key{diámetro} de un árbol
+es la longitud máxima de un camino entre dos nodos.
+Por ejemplo, considera el siguiente árbol:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -190,8 +189,8 @@ For example, consider the following tree:
 \path[draw,thick,-] (3) -- (7);
 \end{tikzpicture}
 \end{center}
-The diameter of this tree is 4,
-which corresponds to the following path:
+El diámetro de este árbol es 4,
+lo que corresponde al siguiente camino:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -214,34 +213,34 @@ which corresponds to the following path:
 \path[draw,thick,-,color=red,line width=2pt] (2) -- (5);
 \end{tikzpicture}
 \end{center}
-Note that there may be several maximum-length paths.
-In the above path, we could replace node 6 with node 5
-to obtain another path with length 4.
+Tenga en cuenta que puede haber varios caminos de longitud máxima.
+En el camino anterior, podríamos reemplazar el nodo 6 con el nodo 5
+para obtener otro camino con longitud 4.
 
-Next we will discuss two $O(n)$ time algorithms
-for calculating the diameter of a tree.
-The first algorithm is based on dynamic programming,
-and the second algorithm uses two depth-first searches.
+A continuación, discutiremos dos algoritmos de tiempo $O(n)$
+para calcular el diámetro de un árbol.
+El primer algoritmo se basa en la programación dinámica,
+y el segundo algoritmo utiliza dos búsquedas en profundidad.
 
-\subsubsection{Algorithm 1}
+\subsubsection{Algoritmo 1}
 
-A general way to approach many tree problems
-is to first root the tree arbitrarily.
-After this, we can try to solve the problem
-separately for each subtree.
-Our first algorithm for calculating the diameter
-is based on this idea.
+Una forma general de abordar muchos problemas de árboles
+es primero enraizar el árbol arbitrariamente.
+Después de esto, podemos intentar resolver el problema
+por separado para cada subárbol.
+Nuestro primer algoritmo para calcular el diámetro
+se basa en esta idea.
 
-An important observation is that every path
-in a rooted tree has a \emph{highest point}:
-the highest node that belongs to the path.
-Thus, we can calculate for each node the length
-of the longest path whose highest point is the node.
-One of those paths corresponds to the diameter of the tree.
+Una observación importante es que cada camino
+en un árbol enraizado tiene un \emph{punto más alto}:
+el nodo más alto que pertenece al camino.
+Por lo tanto, podemos calcular para cada nodo la longitud
+del camino más largo cuyo punto más alto es el nodo.
+Uno de esos caminos corresponde al diámetro del árbol.
 
-For example, in the following tree,
-node 1 is the highest point on the path
-that corresponds to the diameter:
+Por ejemplo, en el siguiente árbol,
+el nodo 1 es el punto más alto en el camino
+que corresponde al diámetro:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -265,41 +264,40 @@ that corresponds to the diameter:
 \end{tikzpicture}
 \end{center}
 
-We calculate for each node $x$ two values:
+Calculamos para cada nodo $x$ dos valores:
 \begin{itemize}
-\item $\texttt{toLeaf}(x)$: the maximum length of a path from $x$ to any leaf
-\item $\texttt{maxLength}(x)$: the maximum length of a path
-whose highest point is $x$
+\item $\texttt{toLeaf}(x)$: la longitud máxima de un camino desde $x$ hasta cualquier hoja
+\item $\texttt{maxLength}(x)$: la longitud máxima de un camino
+cuyo punto más alto es $x$
 \end{itemize}
-For example, in the above tree,
-$\texttt{toLeaf}(1)=2$, because there is a path
+Por ejemplo, en el árbol anterior,
+$\texttt{toLeaf}(1)=2$, porque hay un camino
 $1 \rightarrow 2 \rightarrow 6$,
-and $\texttt{maxLength}(1)=4$,
-because there is a path
+y $\texttt{maxLength}(1)=4$,
+porque hay un camino
 $6 \rightarrow 2 \rightarrow 1 \rightarrow 4 \rightarrow 7$.
-In this case, $\texttt{maxLength}(1)$ equals the diameter.
+En este caso, $\texttt{maxLength}(1)$ es igual al diámetro.
 
-Dynamic programming can be used to calculate the above
-values for all nodes in $O(n)$ time.
-First, to calculate $\texttt{toLeaf}(x)$,
-we go through the children of $x$,
-choose a child $c$ with maximum $\texttt{toLeaf}(c)$
-and add one to this value.
-Then, to calculate $\texttt{maxLength}(x)$,
-we choose two distinct children $a$ and $b$
-such that the sum $\texttt{toLeaf}(a)+\texttt{toLeaf}(b)$
-is maximum and add two to this sum.
+La programación dinámica se puede utilizar para calcular lo anterior
+valores para todos los nodos en $O(n)$ tiempo.
+Primero, para calcular $\texttt{toLeaf}(x)$,
+recorremos los hijos de $x$,
+elegimos un hijo $c$ con máximo $\texttt{toLeaf}(c)$
+y sumamos uno a este valor.
+Luego, para calcular $\texttt{maxLength}(x)$,
+elegimos dos hijos distintos $a$ y $b$
+de modo que la suma $\texttt{toLeaf}(a)+\texttt{toLeaf}(b)$
+es máxima y sumamos dos a esta suma.
 
-\subsubsection{Algorithm 2}
+\subsubsection{Algoritmo 2}
 
-Another efficient way to calculate the diameter
-of a tree is based on two depth-first searches.
-First, we choose an arbitrary node $a$ in the tree
-and find the farthest node $b$ from $a$.
-Then, we find the farthest node $c$ from $b$.
-The diameter of the tree is the distance between $b$ and $c$.
-
-In the following graph, $a$, $b$ and $c$ could be:
+Otra forma eficiente de calcular el diámetro
+de un árbol se basa en dos búsquedas en profundidad.
+Primero, elegimos un nodo arbitrario $a$ en el árbol
+y encontramos el nodo más lejano $b$ de $a$.
+Luego, encontramos el nodo más lejano $c$ de $b$.
+El diámetro del árbol es la distancia entre $b$ y $c$.
+En la siguiente gráfica, $a$, $b$ y $c$ podrían ser:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -326,12 +324,12 @@ In the following graph, $a$, $b$ and $c$ could be:
 \end{tikzpicture}
 \end{center}
 
-This is an elegant method, but why does it work?
+Este es un método elegante, pero ¿por qué funciona?
 
-It helps to draw the tree differently so that
-the path that corresponds to the diameter
-is horizontal, and all other
-nodes hang from it:
+Es útil dibujar el árbol de manera diferente para que
+el camino que corresponde al diámetro
+sea horizontal, y todos los demás
+nodos cuelguen de él:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (2,1) {$1$};
@@ -359,26 +357,26 @@ nodes hang from it:
 \end{tikzpicture}
 \end{center}
 
-Node $x$ indicates the place where the path
-from node $a$ joins the path that corresponds
-to the diameter.
-The farthest node from $a$
-is node $b$, node $c$ or some other node
-that is at least as far from node $x$.
-Thus, this node is always a valid choice for
-an endpoint of a path that corresponds to the diameter.
+El nodo $x$ indica el lugar donde el camino
+desde el nodo $a$ se une al camino que corresponde
+al diámetro.
+El nodo más lejano de $a$
+es el nodo $b$, el nodo $c$ o algún otro nodo
+que está al menos tan lejos del nodo $x$.
+Por lo tanto, este nodo siempre es una opción válida para
+un punto final de un camino que corresponde al diámetro.
 
-\section{All longest paths}
+\section{Todos los caminos más largos}
 
-Our next problem is to calculate for every node
-in the tree the maximum length of a path
-that begins at the node.
-This can be seen as a generalization of the
-tree diameter problem, because the largest of those
-lengths equals the diameter of the tree.
-Also this problem can be solved in $O(n)$ time.
+Nuestro próximo problema es calcular para cada nodo
+en el árbol la longitud máxima de un camino
+que comienza en el nodo.
+Esto se puede ver como una generalización de la
+problema de diámetro del árbol, porque el mayor de esos
+longitudes es igual al diámetro del árbol.
+También este problema se puede resolver en $O(n)$ tiempo.
 
-As an example, consider the following tree:
+Como ejemplo, considere el siguiente árbol:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {$1$};
@@ -395,21 +393,21 @@ As an example, consider the following tree:
 \end{tikzpicture}
 \end{center}
 
-Let $\texttt{maxLength}(x)$ denote the maximum length
-of a path that begins at node $x$.
-For example, in the above tree,
-$\texttt{maxLength}(4)=3$, because there
-is a path $4 \rightarrow 1 \rightarrow 2 \rightarrow 6$.
-Here is a complete table of the values:
+Sea $\texttt{maxLength}(x)$ denotar la longitud máxima
+de un camino que comienza en el nodo $x$.
+Por ejemplo, en el árbol de arriba,
+$\texttt{maxLength}(4)=3$, porque hay
+un camino $4 \rightarrow 1 \rightarrow 2 \rightarrow 6$.
+Aquí hay una tabla completa de los valores:
 \begin{center}
 \begin{tabular}{l|lllllll}
-node $x$ & 1 & 2 & 3 & 4 & 5 & 6 \\
+nodo $x$ & 1 & 2 & 3 & 4 & 5 & 6 \\
 $\texttt{maxLength}(x)$ & 2 & 2 & 3 & 3 & 3 & 3 \\
 \end{tabular}
 \end{center}
 
-Also in this problem, a good starting point
-for solving the problem is to root the tree arbitrarily:
+También en este problema, un buen punto de partida
+para resolver el problema es enraizar el árbol arbitrariamente:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -426,10 +424,10 @@ for solving the problem is to root the tree arbitrarily:
 \end{tikzpicture}
 \end{center}
 
-The first part of the problem is to calculate for every node $x$
-the maximum length of a path that goes through a child of $x$.
-For example, the longest path from node 1
-goes through its child 2:
+La primera parte del problema es calcular para cada nodo $x$
+la longitud máxima de un camino que pasa por un hijo de $x$.
+Por ejemplo, el camino más largo desde el nodo 1
+pasa por su hijo 2:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -448,14 +446,14 @@ goes through its child 2:
 \path[draw,thick,->,color=red,line width=2pt] (3) -- (6);
 \end{tikzpicture}
 \end{center}
-This part is easy to solve in $O(n)$ time, because we can use
-dynamic programming as we have done previously.
+Esta parte es fácil de resolver en tiempo $O(n)$, porque podemos usar
+programación dinámica como lo hemos hecho anteriormente.
 
-Then, the second part of the problem is to calculate
-for every node $x$ the maximum length of a path
-through its parent $p$.
-For example, the longest path
-from node 3 goes through its parent 1:
+Luego, la segunda parte del problema es calcular
+para cada nodo $x$ la longitud máxima de una ruta
+a través de su padre $p$.
+Por ejemplo, la ruta más larga
+desde el nodo 3 pasa por su padre 1:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -476,12 +474,12 @@ from node 3 goes through its parent 1:
 \end{tikzpicture}
 \end{center}
 
-At first glance, it seems that we should choose
-the longest path from $p$.
-However, this \emph{does not} always work,
-because the longest path from $p$
-may go through $x$.
-Here is an example of this situation:
+A primera vista, parece que deberíamos elegir
+la ruta más larga desde $p$.
+Sin embargo, esto \emph{no} siempre funciona,
+porque la ruta más larga desde $p$
+puede pasar por $x$.
+Aquí hay un ejemplo de esta situación:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,3) {$1$};
@@ -501,42 +499,42 @@ Here is an example of this situation:
 \end{tikzpicture}
 \end{center}
 
-Still, we can solve the second part in
-$O(n)$ time by storing \emph{two} maximum lengths
-for each node $x$:
+Aún así, podemos resolver la segunda parte en
+tiempo $O(n)$ almacenando \emph{dos} longitudes máximas
+para cada nodo $x$:
 \begin{itemize}
 \item $\texttt{maxLength}_1(x)$:
-the maximum length of a path from $x$
+la longitud máxima de una ruta desde $x$
 \item $\texttt{maxLength}_2(x)$
-the maximum length of a path from $x$
-in another direction than the first path
+la longitud máxima de una ruta desde $x$
+en otra dirección que la primera ruta
 \end{itemize}
-For example, in the above graph,
+Por ejemplo, en el gráfico anterior,
 $\texttt{maxLength}_1(1)=2$
-using the path $1 \rightarrow 2 \rightarrow 5$,
-and $\texttt{maxLength}_2(1)=1$
-using the path $1 \rightarrow 3$.
+usando la ruta $1 \rightarrow 2 \rightarrow 5$,
+y $\texttt{maxLength}_2(1)=1$
+usando la ruta $1 \rightarrow 3$.
 
-Finally, if the path that corresponds to
-$\texttt{maxLength}_1(p)$ goes through $x$,
-we conclude that the maximum length is
+Finalmente, si la ruta que corresponde a
+$\texttt{maxLength}_1(p)$ pasa por $x$,
+concluimos que la longitud máxima es
 $\texttt{maxLength}_2(p)+1$,
-and otherwise the maximum length is
+y de lo contrario la longitud máxima es
 $\texttt{maxLength}_1(p)+1$.
 
 
-\section{Binary trees}
+\section{Árboles binarios}
 
-\index{binary tree}
+\index{árbol binario}
 
 \begin{samepage}
-A \key{binary tree} is a rooted tree
-where each node has a left and right subtree.
-It is possible that a subtree of a node is empty.
-Thus, every node in a binary tree has
-zero, one or two children.
+Un \key{árbol binario} es un árbol enraizado
+donde cada nodo tiene un subárbol izquierdo y derecho.
+Es posible que un subárbol de un nodo esté vacío.
+Por lo tanto, cada nodo en un árbol binario tiene
+cero, uno o dos hijos.
 
-For example, the following tree is a binary tree:
+Por ejemplo, el siguiente árbol es un árbol binario:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {$1$};
@@ -557,42 +555,42 @@ For example, the following tree is a binary tree:
 \end{center}
 \end{samepage}
 
-\index{pre-order}
-\index{in-order}
-\index{post-order}
+\index{preorden}
+\index{en orden}
+\index{posorden}
 
-The nodes of a binary tree have three natural
-orderings that correspond to different ways to 
-recursively traverse the tree:
+Los nodos de un árbol binario tienen tres ordenamientos naturales
+que corresponden a diferentes formas de
+recorrer el árbol recursivamente:
 
 \begin{itemize}
-\item \key{pre-order}: first process the root,
-then traverse the left subtree, then traverse the right subtree
-\item \key{in-order}: first traverse the left subtree,
-then process the root, then traverse the right subtree
-\item \key{post-order}: first traverse the left subtree,
-then traverse the right subtree, then process the root
+\item \key{preorden}: primero procesa la raíz,
+luego recorre el subárbol izquierdo, luego recorre el subárbol derecho
+\item \key{en orden}: primero recorre el subárbol izquierdo,
+luego procesa la raíz, luego recorre el subárbol derecho
+\item \key{posorden}: primero recorre el subárbol izquierdo,
+luego recorre el subárbol derecho, luego procesa la raíz
 \end{itemize}
 
-For the above tree, the nodes in
-pre-order are
+Para el árbol anterior, los nodos en
+preorden son
 $[1,2,4,5,6,3,7]$,
-in in-order $[4,2,6,5,1,3,7]$
-and in post-order $[4,6,5,2,7,3,1]$.
+en en orden $[4,2,6,5,1,3,7]$
+y en posorden $[4,6,5,2,7,3,1]$.
 
-If we know the pre-order and in-order
-of a tree, we can reconstruct the exact structure of the tree.
-For example, the above tree is the only possible tree
-with pre-order $[1,2,4,5,6,3,7]$ and
-in-order $[4,2,6,5,1,3,7]$.
-In a similar way, the post-order and in-order
-also determine the structure of a tree.
+Si sabemos el preorden y el en orden
+de un árbol, podemos reconstruir la estructura exacta del árbol.
+Por ejemplo, el árbol anterior es el único árbol posible
+con preorden $[1,2,4,5,6,3,7]$ y
+en orden $[4,2,6,5,1,3,7]$.
+De manera similar, el posorden y el en orden
+también determinan la estructura de un árbol.
 
-However, the situation is different if we only know
-the pre-order and post-order of a tree.
-In this case, there may be more than one tree
-that match the orderings.
-For example, in both of the trees
+Sin embargo, la situación es diferente si solo conocemos
+el preorden y el posorden de un árbol.
+En este caso, puede haber más de un árbol
+que coincida con los ordenamientos.
+Por ejemplo, en ambos árboles
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (0,0) {$1$};
@@ -604,6 +602,5 @@ For example, in both of the trees
 \path[draw,thick,-] (1b) -- (2b);
 \end{tikzpicture}
 \end{center}
-the pre-order is $[1,2]$ and the post-order is $[2,1]$,
-but the structures of the trees are different.
-
+el preorden es $[1,2]$ y el postorden es $[2,1]$,
+pero las estructuras de los árboles son diferentes. 

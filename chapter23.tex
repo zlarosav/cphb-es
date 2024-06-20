@@ -2,9 +2,9 @@
 
 \index{matrix}
 
-A \key{matrix} is a mathematical concept
-that corresponds to a two-dimensional array
-in programming. For example,
+Una \key{matriz} es un concepto matemático
+que corresponde a una matriz bidimensional
+en programación. Por ejemplo,
 \[
 A = 
  \begin{bmatrix}
@@ -13,19 +13,19 @@ A =
   9 & 5 & 4 & 18 \\
  \end{bmatrix}
 \]
-is a matrix of size $3 \times 4$, i.e.,
-it has 3 rows and 4 columns.
-The notation $[i,j]$ refers to
-the element in row $i$ and column $j$
-in a matrix.
-For example, in the above matrix,
-$A[2,3]=8$ and $A[3,1]=9$.
+es una matriz de tamaño $3 \times 4$, es decir,
+tiene 3 filas y 4 columnas.
+La notación $[i,j]$ se refiere a
+el elemento en la fila $i$ y la columna $j$
+en una matriz.
+Por ejemplo, en la matriz anterior,
+$A[2,3]=8$ y $A[3,1]=9$.
 
 \index{vector}
 
-A special case of a matrix is a \key{vector}
-that is a one-dimensional matrix of size $n \times 1$.
-For example,
+Un caso especial de una matriz es un \key{vector}
+que es una matriz unidimensional de tamaño $n \times 1$.
+Por ejemplo,
 \[
 V =
 \begin{bmatrix}
@@ -34,13 +34,13 @@ V =
 5 \\
 \end{bmatrix}
 \]
-is a vector that contains three elements.
+es un vector que contiene tres elementos.
 
 \index{transpose}
 
-The \key{transpose} $A^T$ of a matrix $A$
-is obtained when the rows and columns of $A$
-are swapped, i.e., $A^T[i,j]=A[j,i]$:
+La \key{transpuesta} $A^T$ de una matriz $A$
+se obtiene cuando las filas y columnas de $A$
+se intercambian, es decir, $A^T[i,j]=A[j,i]$:
 \[
 A^T = 
  \begin{bmatrix}
@@ -53,10 +53,10 @@ A^T =
 
 \index{square matrix}
 
-A matrix is a \key{square matrix} if it
-has the same number of rows and columns.
-For example, the following matrix is a
-square matrix:
+Una matriz es una \key{matriz cuadrada} si
+tiene el mismo número de filas y columnas.
+Por ejemplo, la siguiente matriz es una
+matriz cuadrada:
 
 \[
 S = 
@@ -67,15 +67,15 @@ S =
  \end{bmatrix}
 \]
 
-\section{Operations}
+\section{Operaciones}
 
-The sum $A+B$ of matrices $A$ and $B$
-is defined if the matrices are of the same size.
-The result is a matrix where each element
-is the sum of the corresponding elements
-in $A$ and $B$.
+La suma $A+B$ de las matrices $A$ y $B$
+se define si las matrices son del mismo tamaño.
+El resultado es una matriz donde cada elemento
+es la suma de los elementos correspondientes
+en $A$ y $B$.
 
-For example,
+Por ejemplo,
 \[
  \begin{bmatrix}
   6 & 1 & 4 \\
@@ -98,9 +98,9 @@ For example,
  \end{bmatrix}.
 \]
 
-Multiplying a matrix $A$ by a value $x$ means
-that each element of $A$ is multiplied by $x$.
-For example,
+Multiplicar una matriz $A$ por un valor $x$ significa
+que cada elemento de $A$ se multiplica por $x$.
+Por ejemplo,
 \[
  2 \cdot \begin{bmatrix}
   6 & 1 & 4 \\
@@ -118,23 +118,23 @@ For example,
  \end{bmatrix}.
 \]
 
-\subsubsection{Matrix multiplication}
+\subsubsection{Multiplicación de matrices}
 
 \index{matrix multiplication}
 
-The product $AB$ of matrices $A$ and $B$
-is defined if $A$ is of size $a \times n$
-and $B$ is of size $n \times b$, i.e.,
-the width of $A$ equals the height of $B$.
-The result is a matrix of size $a \times b$
-whose elements are calculated using the formula
+El producto $AB$ de las matrices $A$ y $B$
+se define si $A$ es de tamaño $a \times n$
+y $B$ es de tamaño $n \times b$, es decir,
+el ancho de $A$ es igual a la altura de $B$.
+El resultado es una matriz de tamaño $a \times b$
+cuyos elementos se calculan utilizando la fórmula
 \[
 AB[i,j] = \sum_{k=1}^n A[i,k] \cdot B[k,j].
 \]
 
-The idea is that each element of $AB$
-is a sum of products of elements of $A$ and $B$
-according to the following picture:
+La idea es que cada elemento de $AB$
+es una suma de productos de elementos de $A$ y $B$
+de acuerdo con la siguiente imagen:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
@@ -152,7 +152,7 @@ according to the following picture:
 \end{tikzpicture}
 \end{center}
 
-For example,
+Por ejemplo,
 
 \[
  \begin{bmatrix}
@@ -179,18 +179,18 @@ For example,
  \end{bmatrix}.
 \]
 
-Matrix multiplication is associative,
-so $A(BC)=(AB)C$ holds,
-but it is not commutative,
-so $AB = BA$ does not usually hold.
+La multiplicación de matrices es asociativa,
+por lo que $A(BC)=(AB)C$ se cumple,
+pero no es conmutativa,
+por lo que $AB = BA$ no suele cumplirse.
 
 \index{identity matrix}
 
-An \key{identity matrix} is a square matrix
-where each element on the diagonal is 1
-and all other elements are 0.
-For example, the following matrix
-is the $3 \times 3$ identity matrix:
+Una \key{matriz identidad} es una matriz cuadrada
+donde cada elemento en la diagonal es 1
+y todos los demás elementos son 0.
+Por ejemplo, la siguiente matriz
+es la matriz identidad $3 \times 3$:
 \[
  I = \begin{bmatrix}
   1 & 0 & 0 \\
@@ -200,8 +200,8 @@ is the $3 \times 3$ identity matrix:
 \]
 
 \begin{samepage}
-Multiplying a matrix by an identity matrix
-does not change it. For example,
+Multiplicar una matriz por una matriz identidad
+no la cambia. Por ejemplo,
 \[
  \begin{bmatrix}
   1 & 0 & 0 \\
@@ -219,7 +219,7 @@ does not change it. For example,
   1 & 4 \\
   3 & 9 \\
   8 & 6 \\
- \end{bmatrix} \hspace{10px} \textrm{and} \hspace{10px}
+ \end{bmatrix} \hspace{10px} \textrm{y} \hspace{10px}
  \begin{bmatrix}
   1 & 4 \\
   3 & 9 \\
@@ -239,31 +239,31 @@ does not change it. For example,
 \]
 \end{samepage}
 
-Using a straightforward algorithm,
-we can calculate the product of
-two $n \times n$ matrices
-in $O(n^3)$ time.
-There are also more efficient algorithms
-for matrix multiplication\footnote{The first such
-algorithm was Strassen's algorithm,
-published in 1969 \cite{str69},
-whose time complexity is $O(n^{2.80735})$;
-the best current algorithm \cite{gal14}
-works in $O(n^{2.37286})$ time.},
-but they are mostly of theoretical interest
-and such algorithms are not necessary
-in competitive programming.
+Usando un algoritmo sencillo,
+podemos calcular el producto de
+dos matrices $n \times n$
+en tiempo $O(n^3)$.
+También existen algoritmos más eficientes
+para la multiplicación de matrices\footnote{El primer algoritmo de este tipo
+fue el algoritmo de Strassen,
+publicado en 1969 \cite{str69},
+cuya complejidad temporal es $O(n^{2.80735})$;
+el mejor algoritmo actual \cite{gal14}
+funciona en tiempo $O(n^{2.37286})$},
+pero son principalmente de interés teórico
+y tales algoritmos no son necesarios
+en programación competitiva.
 
 
-\subsubsection{Matrix power}
+\subsubsection{Potencia de matriz}
 
 \index{matrix power}
 
-The power $A^k$ of a matrix $A$ is defined
-if $A$ is a square matrix.
-The definition is based on matrix multiplication:
+La potencia $A^k$ de una matriz $A$ se define
+si $A$ es una matriz cuadrada.
+La definición se basa en la multiplicación de matrices:
 \[ A^k = \underbrace{A \cdot A \cdot A \cdots A}_{\textrm{$k$ times}} \]
-For example,
+Por ejemplo,
 
 \[
  \begin{bmatrix}
@@ -287,7 +287,7 @@ For example,
   33 & 114 \\
  \end{bmatrix}.
 \]
-In addition, $A^0$ is an identity matrix. For example,
+Además, $A^0$ es una matriz identidad. Por ejemplo,
 \[
  \begin{bmatrix}
   2 & 5 \\
@@ -299,9 +299,9 @@ In addition, $A^0$ is an identity matrix. For example,
  \end{bmatrix}.
 \]
 
-The matrix $A^k$ can be efficiently calculated
-in $O(n^3 \log k)$ time using the
-algorithm in Chapter 21.2. For example,
+La matriz $A^k$ puede calcularse eficientemente
+en tiempo $O(n^3 \log k)$ usando el
+algoritmo en el Capítulo 21.2. Por ejemplo,
 \[
  \begin{bmatrix}
   2 & 5 \\
@@ -317,27 +317,27 @@ algorithm in Chapter 21.2. For example,
  \end{bmatrix}^4.
 \]
 
-\subsubsection{Determinant}
+\subsubsection{Determinante}
 
 \index{determinant}
 
-The \key{determinant} $\det(A)$ of a matrix $A$
-is defined if $A$ is a square matrix.
-If $A$ is of size $1 \times 1$,
-then $\det(A)=A[1,1]$.
-The determinant of a larger matrix is
-calculated recursively using the formula \index{cofactor}
+El \key{determinante} $\det(A)$ de una matriz $A$
+se define si $A$ es una matriz cuadrada.
+Si $A$ es de tamaño $1 \times 1$,
+entonces $\det(A)=A[1,1]$.
+El determinante de una matriz más grande es
+calculado recursivamente usando la fórmula \index{cofactor}
 \[\det(A)=\sum_{j=1}^n A[1,j] C[1,j],\]
-where $C[i,j]$ is the \key{cofactor} of $A$
-at $[i,j]$.
-The cofactor is calculated using the formula
+donde $C[i,j]$ es el \key{cofactor} de $A$
+en $[i,j]$.
+El cofactor se calcula usando la fórmula
 \[C[i,j] = (-1)^{i+j} \det(M[i,j]),\]
-where $M[i,j]$ is obtained by removing
-row $i$ and column $j$ from $A$.
-Due to the coefficient $(-1)^{i+j}$ in the cofactor,
-every other determinant is positive
-and negative.
-For example,
+donde $M[i,j]$ se obtiene eliminando
+la fila $i$ y la columna $j$ de $A$.
+Debido al coeficiente $(-1)^{i+j}$ en el cofactor,
+cada determinante alternativo es positivo
+y negativo.
+Por ejemplo,
 \[
 \det(
  \begin{bmatrix}
@@ -346,7 +346,7 @@ For example,
  \end{bmatrix}
 ) = 3 \cdot 6 - 4 \cdot 1 = 14 
 \]
-and
+y
 \[
 \det(
  \begin{bmatrix}
@@ -380,17 +380,17 @@ and
 
 \index{inverse matrix}
 
-The determinant of $A$ tells us
-whether there is an \key{inverse matrix}
-$A^{-1}$ such that $A \cdot A^{-1} = I$,
-where $I$ is an identity matrix.
-It turns out that $A^{-1}$ exists
-exactly when $\det(A) \neq 0$,
-and it can be calculated using the formula
+El determinante de $A$ nos dice
+si existe una \key{matriz inversa}
+$A^{-1}$ tal que $A \cdot A^{-1} = I$,
+donde $I$ es una matriz identidad.
+Resulta que $A^{-1}$ existe
+exactamente cuando $\det(A) \neq 0$,
+y se puede calcular usando la fórmula
 
 \[A^{-1}[i,j] = \frac{C[j,i]}{det(A)}.\]
 
-For example,
+Por ejemplo,
 
 \[
 \underbrace{
@@ -419,32 +419,32 @@ For example,
 }_{I}.
 \]
 
-\section{Linear recurrences}
+\section{Recurrencias lineales}
 
 \index{linear recurrence}
 
-A \key{linear recurrence}
-is a function $f(n)$
-whose initial values are
+Una \key{recurrencia lineal}
+es una función $f(n)$
+cuyos valores iniciales son
 $f(0),f(1),\ldots,f(k-1)$
-and larger values
-are calculated recursively using the formula
+y los valores más grandes
+se calculan recursivamente usando la fórmula
 \[f(n) = c_1 f(n-1) + c_2 f(n-2) + \ldots + c_k f (n-k),\]
-where $c_1,c_2,\ldots,c_k$ are constant coefficients.
+donde $c_1,c_2,\ldots,c_k$ son coeficientes constantes.
 
-Dynamic programming can be used to calculate
-any value of $f(n)$ in $O(kn)$ time by calculating
-all values of $f(0),f(1),\ldots,f(n)$ one after another.
-However, if $k$ is small, it is possible to calculate
-$f(n)$ much more efficiently in $O(k^3 \log n)$
-time using matrix operations.
+La programación dinámica se puede utilizar para calcular
+cualquier valor de $f(n)$ en tiempo $O(kn)$ calculando
+todos los valores de $f(0),f(1),\ldots,f(n)$ uno tras otro.
+Sin embargo, si $k$ es pequeño, es posible calcular
+$f(n)$ mucho más eficientemente en $O(k^3 \log n)$
+tiempo usando operaciones matriciales.
 
-\subsubsection{Fibonacci numbers}
+\subsubsection{Números de Fibonacci}
 
 \index{Fibonacci number}
 
-A simple example of a linear recurrence is the
-following function that defines the Fibonacci numbers:
+Un ejemplo simple de una recurrencia lineal es la
+siguiente función que define los números de Fibonacci:
 \[
 \begin{array}{lcl}
 f(0) & = & 0 \\
@@ -452,14 +452,14 @@ f(1) & = & 1 \\
 f(n) & = & f(n-1)+f(n-2) \\
 \end{array}
 \]
-In this case, $k=2$ and $c_1=c_2=1$.
+En este caso, $k=2$ y $c_1=c_2=1$.
 
 \begin{samepage}
-To efficiently calculate Fibonacci numbers,
-we represent the
-Fibonacci formula as a
-square matrix $X$ of size $2 \times 2$,
-for which the following holds:
+Para calcular eficientemente los números de Fibonacci,
+representamos la
+fórmula de Fibonacci como una
+matriz cuadrada $X$ de tamaño $2 \times 2$,
+para la cual se cumple lo siguiente:
 \[ X \cdot
  \begin{bmatrix}
   f(i) \\
@@ -471,11 +471,11 @@ for which the following holds:
   f(i+2) \\
  \end{bmatrix}
  \]
-Thus, values $f(i)$ and $f(i+1)$ are given as
-''input'' for $X$,
-and $X$ calculates values $f(i+1)$ and $f(i+2)$
-from them.
-It turns out that such a matrix is
+Así, los valores $f(i)$ y $f(i+1)$ se dan como
+''entrada'' para $X$,
+y $X$ calcula los valores $f(i+1)$ y $f(i+2)$
+a partir de ellos.
+Resulta que dicha matriz es
 
 \[ X = 
  \begin{bmatrix}
@@ -485,7 +485,7 @@ It turns out that such a matrix is
 \]
 \end{samepage}
 \noindent
-For example,
+Por ejemplo,
 \[
  \begin{bmatrix}
   0 & 1 \\
@@ -517,7 +517,7 @@ For example,
   f(7) \\
  \end{bmatrix}.
 \]
-Thus, we can calculate $f(n)$ using the formula
+Así, podemos calcular $f(n)$ usando la fórmula
 \[
  \begin{bmatrix}
   f(n) \\
@@ -540,17 +540,16 @@ X^n \cdot
   1 \\
  \end{bmatrix}.
 \]
-The value of $X^n$ can be calculated in
-$O(\log n)$ time,
-so the value of $f(n)$ can also be calculated
-in $O(\log n)$ time.
+El valor de $X^n$ se puede calcular en
+tiempo $O(\log n)$,
+por lo que el valor de $f(n)$ también se puede calcular
+en tiempo $O(\log n)$.
 
-\subsubsection{General case}
-
-Let us now consider the general case where
-$f(n)$ is any linear recurrence.
-Again, our goal is to construct a matrix $X$
-for which
+\subsubsection{Caso general}
+Consideremos ahora el caso general donde
+$f(n)$ es cualquier recurrencia lineal.
+De nuevo, nuestro objetivo es construir una matriz $X$
+para la cual
 
 \[ X \cdot
  \begin{bmatrix}
@@ -567,7 +566,7 @@ for which
   f(i+k) \\
  \end{bmatrix}.
 \]
-Such a matrix is
+Tal matriz es
 \[
 X =
  \begin{bmatrix}
@@ -579,16 +578,16 @@ X =
   c_k & c_{k-1} & c_{k-2} & c_{k-3} & \cdots & c_1 \\
  \end{bmatrix}.
 \]
-In the first $k-1$ rows, each element is 0
-except that one element is 1.
-These rows replace $f(i)$ with $f(i+1)$,
-$f(i+1)$ with $f(i+2)$, and so on.
-The last row contains the coefficients of the recurrence
-to calculate the new value $f(i+k)$.
+En las primeras $k-1$ filas, cada elemento es 0
+excepto que un elemento es 1.
+Estas filas reemplazan $f(i)$ con $f(i+1)$,
+$f(i+1)$ con $f(i+2)$, y así sucesivamente.
+La última fila contiene los coeficientes de la recurrencia
+para calcular el nuevo valor $f(i+k)$.
 
 \begin{samepage}
-Now, $f(n)$ can be calculated in
-$O(k^3 \log n)$ time using the formula
+Ahora, $f(n)$ se puede calcular en
+$O(k^3 \log n)$ tiempo usando la fórmula
 \[
  \begin{bmatrix}
   f(n) \\
@@ -607,17 +606,17 @@ X^n \cdot
 \]
 \end{samepage}
 
-\section{Graphs and matrices}
+\section{Gráficos y matrices}
 
-\subsubsection{Counting paths}
+\subsubsection{Contando caminos}
 
-The powers of an adjacency matrix of a graph
-have an interesting property.
-When $V$ is an adjacency matrix of an unweighted graph,
-the matrix $V^n$ contains the numbers of paths of
-$n$ edges between the nodes in the graph.
+Las potencias de una matriz de adyacencia de un gráfico
+tienen una propiedad interesante.
+Cuando $V$ es una matriz de adyacencia de un gráfico no ponderado,
+la matriz $V^n$ contiene el número de caminos de
+$n$ aristas entre los nodos en el gráfico.
 
-For example, for the graph
+Por ejemplo, para el gráfico
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,3) {$1$};
@@ -637,7 +636,7 @@ For example, for the graph
 \path[draw,thick,->,>=latex] (6) -- (5);
 \end{tikzpicture}
 \end{center}
-the adjacency matrix is
+la matriz de adyacencia es
 \[
 V= \begin{bmatrix}
   0 & 0 & 0 & 1 & 0 & 0 \\
@@ -648,7 +647,7 @@ V= \begin{bmatrix}
   0 & 0 & 1 & 0 & 1 & 0 \\
  \end{bmatrix}.
 \]
-Now, for example, the matrix
+Ahora, por ejemplo, la matriz
 \[
 V^4= \begin{bmatrix}
   0 & 0 & 1 & 1 & 1 & 0 \\
@@ -659,27 +658,27 @@ V^4= \begin{bmatrix}
   0 & 0 & 1 & 1 & 1 & 0 \\
  \end{bmatrix}
 \]
-contains the numbers of paths of 4 edges
-between the nodes.
-For example, $V^4[2,5]=2$,
-because there are two paths of 4 edges
-from node 2 to node 5:
+contiene el número de caminos de 4 aristas
+entre los nodos.
+Por ejemplo, $V^4[2,5]=2$,
+porque hay dos caminos de 4 aristas
+desde el nodo 2 hasta el nodo 5:
 $2 \rightarrow 1 \rightarrow 4 \rightarrow 2 \rightarrow 5$
-and 
+y 
 $2 \rightarrow 6 \rightarrow 3 \rightarrow 2 \rightarrow 5$.
 
-\subsubsection{Shortest paths}
+\subsubsection{Caminos más cortos}
 
-Using a similar idea in a weighted graph,
-we can calculate for each pair of nodes the minimum
-length of a path
-between them that contains exactly $n$ edges.
-To calculate this, we have to define matrix multiplication
-in a new way, so that we do not calculate the numbers
-of paths but minimize the lengths of paths.
+Usando una idea similar en un gráfico ponderado,
+podemos calcular para cada par de nodos el mínimo
+longitud de un camino
+entre ellos que contiene exactamente $n$ aristas.
+Para calcular esto, tenemos que definir la multiplicación de matrices
+de una nueva manera, para que no calculemos los números
+de caminos, sino que minimicemos las longitudes de los caminos.
 
 \begin{samepage}
-As an example, consider the following graph:
+Como ejemplo, considera el siguiente gráfico:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,3) {$1$};
@@ -701,10 +700,10 @@ As an example, consider the following graph:
 \end{center}
 \end{samepage}
 
-Let us construct an adjacency matrix where
-$\infty$ means that an edge does not exist,
-and other values correspond to edge weights.
-The matrix is
+Construyamos una matriz de adyacencia donde
+$\infty$ significa que una arista no existe,
+y otros valores corresponden a pesos de aristas.
+La matriz es
 \[
 V= \begin{bmatrix}
   \infty & \infty & \infty & 4 & \infty & \infty \\
@@ -715,23 +714,22 @@ V= \begin{bmatrix}
   \infty & \infty & 3 & \infty & 2 & \infty \\
  \end{bmatrix}.
 \]
-
-Instead of the formula
+En lugar de la fórmula
 \[
 AB[i,j] = \sum_{k=1}^n A[i,k] \cdot B[k,j]
 \]
-we now use the formula
+ahora usamos la fórmula
 \[
 AB[i,j] = \min_{k=1}^n A[i,k] + B[k,j]
 \]
-for matrix multiplication, so we calculate
-a minimum instead of a sum,
-and a sum of elements instead of a product.
-After this modification,
-matrix powers correspond to
-shortest paths in the graph.
+para la multiplicación de matrices, por lo que calculamos
+un mínimo en lugar de una suma,
+y una suma de elementos en lugar de un producto.
+Después de esta modificación,
+las potencias de la matriz corresponden a
+las rutas más cortas en el gráfico.
 
-For example, as
+Por ejemplo, como
 \[
 V^4= \begin{bmatrix}
   \infty & \infty & 10 & 11 & 9 & \infty \\
@@ -742,23 +740,23 @@ V^4= \begin{bmatrix}
   \infty & \infty & 12 & 13 & 11 & \infty \\
  \end{bmatrix},
 \]
-we can conclude that the minimum length of a path
-of 4 edges
-from node 2 to node 5 is 8.
-Such a path is
+podemos concluir que la longitud mínima de una ruta
+de 4 aristas
+desde el nodo 2 hasta el nodo 5 es 8.
+Tal ruta es
 $2 \rightarrow 1 \rightarrow 4 \rightarrow 2 \rightarrow 5$.
 
-\subsubsection{Kirchhoff's theorem}
+\subsubsection{Teorema de Kirchhoff}
 
-\index{Kirchhoff's theorem}
-\index{spanning tree}
+\index{Teorema de Kirchhoff}
+\index{árbol de expansión}
 
-\key{Kirchhoff's theorem}
-%\footnote{G. R. Kirchhoff (1824--1887) was a German physicist.}
-provides a way
-to calculate the number of spanning trees
-of a graph as a determinant of a special matrix.
-For example, the graph
+\key{Teorema de Kirchhoff}
+%\footnote{G. R. Kirchhoff (1824--1887) fue un físico alemán.}
+proporciona una forma
+de calcular el número de árboles de expansión
+de un gráfico como un determinante de una matriz especial.
+Por ejemplo, el gráfico
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1) at (1,3) {$1$};
@@ -772,7 +770,7 @@ For example, the graph
 \path[draw,thick,-] (1) -- (4);
 \end{tikzpicture}
 \end{center}
-has three spanning trees:
+tiene tres árboles de expansión:
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
 \node[draw, circle] (1a) at (1,3) {$1$};
@@ -806,13 +804,13 @@ has three spanning trees:
 %\path[draw,thick,-] (1c) -- (4c);
 \end{tikzpicture}
 \end{center}
-\index{Laplacean matrix}
-To calculate the number of spanning trees,
-we construct a \key{Laplacean matrix} $L$,
-where $L[i,i]$ is the degree of node $i$
-and $L[i,j]=-1$ if there is an edge between
-nodes $i$ and $j$, and otherwise $L[i,j]=0$.
-The Laplacean matrix for the above graph is as follows:
+\index{matriz laplaciana}
+Para calcular el número de árboles de expansión,
+construimos una \key{matriz laplaciana} $L$,
+donde $L[i,i]$ es el grado del nodo $i$
+y $L[i,j]=-1$ si hay una arista entre
+los nodos $i$ y $j$, y de lo contrario $L[i,j]=0$.
+La matriz laplaciana para el gráfico anterior es la siguiente:
 \[
 L= \begin{bmatrix}
   3 & -1 & -1 & -1 \\
@@ -822,12 +820,12 @@ L= \begin{bmatrix}
  \end{bmatrix}
 \]
 
-It can be shown that
-the number of spanning trees equals
-the determinant of a matrix that is obtained
-when we remove any row and any column from $L$.
-For example, if we remove the first row
-and column, the result is
+Se puede demostrar que
+el número de árboles de expansión es igual
+al determinante de una matriz que se obtiene
+cuando eliminamos cualquier fila y cualquier columna de $L$.
+Por ejemplo, si eliminamos la primera fila
+y columna, el resultado es
 
 \[ \det(
 \begin{bmatrix}
@@ -836,12 +834,12 @@ and column, the result is
   0 & -1 & 2 \\
  \end{bmatrix}
 ) =3.\]
-The determinant is always the same,
-regardless of which row and column we remove from $L$.
+El determinante siempre es el mismo,
+independientemente de qué fila y columna eliminemos de $L$.
 
-Note that Cayley's formula in Chapter 22.5 is
-a special case of Kirchhoff's theorem,
-because in a complete graph of $n$ nodes
+Tenga en cuenta que la fórmula de Cayley en el Capítulo 22.5 es
+un caso especial del teorema de Kirchhoff,
+porque en un gráfico completo de $n$ nodos
 
 \[ \det(
 \begin{bmatrix}
@@ -851,6 +849,3 @@ because in a complete graph of $n$ nodes
   -1 & -1 & \cdots & n-1 \\
  \end{bmatrix}
 ) =n^{n-2}.\]
-
-
-
