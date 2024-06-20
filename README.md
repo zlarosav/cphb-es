@@ -4,7 +4,7 @@ El propósito de este libro es dar al lector una introducción completa a la pro
 El libro está especialmente destinado a estudiantes que quieran aprender algoritmos y posiblemente participar en la Olimpiada Internacional de Informática (IOI) o en el Concurso Internacional de Programación Universitaria (ICPC).
 
 Este repositorio es una traducción del **texto original** disponible [aquí](https://github.com/pllk/cphb).
-La mayor parte de la bibliografía y recursos para el entrenamiento en programación competitiva está en inglés u otros idiomas; en espeñol a menudo esta es poca. Razón por la cual con esta traducción al español del libro queremos llenar una parte de ese vacío y contribuir al entrenamiento de los competidores de habla española.
+La mayor parte de la bibliografía y recursos para el entrenamiento en programación competitiva está en inglés u otros idiomas; en español a menudo esta es poca. Razón por la cual con esta traducción del libro queremos llenar una parte de ese vacío y contribuir al entrenamiento de los competidores de habla hispana.
 
 > [!NOTE]
 > Traducción realizada bajo la licencia Creative Commons BY-NC-SA 4.0.
